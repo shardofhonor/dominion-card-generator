@@ -649,6 +649,12 @@
 				context.restore();
 			}
 		}
+        function removeCorners(width,height,radius) {
+            context.clearRect(0, 0, radius, radius);
+            context.clearRect(width-radius, 0, radius, radius);
+            context.clearRect(0, height-radius, radius, radius);
+            context.clearRect(width-radius, height-radius, radius, radius);
+        }
 		function drawExpansionIcon(xCenter, yCenter, width, height) {
 			if (expansion.height) {
 				var scale;
@@ -667,6 +673,7 @@
 		
 		if (templateSize == 0) { //card
 			drawPicture(704, 706, 1150, 835);
+            removeCorners(1403,2151,100);
 			
 			context.drawImage(getRecoloredImage(0,0),0,0); //CardColorOne
 			if (normalColorCurrentIndices[1] > 0) { //two colors are different
@@ -696,14 +703,18 @@
 			}
 			if (isEachColorDark[1])
 				context.fillStyle = "white";
-			writeSingleLine(document.getElementById("title").value, 701, 215, previewLine ? 930 : 1180, 75);
+			writeSingleLine(document.getElementById("title").value, 701, 215, previewLine ? 800 : 1180, 75);
             if(typeLine.split(" - ").length >= 4) {
                 let types2 = typeLine.split(" - ");
                 let types1 = types2.splice(0,Math.ceil(types2.length / 2)); 
                 writeSingleLine(types1.join(" - ")+" -", priceLine ? 750 : 701, 1922 - 26, priceLine ? 890 : 1180, 42);
                 writeSingleLine(types2.join(" - "), priceLine ? 750 : 701, 1922 + 26, priceLine ? 890 : 1180, 42);
             } else {
-                writeSingleLine(typeLine, priceLine ? 750 : 701, 1922, priceLine ? 890 : 1180, 64);
+                if(expansion.height>0 && expansion.width>0) {
+                    writeSingleLine(typeLine, priceLine ? 730 : 701, 1922, priceLine ? 800 : 900, 64);
+                } else {
+                    writeSingleLine(typeLine, priceLine ? 750 : 701, 1922, priceLine ? 890 : 1180, 64);
+                }
             }
 			if (priceLine)
 				writeLineWithIconsReplacedWithSpaces(priceLine + " ", 153, 1940, 85/90,"Minion"); //adding a space confuses writeLineWithIconsReplacedWithSpaces into thinking this isn't a line that needs resizing
@@ -723,6 +734,7 @@
             
 		} else if (templateSize == 1) { //event/landscape
 			drawPicture(1075, 584, 1887, 730);
+            removeCorners(2151,1403,100);
 			
 			context.drawImage(getRecoloredImage(6,0),0,0); //EventColorOne
 			if (heirloomLine)
@@ -762,6 +774,7 @@
             
 		} else if (templateSize == 2) { //double card
 			drawPicture(704, 1075, 1150, 564);
+            removeCorners(1403,2151,100);
 			
 			if (!recoloredImages[9]) recoloredImages[10] = false;
 			context.drawImage(getRecoloredImage(9,0),0,0); //DoubleColorOne
