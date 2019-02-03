@@ -438,24 +438,32 @@
 							context.textAlign = "center";
 							context.fillStyle = getIconListing(match[2])[1];
                             let cost = match[3];
-                            if(cost.length === 2) {
+                            let bigNumberScale = 1;
+                            if(cost.length >= 2) {
                                 // special handling for overpay and variable costs
                                 let specialCost = cost.slice(-1);
                                 if (specialCost === '*') {
                                     specialCost = '✱';
+                                    if(cost.length>2) {
+                                        bigNumberScale = 1.5/(cost.length-1);
+                                    }
                                 } else if (specialCost === '+') {
                                     specialCost = '✚';
+                                    if(cost.length>2) {
+                                        bigNumberScale = 1.5/(cost.length-1);
+                                    }
                                 } else {
                                     specialCost = null;
+                                    bigNumberScale = 1.5/cost.length;
                                 }
                                 if(specialCost != null) {
                                     cost = cost.slice(0, -1) + " ";
                                     context.font = "bold " + 45 + "pt " + family;
-                                    context.fillText(specialCost, 45*localScale, 12*localScale-35*localScale);
+                                    context.fillText(specialCost, localScale>1 ? 45/2*localScale : 45*localScale, localScale>1 ? -20*localScale : 12*localScale-35*localScale);
                                 }
                             }
-							context.font = "bold " + 115 + "pt " + family;
-                            context.fillText(cost, 0, 12*localScale);
+							context.font = "bold " + 115*bigNumberScale + "pt " + family;
+                            context.fillText(cost, 0, localScale>1 ? localScale : 12*localScale);
 							//context.strokeText(match[3], 0, 0);
 						}
 						context.restore();
