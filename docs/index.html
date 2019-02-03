@@ -84,6 +84,13 @@
             border-collapse: collapse;
             width: 100%;
             position: relative;
+            table-layout: fixed;
+        }
+
+        #image-positioning table {
+            width: 100%;
+            border-collapse: collapse;
+            box-sizing: border-box;
         }
 
         td,
@@ -105,23 +112,6 @@
         th>div {
             padding: 10px;
             background: #CCC;
-        }
-
-        #image-positioning span>* {
-            float: left;
-            height: 1em;
-        }
-
-        #image-positioning span>label {
-            width: 30%;
-        }
-
-        #image-positioning span>input[type="range"] {
-            width: 70%;
-        }
-
-        #image-positioning button {
-            margin-top: 1em;
         }
 
         th {
@@ -1107,7 +1097,7 @@
                     </label>
                 </menu>
             </th>
-            <th colspan="2">Dominion Card Image Generator (<a id="linkToOriginal" href="https://shemitz.net/static/dominion3/" title="click to pass parameters to original version">Original</a> &amp; <a target="_blank" rel="nofollow" href=" http://forum.dominionstrategy.com/index.php?topic=16622.0">Description </a>) <span class="heading-credits">extended by <a target="_blank" rel="nofollow" href="http://forum.dominionstrategy.com/?action=profile;u=6354">Shard of Honor</a></span></th>
+            <th colspan="2">Dominion Card Image Generator (<a id="linkToOriginal" href="https://shemitz.net/static/dominion3/" title="click to pass parameters to original version">Original</a> &amp; <a target="_blank" rel="nofollow" href=" http://forum.dominionstrategy.com/index.php?topic=16622.0">Description </a>) <span class="heading-credits">extended by <a target="_blank" rel="nofollow" href="http://forum.dominionstrategy.com/?action=profile;u=6354">Shard of Honor</a> (<a target="_blank" rel="nofollow" href="https://github.com/shardofhonor/dominion-card-generator">Contribute Code</a>)</span></th>
         </tr>
         <tr>
             <td class="doubledForDoubleCards">
@@ -1162,14 +1152,27 @@
                     <input id="picture" type="url" placeholder="http://www.example.com/image.jpg" />
                 </div>
                 <div id="image-positioning">
-                    <span><label for="picture-x">Position X:</label><input id="picture-x" type="range" min="-1" max="1" value="0" step="0.01"></span>
-                    <span><label for="picture-y">Position Y:</label><input id="picture-y" type="range" min="-1" max="1" value="0" step="0.01"></span>
-                    <span><label for="picture-zoom">Zoom:</label><input id="picture-zoom" type="range" min="1" max="2" value="1" step="0.1"></span>
-                    <button onclick="(function(){
+                    <table>
+                        <tr>
+                            <td><label for="picture-x">Position X:</label></td>
+                            <td colspan="2"><input id="picture-x" type="range" min="-1" max="1" value="0" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="picture-y">Position Y:</label></td>
+                            <td colspan="2"><input id="picture-y" type="range" min="-1" max="1" value="0" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="picture-zoom">Zoom:</label></td>
+                            <td colspan="2"><input id="picture-zoom" type="range" min="1" max="2" value="1" step="0.1"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><button onclick="(function(){
                                      document.getElementById('picture-x').value=0;
                                      document.getElementById('picture-y').value=0;
                                      let z = document.getElementById('picture-zoom');z.value=1;
-                                     z.onchange();})();">Reset Position</button>
+                                     z.onchange();})();">Reset Position</button></td>
+                        </tr>
+                    </table>
                 </div>
             </td>
             <td>
