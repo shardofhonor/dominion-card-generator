@@ -48,15 +48,17 @@
         }
 
         body.size1 #portraitCanvas,
+        body.size4 #portraitCanvas,
         body.size0 #landscapeCanvas,
-        body.size2 #landscapeCanvas {
+        body.size2 #landscapeCanvas,
+        body.size3 #landscapeCanvas {
             display: none;
         }
 
         #sizes {
             position: absolute;
             display: block;
-            bottom: 10px;
+            bottom: 200px;
             left: 10px;
             padding: 0;
             margin: 0;
@@ -119,17 +121,23 @@
             font-family: TrajanPro;
         }
 
+        th[rowspan] {
+            height: 570px;
+        }
+
         col {
             width: 323px;
             /* 300 + 2*10 (padding) + 3 (border) */
             transition: width .25s;
         }
 
-        body.size1 col {
+        body.size1 col,
+        body.size4 col {
             width: 483px;
         }
 
-        body.size0 label[for=price]:after {
+        body.size0 label[for=price]:after,
+        body.size3 label[for=price]:after {
             content: " (bottom left)";
         }
 
@@ -151,6 +159,16 @@
 
         body.size2 label[for=type2]:after {
             content: "Type";
+        }
+
+        body.size3 .hideForBaseCards,
+        body.size4 .hideForPileMarker {
+            visibility: collapse;
+            display: none;
+        }
+
+            {
+            visibility: collapse;
         }
 
         body.size1 #previewCell,
@@ -196,23 +214,34 @@
 
         [data-status]:after {
             position: absolute;
-            bottom: 10px;
+            bottom: 200px;
             left: 10px;
+            background: rgba(250, 250, 250, 0.6);
+            padding: 0.7em 0.7em;
+            min-width: 270px;
             content: attr(data-status);
         }
 
         #legend {
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
             margin-bottom: 0;
             text-align: center;
-            font-family: Minion;
+            font-family: "Times New Roman";
         }
 
         #legend li {
-            display: inline-block;
-            width: 10%;
+            display: block;
+            width: 230px;
             margin-right: 2%;
-            background: #EEE;
             text-align: left;
+        }
+
+        #legend li span.def {
+            width: 25px;
+            display: inline-block;
+            text-align: center;
         }
 
         [name=recolor]:nth-of-type(3n) {
@@ -409,7 +438,7 @@
 						var iconKeys = Object.keys(icons);
 						for (var j = 0; j < iconKeys.length; ++j) {
 							if (iconKeys[j].replace("\\", "") == match[2]) {
-								image = images[20 + j];
+								image = images[numberFirstIcon + j];
 								break;
 							}
 						}
@@ -463,7 +492,7 @@
                                 }
                             }
 							context.font = "bold " + 115*bigNumberScale + "pt " + family;
-                            context.fillText(cost, 0, localScale>1 ? localScale : 12*localScale);
+                            context.fillText(cost, 0, localScale>1 ? 2*localScale : 12*localScale);
 							//context.strokeText(match[3], 0, 0);
 						}
 						context.restore();
@@ -614,7 +643,16 @@
 		// clear
 		for (var i = 0; i < canvases.length; ++i)
 			canvases[i].getContext("2d").clearRect(0, 0, canvases[i].width, canvases[i].height);
-		var context = canvases[templateSize & 1].getContext("2d");
+        
+        var context;
+        if (templateSize === 0 || templateSize === 2 || templateSize === 3) {
+		  context = canvases[0].getContext("2d");
+        } else if (templateSize === 1 || templateSize === 4) {
+		  context = canvases[1].getContext("2d");
+        } else {
+		  context = canvases[2].getContext("2d");
+        }
+            
 		//context.save();
 
 		// draw
@@ -633,6 +671,12 @@
 		for (var i = 0; i < 2; ++i)
 			isEachColorDark[i] = (i == 1 && normalColorCurrentIndices[1] == 0) ? isEachColorDark[0] : (((normalColorCurrentIndices[i] >= normalColorCustomIndices[i]) ? recolorFactorList[i] : normalColorFactorLists[normalColorCurrentIndices[i] - i][1]).slice(0,3).reduce(function getSum(total, num) {return total + parseFloat(num);}) <= 1.5);
 		var differentIntensities = isEachColorDark[0] != isEachColorDark[1];
+        
+        if(differentIntensities || normalColorCurrentIndices[1] === 0 || parseInt(normalColorCurrentIndices[0])+1 === parseInt(normalColorCurrentIndices[1])){
+            document.getElementById('color2splitselector').setAttribute("style","display:none");
+        } else {
+            document.getElementById('color2splitselector').removeAttribute("style");
+        }
 		
 		function drawPicture(xCenter, yCenter, width, height) {
 			if (picture.height) {
@@ -844,7 +888,74 @@
             
 			drawExpansionIcon(1220, 1910, 100, 100);
             
-		}
+		} else if (templateSize == 3) { //base card
+			drawPicture(704, 1075, 1150, 1898);
+            removeCorners(1403,2151,100);
+			
+			context.drawImage(getRecoloredImage(20,0),0,0); //CardColorOne
+			context.drawImage(getRecoloredImage(21,0,6),0,0); //CardGray
+			context.drawImage(getRecoloredImage(22,0,9),0,0); //CardBrown
+			
+			context.textAlign = "center";
+			context.textBaseline = "middle";
+			//context.font = "small-caps" + context.font;
+			if (heirloomLine) {
+				context.drawImage(images[13],97,1720); //Heirloom banner
+				writeSingleLine(heirloomLine, 701,1799, 1040,58, "Times New Roman");
+			}
+			if (isEachColorDark[1])
+				context.fillStyle = "white";
+			writeSingleLine(document.getElementById("title").value, 701, 215, previewLine ? 800 : 1180, 75);
+            if(typeLine.split(" - ").length >= 4) {
+                let types2 = typeLine.split(" - ");
+                let types1 = types2.splice(0,Math.ceil(types2.length / 2)); 
+                writeSingleLine(types1.join(" - ")+" -", priceLine ? 750 : 701, 1945 - 26, priceLine ? 890 : 1180, 42);
+                writeSingleLine(types2.join(" - "), priceLine ? 750 : 701, 1945 + 26, priceLine ? 890 : 1180, 42);
+            } else {
+                if(expansion.height>0 && expansion.width>0) {
+                    writeSingleLine(typeLine, priceLine ? 730 : 701, 1945, priceLine ? 800 : 900, 64);
+                } else {
+                    writeSingleLine(typeLine, priceLine ? 750 : 701, 1945, priceLine ? 890 : 1180, 64);
+                }
+            }
+			if (priceLine)
+				writeLineWithIconsReplacedWithSpaces(priceLine + " ", 153, 1947, 85/90,"Minion"); //adding a space confuses writeLineWithIconsReplacedWithSpaces into thinking this isn't a line that needs resizing
+			if (previewLine) {
+				writeSingleLine(previewLine += " ", 223, 210, 0,0,"Minion");
+				writeSingleLine(previewLine, 1203, 210, 0,0,"Minion");
+			}
+			context.fillStyle = (isEachColorDark[0]) ? "white" : "black";
+			if (!heirloomLine)
+				writeDescription("description", 701, 1110, 960, 1800, 64);
+			else
+				writeDescription("description", 701, 1050, 960, 1760, 64);
+			writeIllustrationCredit(165, 2045, "white", "");
+			writeCreatorCredit(1225, 2045, "white", "");
+            
+			drawExpansionIcon(1220, 1935, 100, 100);
+        } else if (templateSize == 4) { //pile marker
+			drawPicture(1075, 702, 1250, 870);
+            removeCorners(2151,1403,100);
+			
+			context.drawImage(getRecoloredImage(24,0,6),0,0); //CardGray
+			context.drawImage(getRecoloredImage(23,0),0,0); //CardColorOne
+			
+			context.textAlign = "center";
+			context.textBaseline = "middle";
+            
+			context.save();
+			if (isEachColorDark[1])
+				context.fillStyle = "white";
+			context.rotate(Math.PI/2);
+			writeSingleLine(document.getElementById("title").value, 700, -1920, 500, 75);
+            context.restore();
+			context.save();
+			if (isEachColorDark[1])
+				context.fillStyle = "white";
+			context.rotate(Math.PI*3/2);
+			writeSingleLine(document.getElementById("title").value, -700, 230, 500, 75);
+            context.restore();
+        }
 
 		//finish up
 		//context.restore();
@@ -914,29 +1025,39 @@
 		"CardGray.png",
 		"DescriptionFocus.png",
 		"Traveller.png",
-		"", //illustration
+		"", //illustration //5
 		"EventColorOne.png",
 		"EventColorTwo.png",
 		"EventBrown.png",
 		"DoubleColorOne.png",
-		"DoubleColorOne.png",
+		"DoubleColorOne.png", //10
 		"DoubleUncoloredDetails.png",
 		"CardColorTwoNight.png",
 		"Heirloom.png",
 		"EventHeirloom.png",
-		"EventBrown2.png",
+		"EventBrown2.png", //15
 		"CardBrown.png",
         "", //expansion
 		"CardColorTwoSmall.png",
 		"CardColorTwoBig.png",
+		"BaseCardColorOne.png", //20
+		"BaseCardGray.png",
+		"BaseCardBrown.png",
+		"PileMarkerColorOne.png",
+		"PileMarkerGrey.png"
 		//icons come afterwards
 	];
 	for (var i = 0; i < sources.length; i++)
 		recoloredImages.push(false);
 	var legend = document.getElementById("legend");
+    var numberFirstIcon = sources.length;
 	for (key in icons) {
 		var li =  document.createElement("li");
-		li.textContent = key.replace("\\", "") + ": " + icons[key][0];
+		li.textContent = ": " + icons[key][0];
+        var span = document.createElement("span");
+        span.classList.add("def");
+        span.textContent = key.replace("\\", "");
+        li.insertBefore(span, li.firstChild);
 		legend.insertBefore(li, legend.firstChild);
 		sources.push(icons[key][0] + ".png");
 	}
@@ -970,6 +1091,10 @@
 				recoloredImages[imageID + 6] = false;
 				recoloredImages[imageID + 9] = false;
 				recoloredImages[12] = false;
+			    recoloredImages[18] = false;
+			    recoloredImages[19] = false;
+			    recoloredImages[20] = false;
+			    recoloredImages[23] = false;
 				recolorFactorList[imageID][i % 12] = val;
 				queueDraw();
 			}
@@ -1005,6 +1130,8 @@
 			recoloredImages[12] = false;
 			recoloredImages[18] = false;
 			recoloredImages[19] = false;
+			recoloredImages[20] = false;
+			recoloredImages[23] = false;
 			var delta = normalColorCustomIndices[i] - this.selectedIndex;
 			if (delta <= 0)
 				this.nextElementSibling.removeAttribute("style");
@@ -1077,13 +1204,11 @@
 	document.getElementById("expansion").onchange();
             
     //adjust page title
-    function updatePageTitle() {
+    document.getElementById('title').addEventListener('change', function(i){return function() {
         let cardTitle = document.getElementById("title").value.trim();
         let pageDefaultTitle = "Dominion Card Image Generator";
         document.title = cardTitle.length > 0 ? (pageDefaultTitle+" - "+cardTitle) : pageDefaultTitle;
-    }
-    updatePageTitle();
-    document.getElementById('title').addEventListener('change', updatePageTitle, false);
+	}}(i), false);
             
     //pass parameters to original version to enable easy comparison
     document.getElementById('linkToOriginal').addEventListener('click', function(event) {
@@ -1108,17 +1233,29 @@
                 <menu id="sizes">
                     <input type="radio" name="size" id="size0" value="0" checked />
                     <label for="size0">
-                        <img src="card-resources/CardGray.png" width="30" height="46" alt="" title="Portrait" />
+                        <img src="card-resources/CardPortraitIcon.png" width="30" height="46" alt="" title="Portrait" />
                     </label>
                     <input type="radio" name="size" id="size1" value="1" />
                     <label for="size1">
                         <img src="card-resources/EventBrown.png" width="46" height="30" alt="" title="Landscape" />
                     </label>
-                    <input type="radio" name="size" id="size2" value="2" />
-                    <label for="size2">
+                    <input style="display:none" type="radio" name="size" id="size2" value="2" />
+                    <label style="display:none" for="size2">
                         <img src="card-resources/DoubleUncoloredDetails.png" width="30" height="46" alt="" title="Double" />
                     </label>
+                    <input type="radio" name="size" id="size3" value="3" />
+                    <label for="size3">
+                        <img src="card-resources/BaseCardIcon.png" width="30" height="46" alt="" title="Base Card" />
+                    </label>
+                    <input type="radio" name="size" id="size4" value="4" />
+                    <label for="size4">
+                        <img src="card-resources/PileMarkerIcon.png" width="46" height="30" alt="" title="Pile Marker" />
+                    </label>
                 </menu>
+                <ul id="legend">
+                    <li><span class="def">-</span>: horizontal bar</li>
+                    <li><span class="def">[i]</span>: italic line</li>
+                </ul>
             </th>
             <th colspan="2">Dominion Card Image Generator (<a id="linkToOriginal" href="https://shemitz.net/static/dominion3/" title="click to pass parameters to original version">Original</a> &amp; <a target="_blank" rel="nofollow" href=" http://forum.dominionstrategy.com/index.php?topic=16622.0">Description </a>) <span class="heading-credits">extended by <a target="_blank" rel="nofollow" href="http://forum.dominionstrategy.com/?action=profile;u=6354">Shard of Honor</a> (<a target="_blank" rel="nofollow" href="https://github.com/shardofhonor/dominion-card-generator">Contribute Code</a>)</span></th>
         </tr>
@@ -1137,7 +1274,7 @@
             </td>
         </tr>
         <tr>
-            <td class="doubledForDoubleCards">
+            <td class="doubledForDoubleCards hideForPileMarker">
                 <div>
                     <label for="description">Description</label>
                     <textarea rows="4" id="description" placeholder="+1 Card
@@ -1147,7 +1284,7 @@
                         <input id="boldkeys" placeholder="Additional boldable keywords, separated by semikolon" />
                     </div>
             </td>
-            <td>
+            <td class="hideForPileMarker">
                 <div>
                     <label for="description2">Description</label>
                     <textarea rows="4" id="description2"></textarea>
@@ -1155,15 +1292,15 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="hideForPileMarker">
                 <div>
                     <label for="type">Type</label>
                     <input id="type" placeholder="Action" />
                 </div>
             </td>
-            <td>
+            <td class="hideForBaseCards hideForPileMarker">
                 <div>
-                    <label for="type2"></label>
+                    <label for=" type2"></label>
                     <input id="type2" />
                 </div>
             </td>
@@ -1198,7 +1335,7 @@
                     </table>
                 </div>
             </td>
-            <td>
+            <td class="hideForPileMarker">
                 <div>
                     <label for="expansion">URL of Expansion Icon</label>
                     <input id="expansion" type="url" placeholder="http://www.example.com/icon.png" />
@@ -1206,7 +1343,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="hideForPileMarker">
                 <div>
                     <label for="credit">Art Credit</label>
                     <input id="credit" type="text" placeholder="Illustration: Jane Doe" />
@@ -1214,7 +1351,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="hideForPileMarker">
                 <div>
                     <label for="creator">Version &amp; Creator Credit</label>
                     <input id="creator" type="text" placeholder="v0.1 John Doe" />
@@ -1222,12 +1359,12 @@
             </td>
         </tr>
         <tr>
-            <td id="priceCell">
+            <td id="priceCell" class="hideForPileMarker">
                 <div>
                     <label for="price">Price</label>
                     <input id="price" placeholder="$3" />
             </td>
-            <td id="previewCell">
+            <td id="previewCell" class="hideForPileMarker">
                 <div>
                     <label for="preview"></label>
                     <input id="preview" />
@@ -1250,7 +1387,7 @@
                     </div>
                 </div>
             </td>
-            <td>
+            <td class="hideForBaseCards hideForPileMarker">
                 <div>
                     <label for="normalcolor2">Color</label>
                     <select name="normalcolor" id="normalcolor2">
@@ -1274,10 +1411,6 @@
             </td>
         </tr>
     </table>
-    <ul id="legend">
-        <li>-: horizontal bar</li>
-        <li>[i]: italic line</li>
-    </ul>
 </body>
 
 </html>
