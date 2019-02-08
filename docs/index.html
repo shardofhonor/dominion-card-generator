@@ -673,9 +673,9 @@
 		var differentIntensities = isEachColorDark[0] != isEachColorDark[1];
         
         if(differentIntensities || normalColorCurrentIndices[1] === 0 || parseInt(normalColorCurrentIndices[0])+1 === parseInt(normalColorCurrentIndices[1])){
-            document.getElementById('color2splitselector').setAttribute("style","display:none");
-        } else {
             document.getElementById('color2splitselector').removeAttribute("style");
+        } else {
+            document.getElementById('color2splitselector').setAttribute("style","display:none");
         }
 		
 		function drawPicture(xCenter, yCenter, width, height) {
@@ -926,9 +926,9 @@
 			}
 			context.fillStyle = (isEachColorDark[0]) ? "white" : "black";
 			if (!heirloomLine)
-				writeDescription("description", 701, 1110, 960, 1800, 64);
+				writeDescription("description", 701, 1060, 960, 1500, 64);
 			else
-				writeDescription("description", 701, 1050, 960, 1760, 64);
+				writeDescription("description", 701, 1000, 960, 1400, 64);
 			writeIllustrationCredit(165, 2045, "white", "");
 			writeCreatorCredit(1225, 2045, "white", "");
             
