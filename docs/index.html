@@ -49,19 +49,33 @@
 
         body.size1 #portraitCanvas,
         body.size4 #portraitCanvas,
+        body.size5 #portraitCanvas,
         body.size0 #landscapeCanvas,
         body.size2 #landscapeCanvas,
-        body.size3 #landscapeCanvas {
+        body.size3 #landscapeCanvas,
+        body.size5 #landscapeCanvas,
+        body.size0 #matCanvas,
+        body.size1 #matCanvas,
+        body.size2 #matCanvas,
+        body.size3 #matCanvas,
+        body.size4 #matCanvas {
             display: none;
         }
 
         #sizes {
             position: absolute;
             display: block;
-            bottom: 200px;
+            top: 490px;
             left: 10px;
             padding: 0;
             margin: 0;
+            /*transition: top .25s;*/
+        }
+
+        body.size1 #sizes,
+        body.size4 #sizes,
+        body.size5 #sizes {
+            top: 370px;
         }
 
         #sizes input {
@@ -132,7 +146,8 @@
         }
 
         body.size1 col,
-        body.size4 col {
+        body.size4 col,
+        body.size5 col {
             width: 483px;
         }
 
@@ -162,13 +177,10 @@
         }
 
         body.size3 .hideForBaseCards,
-        body.size4 .hideForPileMarker {
+        body.size4 .hideForPileMarker,
+        body.size5 .hideForMats {
             visibility: collapse;
             display: none;
-        }
-
-            {
-            visibility: collapse;
         }
 
         body.size1 #previewCell,
@@ -214,7 +226,7 @@
 
         [data-status]:after {
             position: absolute;
-            bottom: 200px;
+            top: 492px;
             left: 10px;
             background: rgba(250, 250, 250, 0.6);
             padding: 0.7em 0.7em;
@@ -222,13 +234,26 @@
             content: attr(data-status);
         }
 
+        body.size1 [data-status]:after,
+        body.size4 [data-status]:after,
+        body.size5 [data-status]:after {
+            top: 372px;
+        }
+
         #legend {
             position: absolute;
             left: 10px;
-            bottom: 10px;
+            top: 560px;
             margin-bottom: 0;
             text-align: center;
             font-family: "Times New Roman";
+            /*transition: top .25s;*/
+        }
+
+        body.size1 #legend,
+        body.size4 #legend,
+        body.size5 #legend {
+            top: 440px;
         }
 
         #legend li {
@@ -606,20 +631,20 @@
 			}
 			context.fillStyle = "black";
 		}
-		function writeIllustrationCredit(x, y, color, bold) {
+		function writeIllustrationCredit(x, y, color, bold, size=31) {
 			var illustrationCredit = document.getElementById("credit").value;
 			if (illustrationCredit) {
-				context.font = bold + "31pt Times New Roman";
+				context.font = bold + size+"pt Times New Roman";
 				context.fillStyle = color;
 				context.fillText(illustrationCredit, x, y);
 				context.fillStyle = "#000";
 			}
         }
-		function writeCreatorCredit(x, y, color, bold) {
+		function writeCreatorCredit(x, y, color, bold, size=31) {
 			var creatorCredit = document.getElementById("creator").value;
 			if (creatorCredit) {
                 context.textAlign = "right"; 
-				context.font = bold + "31pt Times New Roman";
+				context.font = bold + size+"pt Times New Roman";
 				context.fillStyle = color;
 				context.fillText(creatorCredit, x, y);
 				context.fillStyle = "#000";
@@ -955,6 +980,28 @@
 			context.rotate(Math.PI*3/2);
 			writeSingleLine(document.getElementById("title").value, -700, 230, 500, 75);
             context.restore();
+        } else if (templateSize == 5) { //player mat
+			drawPicture(464, 342, 928, 684);
+            
+			
+			context.drawImage(getRecoloredImage(25,0,6),0,0); //MatBannerTop
+            if(document.getElementById("description").value.trim().length>0)
+                context.drawImage(getRecoloredImage(26,0,6),0,0); //MatBannerBottom
+			
+			context.textAlign = "center";
+			context.textBaseline = "middle";
+            
+			if (isEachColorDark[1])
+				context.fillStyle = "white";
+			writeSingleLine(document.getElementById("title").value, 464, 96, 490, 55);
+            
+            writeDescription("description", 464, 572, 740, 80, 44);
+            
+			writeIllustrationCredit(15, 660, "white", "", 16);
+			writeCreatorCredit(913, 660, "white", "", 16);
+            
+			drawExpansionIcon(883, 45, 50, 50);
+            
         }
 
 		//finish up
@@ -1044,7 +1091,9 @@
 		"BaseCardGray.png",
 		"BaseCardBrown.png",
 		"PileMarkerColorOne.png",
-		"PileMarkerGrey.png"
+		"PileMarkerGrey.png",
+        "MatBannerTop.png",
+        "MatBannerBottom.png"
 		//icons come afterwards
 	];
 	for (var i = 0; i < sources.length; i++)
@@ -1230,6 +1279,7 @@
             <th rowspan="9" data-status="Loading...">
                 <canvas class="myCanvas" id="portraitCanvas" width="1403" height="2151" title="Right-Click this image for options to save it.">Your browser does not support the &lt;CANVAS&gt; tag.</canvas>
                 <canvas class="myCanvas" id="landscapeCanvas" width="2151" height="1403" title="Right-Click this image for options to save it.">Your browser does not support the &lt;CANVAS&gt; tag.</canvas>
+                <canvas class="myCanvas" id="matCanvas" width="928" height="684" style="transform:scale(0.49);" title="Right-Click this image for options to save it.">Your browser does not support the &lt;CANVAS&gt; tag.</canvas>
                 <menu id="sizes">
                     <input type="radio" name="size" id="size0" value="0" checked />
                     <label for="size0">
@@ -1250,6 +1300,10 @@
                     <input type="radio" name="size" id="size4" value="4" />
                     <label for="size4">
                         <img src="card-resources/PileMarkerIcon.png" width="46" height="30" alt="" title="Pile Marker" />
+                    </label>
+                    <input type="radio" name="size" id="size5" value="5" />
+                    <label for="size5" style="margin-left:0.5em;">
+                        <img src="card-resources/MatIcon.png" width="62" height="46" alt="" title="Player Mat" />
                     </label>
                 </menu>
                 <ul id="legend">
@@ -1284,7 +1338,7 @@
                         <input id="boldkeys" placeholder="Additional boldable keywords, separated by semikolon" />
                     </div>
             </td>
-            <td class="hideForPileMarker">
+            <td class="hideForPileMarker hideForMats">
                 <div>
                     <label for="description2">Description</label>
                     <textarea rows="4" id="description2"></textarea>
@@ -1292,13 +1346,13 @@
             </td>
         </tr>
         <tr>
-            <td class="hideForPileMarker">
+            <td class="hideForPileMarker hideForMats">
                 <div>
                     <label for="type">Type</label>
                     <input id="type" placeholder="Action" />
                 </div>
             </td>
-            <td class="hideForBaseCards hideForPileMarker">
+            <td class="hideForBaseCards hideForPileMarker hideForMats">
                 <div>
                     <label for="type2"></label>
                     <input id="type2" />
@@ -1359,12 +1413,12 @@
             </td>
         </tr>
         <tr>
-            <td id="priceCell" class="hideForPileMarker">
+            <td id="priceCell" class="hideForPileMarker hideForMats">
                 <div>
                     <label for="price">Price</label>
                     <input id="price" placeholder="$3" />
             </td>
-            <td id="previewCell" class="hideForPileMarker">
+            <td id="previewCell" class="hideForPileMarker hideForMats">
                 <div>
                     <label for="preview"></label>
                     <input id="preview" />
@@ -1372,7 +1426,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="hideForMats">
                 <div>
                     <label for="normalcolor1">Color</label>
                     <select name="normalcolor" id="normalcolor1">
@@ -1387,7 +1441,7 @@
                     </div>
                 </div>
             </td>
-            <td class="hideForBaseCards hideForPileMarker">
+            <td class="hideForBaseCards hideForPileMarker hideForMats">
                 <div>
                     <label for="normalcolor2">Color</label>
                     <select name="normalcolor" id="normalcolor2">
