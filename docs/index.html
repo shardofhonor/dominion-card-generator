@@ -672,7 +672,7 @@
 			isEachColorDark[i] = (i == 1 && normalColorCurrentIndices[1] == 0) ? isEachColorDark[0] : (((normalColorCurrentIndices[i] >= normalColorCustomIndices[i]) ? recolorFactorList[i] : normalColorFactorLists[normalColorCurrentIndices[i] - i][1]).slice(0,3).reduce(function getSum(total, num) {return total + parseFloat(num);}) <= 1.5);
 		var differentIntensities = isEachColorDark[0] != isEachColorDark[1];
         
-        if(differentIntensities || normalColorCurrentIndices[1] === 0 || parseInt(normalColorCurrentIndices[0])+1 === parseInt(normalColorCurrentIndices[1])){
+        if(!(differentIntensities || parseInt(normalColorCurrentIndices[1]) == 0 || parseInt(normalColorCurrentIndices[0])+1 == parseInt(normalColorCurrentIndices[1]))){
             document.getElementById('color2splitselector').removeAttribute("style");
         } else {
             document.getElementById('color2splitselector').setAttribute("style","display:none");
@@ -1300,7 +1300,7 @@
             </td>
             <td class="hideForBaseCards hideForPileMarker">
                 <div>
-                    <label for=" type2"></label>
+                    <label for="type2"></label>
                     <input id="type2" />
                 </div>
             </td>
@@ -1399,7 +1399,7 @@
                     <div style="display:none;" title="Card fade color">
                         <input type="number" name="recolor" min="0" max="10" step=".05" value="0" /><input type="number" name="recolor" min="0" max="10" step=".05" value="0" /><input type="number" name="recolor" min="0" max="10" step=".05" value="0" />
                     </div>
-                    <div id="color2splitselector">
+                    <div id="color2splitselector" style="display:none;">
                         <label for="color2split">Split Position</label>
                         <select name="color2split" id="color2split">
                             <option value="18">Smaller Top</option>
