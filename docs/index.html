@@ -1329,6 +1329,16 @@
 };
         
         function downloadPicture() {
+        
+            function dataURLtoBlob(dataurl) {
+                var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+                    bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+                while(n--){
+                    u8arr[n] = bstr.charCodeAt(n);
+                }
+                return new Blob([u8arr], {type:mime});
+            }
+            
             var id;
             if (templateSize == 0 || templateSize == 2 || templateSize == 3) {
                 id = 0;
@@ -1340,7 +1350,7 @@
             var link = document.getElementById("download");
             var canvases = document.getElementsByClassName("myCanvas");
             var canvas = canvases[id];
-            var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            var image = dataURLtoBlob(canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
             var title = document.getElementById("title").value.trim();
             var creator = document.getElementById("creator").value.trim();
             var fileName = "";
@@ -1355,7 +1365,6 @@
             fileName += ".png";
             link.setAttribute('download', fileName);
             link.setAttribute("href", image);
-            //link.click();
         }
         
         </script>
