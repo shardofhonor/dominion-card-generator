@@ -1190,11 +1190,13 @@
 			}
 		}}(i);
 	document.getElementById("picture").onchange = function() {
+        images[5].crossOrigin = "anonymous";
 		images[5].src = (sources[5] = this.value);
 		imagesLoaded = false;
 		queueDraw(250);
 	};
 	document.getElementById("expansion").onchange = function() {
+        images[17].crossOrigin = "anonymous";
 		images[17].src = (sources[17] = this.value);
 		imagesLoaded = false;
 		queueDraw(250);
