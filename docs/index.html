@@ -261,6 +261,11 @@
             margin-right: 3%;
         }
 
+        button,
+        input[type=range] {
+            cursor: pointer;
+        }
+
         [data-status]:after {
             position: absolute;
             top: 492px;
@@ -1423,7 +1428,7 @@
                     <li><span class="def">-</span>: horizontal bar</li>
                     <li><span class="def">[i]</span>: italic line</li>
                 </ul>
-                <a id="download" target="_blank" rel="nofollow" download="card.png"><button type="button" onclick="downloadPicture()"><img src="icon-download.png" />Download Card</button></a>
+                <a id="download" target="_blank" title="click to download card image file" rel="nofollow" download="card.png"><button type="button" onclick="downloadPicture()"><img src="icon-download.png" />Download Card</button></a>
             </th>
             <th colspan="2">Dominion Card Image Generator (<a id="linkToOriginal" href="https://shemitz.net/static/dominion3/" title="click to pass inputs to the original version">Original</a> &amp; <a target="_blank" rel="nofollow" href=" http://forum.dominionstrategy.com/index.php?topic=16622.0" title="show discussion, description and announcements in the forum">Discussion</a>) <span class="heading-credits">Extended Version (<a target="_blank" rel="nofollow" href="https://github.com/shardofhonor/dominion-card-generator" title="view source on github and contribute code">Join Development</a>)</span></th>
         </tr>
