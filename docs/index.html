@@ -75,7 +75,7 @@
         body.size1 #sizes,
         body.size4 #sizes,
         body.size5 #sizes {
-            top: 370px;
+            top: calc(490px - 80px);
         }
 
         #sizes input {
@@ -95,6 +95,46 @@
         #sizes input:checked+label {
             opacity: 1;
             cursor: pointer;
+        }
+
+        #download {
+            position: absolute;
+            left: 20px;
+            top: 770px;
+        }
+
+        #download button {
+            box-sizing: border-box;
+            background: #555;
+            border: none;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+            color: white;
+            padding: 0.5em 0.7em;
+            cursor: pointer;
+        }
+
+        #download button img {
+            height: 1em;
+            position: relative;
+            top: 3px;
+            margin-right: 0.2em;
+        }
+
+        #download button:hover,
+        #download button:focus {
+            background: black;
+        }
+
+        #download button:active {
+            position: relative;
+            top: 1px;
+            box-shadow: none;
+        }
+
+        body.size1 #download,
+        body.size4 #download,
+        body.size5 #download {
+            top: calc(770px - 80px);
         }
 
         #table {
@@ -235,7 +275,7 @@
         body.size1 [data-status]:after,
         body.size4 [data-status]:after,
         body.size5 [data-status]:after {
-            top: 372px;
+            top: calc(492px - 80px);
         }
 
         #legend {
@@ -281,6 +321,9 @@
 
     </style>
     <script>
+
+        var templateSize = 0; //save globally
+        
         window.onload = function() {
 	//these three can all be expanded as you see fit
 	var icons = {//the names should match the image filenames (plus a .png extension).
@@ -345,7 +388,7 @@
 		normalColorDropdowns[j].appendChild(customOption);
 		normalColorDropdowns[j].selectedIndex = 0;
 	}
-	var templateSize = 0;
+	//var templateSize = 0;
 	
 	var iconList = "[" + Object.keys(icons).join("") + "]";
     function rebuildBoldLinePatternWords() {
@@ -669,11 +712,11 @@
         
         var context;
         if (templateSize === 0 || templateSize === 2 || templateSize === 3) {
-		  context = canvases[0].getContext("2d");
+            context = canvases[0].getContext("2d");
         } else if (templateSize === 1 || templateSize === 4) {
-		  context = canvases[1].getContext("2d");
+            context = canvases[1].getContext("2d");
         } else {
-		  context = canvases[2].getContext("2d");
+            context = canvases[2].getContext("2d");
         }
             
 		//context.save();
@@ -1265,6 +1308,36 @@
             
 };
         
+        function downloadPicture() {
+            var id;
+            if (templateSize == 0 || templateSize == 2 || templateSize == 3) {
+                id = 0;
+            } else if (templateSize == 1 || templateSize == 4) {
+                id = 1;
+            } else {
+                id = 2;
+            }
+            var link = document.getElementById("download");
+            var canvases = document.getElementsByClassName("myCanvas");
+            var canvas = canvases[id];
+            var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            var title = document.getElementById("title").value.trim();
+            var creator = document.getElementById("creator").value.trim();
+            var fileName = "";
+            if(title.length>0) {
+                fileName += title;
+            } else {
+                fileName += "card";
+            }
+            if(creator.length>0) {
+                fileName += "_" + creator;
+            }
+            fileName += ".png";
+            link.setAttribute('download', fileName);
+            link.setAttribute("href", image);
+            link.click();
+        }
+        
         </script>
 </head>
 
@@ -1308,6 +1381,7 @@
                     <li><span class="def">-</span>: horizontal bar</li>
                     <li><span class="def">[i]</span>: italic line</li>
                 </ul>
+                <a id="download" target="_blank" rel="nofollow" download="card.png"><button type="button" onclick="downloadPicture()"><img src="icon-download.png" />Download Card</button></a>
             </th>
             <th colspan="2">Dominion Card Image Generator (<a id="linkToOriginal" href="https://shemitz.net/static/dominion3/" title="click to pass inputs to the original version">Original</a> &amp; <a target="_blank" rel="nofollow" href=" http://forum.dominionstrategy.com/index.php?topic=16622.0" title="show discussion, description and announcements in the forum">Discussion</a>) <span class="heading-credits">Extended Version (<a target="_blank" rel="nofollow" href="https://github.com/shardofhonor/dominion-card-generator" title="view source on github and contribute code">Join Development</a>)</span></th>
         </tr>
