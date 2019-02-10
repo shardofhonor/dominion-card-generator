@@ -1314,11 +1314,15 @@
 	document.getElementById("expansion").onchange();
             
     //adjust page title
-    document.getElementById('title').addEventListener('change', function(i){return function() {
+    function adjustPageTitle() {
         let cardTitle = document.getElementById("title").value.trim();
+        let creator = document.getElementById("creator").value.trim();
         let pageDefaultTitle = "Dominion Card Image Generator";
-        document.title = cardTitle.length > 0 ? (pageDefaultTitle+" - "+cardTitle) : pageDefaultTitle;
-	}}(i), false);
+        document.title = cardTitle.length > 0 ? (pageDefaultTitle+" - "+cardTitle+" "+creator) : pageDefaultTitle;
+    };
+    document.getElementById('title').addEventListener('change', adjustPageTitle, false);
+    document.getElementById('creator').addEventListener('change', adjustPageTitle, false);
+    adjustPageTitle();
             
     //pass parameters to original version to enable easy comparison
     document.getElementById('linkToOriginal').addEventListener('click', function(event) {
