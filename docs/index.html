@@ -1107,7 +1107,7 @@
             
             
     // help function to load images CORS save
-    loadImgAsBase64(url, callback) {
+    function loadImgAsBase64(url, callback) {
         let canvas = document.createElement('CANVAS');
         let img = document.createElement('img');
         img.setAttribute('crossorigin', 'anonymous');
@@ -1208,13 +1208,13 @@
 			}
 		}}(i);
 	document.getElementById("picture").onchange = function() {
-        let url=(sources[5] = this.value);
+        let url = (sources[5] = this.value);
         loadImgAsBase64(url, (dataURL) => { images[5].src = dataURL; });
 		imagesLoaded = false;
 		queueDraw(250);
 	};
 	document.getElementById("expansion").onchange = function() {
-        let url=(sources[17] = this.value);
+        let url = (sources[17] = this.value);
         loadImgAsBase64(url, (dataURL) => { images[17].src = dataURL; });
 		imagesLoaded = false;
 		queueDraw(250);
