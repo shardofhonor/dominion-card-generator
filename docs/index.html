@@ -1350,7 +1350,7 @@
             var link = document.getElementById("download");
             var canvases = document.getElementsByClassName("myCanvas");
             var canvas = canvases[id];
-            var image = dataURLtoBlob(canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+            var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
             var title = document.getElementById("title").value.trim();
             var creator = document.getElementById("creator").value.trim();
             var fileName = "";
@@ -1364,7 +1364,8 @@
             }
             fileName += ".png";
             link.setAttribute('download', fileName);
-            link.setAttribute("href", image);
+            var url = (window.webkitURL || window.URL).createObjectURL(dataURLtoBlob(image));
+            link.setAttribute("href", url);
         }
         
         </script>
