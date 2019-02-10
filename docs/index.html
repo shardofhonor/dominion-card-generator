@@ -1122,6 +1122,7 @@
             callback(dataURL);
         };
     }
+    var useCORS = true; // flag to activate loading of external images via CORS helper function -> otherwise canvas is tainted and download button not working
 
 
 	// initialize stage
@@ -1208,15 +1209,25 @@
 			}
 		}}(i);
 	document.getElementById("picture").onchange = function() {
-        let url = (sources[5] = this.value);
-        loadImgAsBase64(url, (dataURL) => { images[5].src = dataURL; });
-		imagesLoaded = false;
+        let id = 5;
+        let url = (sources[id] = this.value.trim());
+        if(url.length>0 && useCORS){
+            loadImgAsBase64(url, (dataURL) => { images[id].src = dataURL; }); 
+        } else { 
+            images[id].src = url;
+		    imagesLoaded = false;
+        }
 		queueDraw(250);
 	};
 	document.getElementById("expansion").onchange = function() {
-        let url = (sources[17] = this.value);
-        loadImgAsBase64(url, (dataURL) => { images[17].src = dataURL; });
-		imagesLoaded = false;
+        let id = 17;
+        let url = (sources[id] = this.value.trim());
+        if(url.length>0 && useCORS){
+            loadImgAsBase64(url, (dataURL) => { images[id].src = dataURL; }); 
+        } else { 
+            images[id].src = url;
+		    imagesLoaded = false;
+        }
 		queueDraw(250);
 	};
 	var genericCustomAccentColors = [
