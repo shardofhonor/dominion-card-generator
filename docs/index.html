@@ -1104,6 +1104,24 @@
 		
 		return params;
 	}
+            
+            
+    // help function to load images CORS save
+    loadImgAsBase64(url, callback) {
+        let canvas = document.createElement('CANVAS');
+        let img = document.createElement('img');
+        img.setAttribute('crossorigin', 'anonymous');
+        img.src = 'https://cors-anywhere.herokuapp.com/'+url;
+        img.onload = () => {
+            canvas.height = img.height;
+            canvas.width = img.width;
+            let context = canvas.getContext('2d');
+            context.drawImage(img,0,0);
+            let dataURL = canvas.toDataURL('image/png');
+            canvas = null;
+            callback(dataURL);
+        };
+    }
 
 
 	// initialize stage
@@ -1190,14 +1208,14 @@
 			}
 		}}(i);
 	document.getElementById("picture").onchange = function() {
-        images[5].crossOrigin = "anonymous";
-		images[5].src = (sources[5] = this.value);
+        let url=(sources[5] = this.value);
+        loadImgAsBase64(url, (dataURL) => { images[5].src = dataURL; });
 		imagesLoaded = false;
 		queueDraw(250);
 	};
 	document.getElementById("expansion").onchange = function() {
-        images[17].crossOrigin = "anonymous";
-		images[17].src = (sources[17] = this.value);
+        let url=(sources[17] = this.value);
+        loadImgAsBase64(url, (dataURL) => { images[17].src = dataURL; });
 		imagesLoaded = false;
 		queueDraw(250);
 	};
