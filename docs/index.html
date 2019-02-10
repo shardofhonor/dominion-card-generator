@@ -1208,27 +1208,24 @@
 				queueDraw();
 			}
 		}}(i);
-	document.getElementById("picture").onchange = function() {
-        let id = 5;
-        let url = (sources[id] = this.value.trim());
-        if(url.length>0 && useCORS){
-            loadImgAsBase64(url, (dataURL) => { images[id].src = dataURL; }); 
-        } else { 
-            images[id].src = url;
+    function onChangeExternalImage(id, value) {
+        let url = (sources[id] = value.trim());
+        function setImageSource(src) {
+            images[id].src = src;
 		    imagesLoaded = false;
+		    queueDraw(250);
         }
-		queueDraw(250);
+        if(url.length>0 && useCORS){
+            loadImgAsBase64(url, (dataURL) => { setImageSource(dataURL) }); 
+        } else { 
+            setImageSource(url)
+        }
+    }
+	document.getElementById("picture").onchange = function() {
+        onChangeExternalImage(5, this.value);
 	};
 	document.getElementById("expansion").onchange = function() {
-        let id = 17;
-        let url = (sources[id] = this.value.trim());
-        if(url.length>0 && useCORS){
-            loadImgAsBase64(url, (dataURL) => { images[id].src = dataURL; }); 
-        } else { 
-            images[id].src = url;
-		    imagesLoaded = false;
-        }
-		queueDraw(250);
+        onChangeExternalImage(17, this.value);
 	};
 	var genericCustomAccentColors = [
 		[0,0,0, 0,0,0, 1,1,1, 1.2, 0.8, 0.5],
