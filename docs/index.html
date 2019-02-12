@@ -34,6 +34,32 @@
             font-family: "Times New Roman";
         }
 
+        body:before,
+        body:after {
+            background-size: contain;
+            height: 100%;
+            content: '';
+            position: fixed;
+            width: 100px;
+            top: 0;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            z-index: 10;
+            opacity: 0.3;
+        }
+
+        body:before {
+            background-image: url(spear-left.png);
+            left: 0;
+            background-position: left;
+        }
+
+        body:after {
+            background-image: url(spear-right.png);
+            right: 0;
+            background-position: right;
+        }
+
         * {
             font-size: 14pt;
         }
@@ -97,20 +123,26 @@
             cursor: pointer;
         }
 
-        #download {
+        #download,
+        #reset {
             position: absolute;
             left: 20px;
             top: 770px;
         }
 
-        #download button {
+        #reset {
+            left: calc(40px + 9em);
+        }
+
+        #download button,
+        #reset button {
             box-sizing: border-box;
             background: #555;
             border: none;
-            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
             color: white;
             padding: 0.5em 0.7em;
             cursor: pointer;
+            border-radius: 5px;
         }
 
         #download button img {
@@ -121,11 +153,18 @@
         }
 
         #download button:hover,
-        #download button:focus {
+        #download button:focus,
+        #reset button:hover,
+        #reset button:focus {
             background: black;
         }
 
-        #download button:active {
+        button {
+            cursor: pointer;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
             position: relative;
             top: 1px;
             box-shadow: none;
@@ -133,18 +172,23 @@
 
         body.size1 #download,
         body.size4 #download,
-        body.size5 #download {
+        body.size5 #download,
+        body.size1 #reset,
+        body.size4 #reset,
+        body.size5 #reset {
             top: calc(770px - 80px);
         }
 
         #table {
             border-collapse: collapse;
-            width: 100%;
+            width: calc(100% - 160px);
             position: relative;
             table-layout: fixed;
+            margin: 0.5em 80px;
         }
 
         #image-positioning table {
+            margin-top: 20px;
             width: 100%;
             border-collapse: collapse;
             box-sizing: border-box;
@@ -169,6 +213,7 @@
         th>div {
             padding: 10px;
             background: #CCC;
+            border-radius: 7px;
         }
 
         th {
@@ -226,8 +271,10 @@
         }
 
         body.size1 #priceCell>div,
-        body:not(.size2) .doubledForDoubleCards>div {
-            width: 200%;
+        body:not(.size2) .doubledForDoubleCards>div,
+        body.size3 .doubledForBaseCards>div,
+        body.size4 .doubledForPileMarkers>div {
+            width: calc(200% + 5px);
             box-sizing: border-box;
         }
 
@@ -249,6 +296,13 @@
             margin-top: 0.25em;
             border: none;
             outline: none;
+            border-radius: 5px;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        label {
+            padding: 0;
         }
 
         textarea {
@@ -261,13 +315,22 @@
             margin-right: 3%;
         }
 
-        button,
         input[type=range] {
             cursor: pointer;
+            padding: 0;
         }
 
         #image-positioning button {
-            margin-top: 9px;
+            margin-top: 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: #eee;
+            padding: 0.3em 1em;
+        }
+
+        #image-positioning button:hover,
+        #image-positioning button:focus {
+            background-color: #fff;
         }
 
         [data-status]:after {
@@ -408,7 +471,7 @@
     var boldLinePatternWords;
     rebuildBoldLinePatternWords();
 	//var boldLinePatternIcons = RegExp("[-+]\\d+\\s" + iconList + "\\d+", "ig");
-	var iconWithNumbersPattern = "(" + iconList + ")([\\d\\?]*[-+\\*]?)";
+	var iconWithNumbersPattern = "[-+]?(" + iconList + ")([\\d\\?]*[-+\\*]?)";
 	var iconWithNumbersPatternSingle = RegExp("^([-+]?\\d+)?" + iconWithNumbersPattern + "(\\S*)$");
 	iconWithNumbersPattern = RegExp(iconWithNumbersPattern, "g");
 	
@@ -500,6 +563,8 @@
 				while (word) {
 					var match = word.match(iconWithNumbersPatternSingle);
 					if (match) {
+                        var familyOriginal = family;
+                        family = "Minion";
 						var localY = y;
 						var localScale = scale;
 						if (words.length === 1) {
@@ -507,7 +572,7 @@
 							context.font = "bold 192pt " + family;
 							localScale = 1.6;
 						}
-						var halfWidthOfSpaces = context.measureText(iconReplacedWithSpaces).width / 2;
+						var halfWidthOfSpaces = context.measureText(iconReplacedWithSpaces).width / 2 + 2;
 						
 						var image = false;
 						var iconKeys = Object.keys(icons);
@@ -519,6 +584,9 @@
 						}
 						
 						context.save();
+                        if(match[0].charAt(0)==='+' || match[0].charAt(0)==='-' ) {
+                            match[1] = match[0].charAt(0);
+                        }
 						if (match[1]) {
 							if (context.font[0] !== "b")
 								context.font = "bold " + context.font;
@@ -531,7 +599,7 @@
 						context.translate(x,localY);
 						context.scale(localScale, localScale);
 						if (image && image.height) { //exists
-							context.shadowColor = "#000";
+							//context.shadowColor = "#000";
 							context.shadowBlur = 25;
 							context.shadowOffsetX = localScale * shadowDistance;
 							context.shadowOffsetY = localScale * shadowDistance;
@@ -543,16 +611,23 @@
 							context.fillStyle = getIconListing(match[2])[1];
                             let cost = match[3];
                             let bigNumberScale = 1;
+                            let nx = localScale>1.4 ? 0 : -5*localScale^2;
+                            let ny = localScale>1 ? 6*localScale : localScale>0.7 ? 12*localScale : localScale>0.5 ? 24*localScale : 48*localScale;
                             if(cost.length >= 2) {
                                 // special handling for overpay and variable costs
                                 let specialCost = cost.slice(-1);
+                                let specialCostSize = 45;
+                                let syShift = 0;
                                 if (specialCost === '*') {
-                                    specialCost = '✱';
+                                    //specialCost = '✱';
+                                    specialCostSize = 65;
+                                    syShift = 10;
                                     if(cost.length>2) {
                                         bigNumberScale = 1.5/(cost.length-1);
                                     }
                                 } else if (specialCost === '+') {
                                     specialCost = '✚';
+                                    specialCostSize = 40;
                                     if(cost.length>2) {
                                         bigNumberScale = 1.5/(cost.length-1);
                                     }
@@ -562,15 +637,23 @@
                                 }
                                 if(specialCost != null) {
                                     cost = cost.slice(0, -1) + " ";
-                                    context.font = "bold " + 45 + "pt " + family;
-                                    context.fillText(specialCost, localScale>1 ? 45/2*localScale : 45*localScale, localScale>1 ? -20*localScale : 12*localScale-35*localScale);
+                                    context.font = "bold " + specialCostSize + "pt " + family;
+                                    let sx = localScale>1 ? 45/2*localScale : 45*localScale;
+                                    let sy = localScale>1 ? -20*localScale : 12*localScale-35*localScale;
+                                    if(cost.length >= 3) {
+                                        nx -= specialCostSize*1/3;
+                                        sx += specialCostSize*1/3;
+                                    }
+                                    sy += syShift*localScale;
+                                    context.fillText(specialCost, sx, sy);
                                 }
                             }
 							context.font = "bold " + 115*bigNumberScale + "pt " + family;
-                            context.fillText(cost, 0, localScale>1 ? 2*localScale : 12*localScale);
+                            context.fillText(cost, nx, ny);
 							//context.strokeText(match[3], 0, 0);
 						}
 						context.restore();
+                        family = familyOriginal;
 						
 						x += halfWidthOfSpaces;
 						word = match[4];
@@ -857,7 +940,7 @@
 			writeIllustrationCredit(150, 2038, "white", "");
 			writeCreatorCredit(1253, 2038, "white", "");
             
-			drawExpansionIcon(1220, 1910, 100, 100);
+			drawExpansionIcon(1230, 1920, 80, 80);
             
 		} else if (templateSize == 1) { //event/landscape
 			drawPicture(1075, 584, 1887, 730);
@@ -897,7 +980,7 @@
 			writeIllustrationCredit(181, 1272, "black", "bold ");
 			writeCreatorCredit(1969, 1272, "black", "bold ");
             
-			drawExpansionIcon(1920, 1180, 100, 100);
+			drawExpansionIcon(1930, 1190, 80, 80);
             
 		} else if (templateSize == 2) { //double card
 			drawPicture(704, 1075, 1150, 564);
@@ -961,7 +1044,7 @@
 			writeIllustrationCredit(150, 2038, "white", "");
 			writeCreatorCredit(1253, 2038, "white", "");
             
-			drawExpansionIcon(1220, 1910, 100, 100);
+			drawExpansionIcon(1230, 1920, 80, 80);
             
 		} else if (templateSize == 3) { //base card
 			drawPicture(704, 1075, 1150, 1898);
@@ -1007,7 +1090,7 @@
 			writeIllustrationCredit(165, 2045, "white", "");
 			writeCreatorCredit(1225, 2045, "white", "");
             
-			drawExpansionIcon(1220, 1935, 100, 100);
+			drawExpansionIcon(1230, 1945, 80, 80);
         } else if (templateSize == 4) { //pile marker
 			drawPicture(1075, 702, 1250, 870);
             removeCorners(2151,1403,100);
@@ -1050,7 +1133,7 @@
 			writeIllustrationCredit(15, 660, "white", "", 16);
 			writeCreatorCredit(913, 660, "white", "", 16);
             
-			drawExpansionIcon(883, 45, 50, 50);
+			drawExpansionIcon(888, 40, 40, 40);
             
         }
 
@@ -1432,7 +1515,8 @@
                     <li><span class="def">-</span>: horizontal bar</li>
                     <li><span class="def">[i]</span>: italic line</li>
                 </ul>
-                <a id="download" target="_blank" title="click to download card image file" rel="nofollow" download="card.png"><button type="button" onclick="downloadPicture()"><img src="icon-download.png" />Download Card</button></a>
+                <a id="download" target="_blank" title="click to download card image file" download="card.png"><button type="button" onclick="downloadPicture()"><img src="icon-download.png" />Download Card</button></a>
+                <a id="reset" href="?" title="click to reset all fields"><button type="button">Reset</button></a>
             </th>
             <th colspan="2">Dominion Card Image Generator (<a id="linkToOriginal" href="https://shemitz.net/static/dominion3/" title="click to pass inputs to the original version">Original</a> &amp; <a target="_blank" rel="nofollow" href=" http://forum.dominionstrategy.com/index.php?topic=16622.0" title="show discussion, description and announcements in the forum">Discussion</a>) <span class="heading-credits">Extended Version (<a target="_blank" rel="nofollow" href="https://github.com/shardofhonor/dominion-card-generator" title="view source on github and contribute code">Join Development</a>)</span></th>
         </tr>
@@ -1469,7 +1553,7 @@
             </td>
         </tr>
         <tr>
-            <td class="hideForPileMarker hideForMats">
+            <td class="doubledForBaseCards hideForPileMarker hideForMats">
                 <div>
                     <label for="type">Type</label>
                     <input id="type" placeholder="Action" />
@@ -1483,12 +1567,10 @@
             </td>
         </tr>
         <tr>
-            <td rowspan="3">
-                <div>
+            <td rowspan="3" class="doubledForPileMarkers">
+                <div id="image-positioning">
                     <label for="picture">URL of Illustration</label>
                     <input id="picture" type="url" placeholder="http://www.example.com/image.jpg" />
-                </div>
-                <div id="image-positioning">
                     <table>
                         <tr>
                             <td><label for="picture-x">Position X:</label></td>
@@ -1549,7 +1631,7 @@
             </td>
         </tr>
         <tr>
-            <td class="hideForMats">
+            <td class="hideForMats doubledForBaseCards doubledForPileMarkers">
                 <div>
                     <label for="normalcolor1">Color</label>
                     <select name="normalcolor" id="normalcolor1">
