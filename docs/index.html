@@ -584,7 +584,7 @@
 						}
 						
 						context.save();
-                        if(match[0].charAt(0)==='+' || match[0].charAt(0)==='-' ) {
+                        if(!match[1] && (match[0].charAt(0)==='+' || match[0].charAt(0)==='-' )) {
                             match[1] = match[0].charAt(0);
                         }
 						if (match[1]) {
