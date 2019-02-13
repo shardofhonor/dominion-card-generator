@@ -542,15 +542,17 @@
 			return icons[icon] || icons["\\"+icon];
 		}
 		var shadowDistance = 10;
-		var italics = "";
 		function writeLineWithIconsReplacedWithSpaces(line, x, y, scale, family, boldSize) {
 			boldSize = boldSize || 64;
 			context.textAlign = "left";
             
-            if(line.includes("[i]")) {
+            var italicSubstrings = ["[i]","Hierloom: ","Erbstück: ","(This is not in the supply.)","(Keep this until Clean-up.)"];
+            if (new RegExp(italicSubstrings.join("|")).test(line)) {
                 context.font = "italic "+context.font;
-                line = line.split("[i]").join("");
-                x += boldSize*scale;
+                if(line.includes("[i]")) {
+                    line = line.split("[i]").join("");
+                    x += boldSize*scale;
+                }
             } else {
                 context.font = context.font.replace("italic ","");
             }
@@ -1537,7 +1539,7 @@
             <td class="doubledForDoubleCards hideForPileMarker">
                 <div>
                     <label for="description">Description</label>
-                    <textarea rows="4" id="description" placeholder="+1 Card
+                    <textarea rows="5" id="description" placeholder="+1 Card
 +2 Actions"></textarea>
                     <div>
                         <label for="boldkeys">Additional Bold Keywords</label>
@@ -1547,7 +1549,7 @@
             <td class="hideForPileMarker hideForMats">
                 <div>
                     <label for="description2">Description</label>
-                    <textarea rows="4" id="description2"></textarea>
+                    <textarea rows="5" id="description2"></textarea>
                 </div>
             </td>
         </tr>
