@@ -573,6 +573,14 @@
 							localY += 115 - scale * 48;
 							context.font = "bold 192pt " + family;
 							localScale = 1.6;
+                            if(templateSize===3) {
+							    context.font = "bold 222pt " + family;
+                                if (word.includes('$')) { // Treasure Base cards
+                                    localScale = localScale*2;
+                                } else {
+                                    localScale = localScale*1.5;
+                                }
+                            }
 						}
 						var halfWidthOfSpaces = context.measureText(iconReplacedWithSpaces).width / 2 + 2;
 						
@@ -592,8 +600,8 @@
 						if (match[1]) {
 							if (context.font[0] !== "b")
 								context.font = "bold " + context.font;
-							context.fillText(match[1], x, localY);
-							x += context.measureText(match[1]).width;
+							    context.fillText(match[1], x, localY);
+							    x += context.measureText(match[1]).width+10*localScale;
 						}
 						
 						x += halfWidthOfSpaces;
@@ -615,6 +623,10 @@
                             let bigNumberScale = 1;
                             let nx = localScale>1.4 ? 0 : -5*localScale^2;
                             let ny = localScale>1 ? 6*localScale : localScale>0.7 ? 12*localScale : localScale>0.5 ? 24*localScale : 48*localScale;
+                            if (localScale > 3) {
+                                bigNumberScale = 0.8;
+                                ny -= (115*0.2)/2;
+                            }
                             if(cost.length >= 2) {
                                 // special handling for overpay and variable costs
                                 let specialCost = cost.slice(-1);
