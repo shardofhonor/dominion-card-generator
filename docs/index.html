@@ -867,7 +867,7 @@
 		function drawExpansionIcon(xCenter, yCenter, width, height) {
 			if (expansion.height) {
 				var scale;
-				if (expansion.width / width > expansion.height / height) { //size of area to draw picture to
+				if (expansion.width / width < expansion.height / height) { //size of area to draw picture to
 					scale = height / expansion.height;
 				} else {
 					scale = width / expansion.width;
