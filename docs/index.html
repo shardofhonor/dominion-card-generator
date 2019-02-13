@@ -542,12 +542,12 @@
 			return icons[icon] || icons["\\"+icon];
 		}
 		var shadowDistance = 10;
+        var italicSubstrings = ["[i]","Heirloom: ","Erbstück: ","This is not in the supply.","Keep this until Clean-up."];
 		function writeLineWithIconsReplacedWithSpaces(line, x, y, scale, family, boldSize) {
 			boldSize = boldSize || 64;
 			context.textAlign = "left";
             
-            var italicSubstrings = ["[i]","Heirloom: ","Erbstück: ","(This is not in the supply.)","(Keep this until Clean-up.)"];
-            if (new RegExp(italicSubstrings.join("|")).test(line)) {
+            if (italicSubstrings.some(substring=>line.includes(substring))) {
                 context.font = "italic "+context.font;
                 if(line.includes("[i]")) {
                     line = line.split("[i]").join("");
@@ -556,6 +556,7 @@
             } else {
                 context.font = context.font.replace("italic ","");
             }
+            console.log(context.font);
             
 			var words = line.split(" ");
 			for (var i = 0; i < words.length; ++i) {
@@ -678,7 +679,7 @@
 			family = family || "TrajanPro";
 			var size = (initialSize || 85) + 2;
 			do {
-				context.font = (family === "Times New Roman" ? "italic " : "") + (size -= 2) + "pt " + family;
+				context.font = (size -= 2) + "pt " + family;
 			} while (maxWidth && getWidthOfLineWithIconsReplacedWithSpaces(line) > maxWidth);
 			writeLineWithIconsReplacedWithSpaces(line, x - getWidthOfLineWithIconsReplacedWithSpaces(line) / 2, y, size / 90, family);
 		}
