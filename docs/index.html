@@ -546,7 +546,7 @@
 			boldSize = boldSize || 64;
 			context.textAlign = "left";
             
-            var italicSubstrings = ["[i]","Hierloom: ","Erbstück: ","(This is not in the supply.)","(Keep this until Clean-up.)"];
+            var italicSubstrings = ["[i]","Heirloom: ","Erbstück: ","(This is not in the supply.)","(Keep this until Clean-up.)"];
             if (new RegExp(italicSubstrings.join("|")).test(line)) {
                 context.font = "italic "+context.font;
                 if(line.includes("[i]")) {
