@@ -18,11 +18,13 @@
     <style type="text/css">
         @font-face {
             font-family: 'TrajanPro';
+            font-display: auto;
             src: url('./fonts/Trajan Pro Bold.ttf') format('truetype');
         }
 
         @font-face {
             font-family: 'Minion';
+            font-display: auto;
             src: url('./fonts/MinionStd-Black.otf') format('opentype');
         }
 
@@ -30,7 +32,6 @@
         body {
             padding: 0;
             margin: 0;
-            background: #FFF;
             font-family: "Times New Roman";
         }
 
@@ -48,13 +49,13 @@
         }
 
         body:before {
-            background-image: url(spear-left.png);
+            background-image: url('assets/spear-left.png');
             left: 0;
             background-position: left;
         }
 
         body:after {
-            background-image: url(spear-right.png);
+            background-image: url('assets/spear-right.png');
             right: 0;
             background-position: right;
         }
@@ -70,6 +71,11 @@
             transform-origin: top left;
             transform: scale(0.213854021, 0.213854021);
             #scale(calc(300 / 1403), calc(460 / 2151));
+            background-color: white;
+        }
+
+        body:not(.size5) .myCanvas {
+            border-radius: 100px;
         }
 
         body.size1 #portraitCanvas,
@@ -184,6 +190,8 @@
             position: relative;
             table-layout: fixed;
             margin: 0.5em 80px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
         }
 
         #image-positioning table {
@@ -216,7 +224,6 @@
         }
 
         th {
-            background: #FFF;
             font-family: TrajanPro;
         }
 
@@ -376,6 +383,7 @@
             width: 25px;
             display: inline-block;
             text-align: center;
+            font-family: "Minion";
         }
 
         [name=recolor]:nth-of-type(3n) {
@@ -395,7 +403,9 @@
 
         var templateSize = 0; //save globally
         
-        window.onload = function() {
+        // Initialization of complete logic on load of page
+        window.addEventListener('load', function() {
+            
 	//these three can all be expanded as you see fit
 	var icons = {//the names should match the image filenames (plus a .png extension).
 		"@": ["Debt", "white", "Treasure"],
@@ -556,7 +566,6 @@
             } else {
                 context.font = context.font.replace("italic ","");
             }
-            console.log(context.font);
             
 			var words = line.split(" ");
 			for (var i = 0; i < words.length; ++i) {
@@ -1446,6 +1455,20 @@
             
 };
         
+        // service worker, to cache image-resources (github pages only caches them 10 minutes...)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('service-worker.js').then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+        
+        // function to download the finished card
         function downloadPicture() {
         
             function dataURLtoBlob(dataurl) {
@@ -1529,10 +1552,10 @@
                     <li><span class="def">-</span>: horizontal bar</li>
                     <li><span class="def">[i]</span>: italic line</li>
                 </ul>
-                <a id="download" target="_blank" title="click to download card image file" download="card.png"><button type="button" onclick="downloadPicture()"><img src="icon-download.png" />Download Card</button></a>
+                <a id="download" target="_blank" title="click to download card image file" download="card.png"><button type="button" onclick="downloadPicture()"><img src="assets/icon-download.png" />Download Card</button></a>
                 <a id="reset" href="?" title="click to reset all fields"><button type="button">Reset</button></a>
             </th>
-            <th colspan="2">Dominion Card Image Generator (<a id="linkToOriginal" href="https://shemitz.net/static/dominion3/" title="click to pass inputs to the original version">Original</a> &amp; <a target="_blank" rel="nofollow" href=" http://forum.dominionstrategy.com/index.php?topic=16622.0" title="show discussion, description and announcements in the forum">Discussion</a>) <span class="heading-credits">Extended Version (<a target="_blank" rel="nofollow" href="https://github.com/shardofhonor/dominion-card-generator" title="view source on github and contribute code">Join Development</a>)</span></th>
+            <th colspan="2">Dominion Card Image Generator (<a id="linkToOriginal" href="https://shemitz.net/static/dominion3/" title="click to pass inputs to the original version">Original</a> &amp; <a target="_blank" rel="nofollow" href="http://forum.dominionstrategy.com/index.php?topic=16622.msg787231#new" title="show discussion, description and announcements in the forum">Discussion</a>) <span class="heading-credits">Extended Version (<a target="_blank" rel="nofollow" href="https://github.com/shardofhonor/dominion-card-generator" title="view source on github and contribute code">Join Development</a>)</span></th>
         </tr>
         <tr>
             <td class="doubledForDoubleCards">
@@ -1596,7 +1619,7 @@
                         </tr>
                         <tr>
                             <td><label for="picture-zoom">Zoom:</label></td>
-                            <td colspan="2"><input id="picture-zoom" type="range" min="1" max="2" value="1" step="0.1"></td>
+                            <td colspan="2"><input id="picture-zoom" type="range" min="1" max="3" value="1" step="0.1"></td>
                         </tr>
                         <tr>
                             <td colspan="3"><button onclick="(function(){
