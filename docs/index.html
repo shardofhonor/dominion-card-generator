@@ -71,7 +71,48 @@
             transform-origin: top left;
             transform: scale(0.213854021, 0.213854021);
             #scale(calc(300 / 1403), calc(460 / 2151));
-            background-color: white;
+        }
+
+        #load-indicator {
+            position: absolute;
+            top: 235px;
+            left: 160px;
+            height: 30px;
+            width: 30px;
+            padding: 10px;
+            margin: -25px 0 0 -25px;
+            -webkit-animation: spin 1.5s linear infinite;
+            -moz-animation: spin 1.5s linear infinite;
+            animation: spin 1.5s linear infinite;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+        }
+
+        body.size1 #load-indicator,
+        body.size4 #load-indicator,
+        body.size5 #load-indicator {
+            top: 160px;
+            left: 235px;
+        }
+
+
+        @-moz-keyframes spin {
+            100% {
+                -moz-transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes spin {
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
         }
 
         body:not(.size5) .myCanvas {
@@ -1165,6 +1206,7 @@
 		
 		updateURL();
 
+        document.getElementById("load-indicator").setAttribute("style", "display:none;");
 		canvases[0].parentNode.removeAttribute("data-status");
 		return;
 	}
@@ -1386,6 +1428,7 @@
 		templateSizeInputs[i].onchange = function(i){return function() {
 			templateSize = parseInt(this.value);
 			document.body.className = this.id;
+            document.getElementById("load-indicator").removeAttribute("style");
 			queueDraw(250);
 		}}(i);
 	
@@ -1509,6 +1552,7 @@
                 <canvas class="myCanvas" id="portraitCanvas" width="1403" height="2151" title="Right-Click this image for options to save it.">Your browser does not support the &lt;CANVAS&gt; tag.</canvas>
                 <canvas class="myCanvas" id="landscapeCanvas" width="2151" height="1403" title="Right-Click this image for options to save it.">Your browser does not support the &lt;CANVAS&gt; tag.</canvas>
                 <canvas class="myCanvas" id="matCanvas" width="928" height="684" style="transform:scale(0.49);" title="Right-Click this image for options to save it.">Your browser does not support the &lt;CANVAS&gt; tag.</canvas>
+                <img id="load-indicator" src="assets/spinner.png" alt="Loading..." />
                 <menu id="sizes">
                     <input type="radio" name="size" id="size0" value="0" checked />
                     <label for="size0">
