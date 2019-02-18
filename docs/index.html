@@ -1531,8 +1531,9 @@
                 fileName += "card";
             }
             if(creator.length>0) {
-                fileName += "_" + creator;
+                fileName += "_" + creator.split(" ")[0];
             }
+            fileName = fileName.split(" ").join("_");
             fileName += ".png";
             link.setAttribute('download', fileName);
             var url = (window.webkitURL || window.URL).createObjectURL(dataURLtoBlob(image));
