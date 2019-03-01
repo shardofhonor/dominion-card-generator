@@ -1374,7 +1374,7 @@
 		    imagesLoaded = false;
 		    queueDraw(250);
         }
-        if(url.length>0 && useCORS){
+        if(url.length>0 && useCORS && url.substr(0,11) != 'data:image/'){
             loadImgAsBase64(url, (dataURL) => { setImageSource(dataURL) }); 
         } else { 
             setImageSource(url)
