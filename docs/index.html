@@ -16,6 +16,61 @@
     <meta name="theme-color" content="#ffffff">
 
     <style type="text/css">
+        
+        /* color scheme */
+            :root {
+                
+                --color-text: black;
+                --color-background1: white;
+                --color-background2: #CCC;
+                --color-background3: rgba(255,255,255,0.5);
+                
+                --color-link: #00A;
+                --color-link-hover: #00F;
+                
+                --color-input-text: black;
+                --color-input-background: white;
+                
+                --color-button1-text: white;
+                --color-button1-background: #555;
+                --color-button1-background-hover: black;
+                
+                --color-button2-text: black;
+                --color-button2-background: #DDD;
+                --color-button2-background-hover: #FFF;
+                
+                --color-shadow1-transparent: rgba(0, 0, 0, 0.3);
+                --color-shadow2-transparent: rgba(255, 255, 255, 0.5);
+            }
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                
+                --color-text: white;
+                --color-background1: #111;
+                --color-background2: #333;
+                --color-background3: rgba(17,17,17,17.5);
+                
+                --color-link: #55D;
+                --color-link-hover: #77F;
+                
+                --color-input-text: white;
+                --color-input-background: #777;
+                
+                --color-button1-text: white;
+                --color-button1-background: #555;
+                --color-button1-background-hover: #777;
+                
+                --color-button2-text: black;
+                --color-button2-background: #555;
+                --color-button2-background-hover: #777;
+                
+                --color-shadow1-transparent: rgba(0, 0, 0, 0.3);
+                --color-shadow2-transparent: rgba(255, 255, 255, 0.5);
+            }
+        }
+        
+        
         @font-face {
             font-family: 'TrajanPro';
             font-display: auto;
@@ -45,6 +100,8 @@
             padding: 0;
             margin: 0;
             font-family: "Times New Roman";
+            color: var(--color-text);
+            background: var(--color-background1);
         }
 
         body:before,
@@ -75,6 +132,14 @@
         * {
             font-size: 14pt;
         }
+        
+        a {
+            color: var(--color-link);
+        }
+        
+        a:hover, a:focus {
+            color: var(--color-link-hover);
+        }
 
         .myCanvas {
             position: absolute;
@@ -96,7 +161,7 @@
             -webkit-animation: spin 1.5s linear infinite;
             -moz-animation: spin 1.5s linear infinite;
             animation: spin 1.5s linear infinite;
-            background: rgba(255, 255, 255, 0.5);
+            background: var(--color-shadow2-transparent);
             border-radius: 50%;
         }
 
@@ -195,9 +260,9 @@
         #download button,
         #reset button {
             box-sizing: border-box;
-            background: #555;
+            background: var(--color-button1-background);
             border: none;
-            color: white;
+            color: var(--color-button1-text);
             padding: 0.5em 0.7em;
             cursor: pointer;
             border-radius: 5px;
@@ -214,12 +279,12 @@
         #download button:focus,
         #reset button:hover,
         #reset button:focus {
-            background: black;
+            background: var(--color-button1-background-hover);
         }
 
         button {
             cursor: pointer;
-            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 1px 1px var(--color-shadow1-transparent);
         }
 
         button:active {
@@ -244,7 +309,7 @@
             table-layout: fixed;
             margin: 0.5em 80px;
             border-radius: 10px;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: var(--color-background3);
         }
 
         #image-positioning table {
@@ -272,7 +337,7 @@
         td>div,
         th>div {
             padding: 10px;
-            background: #CCC;
+            background: var(--color-background2);
             border-radius: 7px;
         }
 
@@ -359,6 +424,13 @@
             padding: 5px;
             box-sizing: border-box;
         }
+        
+        input,
+        textarea,
+        select {
+            color: var(--color-input-text);
+            background: var(--color-input-background);
+        }
 
         label {
             padding: 0;
@@ -383,20 +455,21 @@
             margin-top: 15px;
             border-radius: 5px;
             border: none;
-            background-color: #eee;
+            color: var(--color-button2-text);
+            background-color: var(--color-button2-background);
             padding: 0.3em 1em;
         }
 
         #image-positioning button:hover,
         #image-positioning button:focus {
-            background-color: #fff;
+            background-color: var(--color-button2-background-hover)
         }
 
         [data-status]:after {
             position: absolute;
             top: 492px;
             left: 10px;
-            background: rgba(250, 250, 250, 0.6);
+            background: var(--color-background3);
             padding: 0.7em 0.7em;
             min-width: 270px;
             content: attr(data-status);
@@ -440,14 +513,17 @@
         }
 
         [name=recolor]:nth-of-type(3n) {
+            color: black;
             background: #DDF;
         }
 
         [name=recolor]:nth-of-type(3n+1) {
+            color: black;
             background: #FDD;
         }
 
         [name=recolor]:nth-of-type(3n+2) {
+            color: black;
             background: #DFD;
         }
 
