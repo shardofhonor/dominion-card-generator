@@ -16,61 +16,60 @@
     <meta name="theme-color" content="#ffffff">
 
     <style type="text/css">
-        
         /* color scheme */
+        :root {
+
+            --color-text: black;
+            --color-background1: white;
+            --color-background2: #CCC;
+            --color-background3: rgba(255, 255, 255, 0.5);
+
+            --color-link: #00A;
+            --color-link-hover: #00F;
+
+            --color-input-text: black;
+            --color-input-background: white;
+
+            --color-button1-text: white;
+            --color-button1-background: #555;
+            --color-button1-background-hover: black;
+
+            --color-button2-text: black;
+            --color-button2-background: #DDD;
+            --color-button2-background-hover: #FFF;
+
+            --color-shadow1-transparent: rgba(0, 0, 0, 0.3);
+            --color-shadow2-transparent: rgba(255, 255, 255, 0.5);
+        }
+
+        @media only screen and (prefers-color-scheme: dark) {
             :root {
-                
-                --color-text: black;
-                --color-background1: white;
-                --color-background2: #CCC;
-                --color-background3: rgba(255,255,255,0.5);
-                
-                --color-link: #00A;
-                --color-link-hover: #00F;
-                
-                --color-input-text: black;
-                --color-input-background: white;
-                
-                --color-button1-text: white;
-                --color-button1-background: #555;
-                --color-button1-background-hover: black;
-                
-                --color-button2-text: black;
-                --color-button2-background: #DDD;
-                --color-button2-background-hover: #FFF;
-                
-                --color-shadow1-transparent: rgba(0, 0, 0, 0.3);
-                --color-shadow2-transparent: rgba(255, 255, 255, 0.5);
-            }
-        
-        @media (prefers-color-scheme: dark) {
-            :root {
-                
+
                 --color-text: white;
                 --color-background1: #111;
                 --color-background2: #333;
-                --color-background3: rgba(17,17,17,17.5);
-                
+                --color-background3: rgba(17, 17, 17, 17.5);
+
                 --color-link: #55D;
                 --color-link-hover: #77F;
-                
+
                 --color-input-text: white;
                 --color-input-background: #777;
-                
+
                 --color-button1-text: white;
                 --color-button1-background: #555;
                 --color-button1-background-hover: #777;
-                
+
                 --color-button2-text: black;
                 --color-button2-background: #555;
                 --color-button2-background-hover: #777;
-                
+
                 --color-shadow1-transparent: rgba(0, 0, 0, 0.3);
                 --color-shadow2-transparent: rgba(255, 255, 255, 0.5);
             }
         }
-        
-        
+
+
         @font-face {
             font-family: 'TrajanPro';
             font-display: auto;
@@ -132,12 +131,13 @@
         * {
             font-size: 14pt;
         }
-        
+
         a {
             color: var(--color-link);
         }
-        
-        a:hover, a:focus {
+
+        a:hover,
+        a:focus {
             color: var(--color-link-hover);
         }
 
@@ -424,7 +424,7 @@
             padding: 5px;
             box-sizing: border-box;
         }
-        
+
         input,
         textarea,
         select {
