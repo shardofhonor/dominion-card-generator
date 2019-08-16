@@ -235,6 +235,10 @@ body.size5 #sizes {
     top: 770px;
 }
 
+#share {
+    top: calc(770px + 3em);
+}
+
 #reset {
     left: calc(40px + 9em);
 }
@@ -284,11 +288,14 @@ body.size4 #download,
 body.size5 #download,
 body.size1 #reset,
 body.size4 #reset,
-body.size5 #reset,
+body.size5 #reset {
+    top: calc(770px - 80px);
+}
+
 body.size1 #share,
 body.size4 #share,
 body.size5 #share {
-    top: calc(770px - 80px);
+    top: calc(770px - 80px + 3em);
 }
 
 #table {
