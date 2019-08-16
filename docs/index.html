@@ -75,7 +75,7 @@
                 <a id="reset" href="?" title="click to reset all fields"><button type="button">Reset</button></a>
                 <script>
                     if (navigator.share) {
-                        document.write('<a class="share-button" rel="nofollow" href="#share" onclick="if(navigator.vibrate){navigator.vibrate(50);};navigator.share({ title: document.title, text: document.title, url: window.location.href, }).catch((error) => console.log(\'Error sharing\', error));" title="Share Link"><button type="button"><img src="assets/icon-share.png" /><span class="hidden">Share</span></button></a>');
+                        document.write('<a id="share" rel="nofollow" href="#share" onclick="if(navigator.vibrate){navigator.vibrate(50);};navigator.share({ title: document.title, text: document.title, url: window.location.href, }).catch((error) => console.log(\'Error sharing\', error));" title="Share Link"><button type="button"><img src="assets/icon-share.png" /><span class="hidden">Share</span></button></a>');
                     }
                 </script>
             </th>
