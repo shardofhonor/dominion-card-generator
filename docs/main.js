@@ -1,7 +1,7 @@
 var templateSize = 0; //save globally
 
 // Initialization of complete logic on load of page
-window.addEventListener('load', function () {
+function initCardImageGenerator() {
 
     //these three can all be expanded as you see fit
     var icons = { //the names should match the image filenames (plus a .png extension).
@@ -1103,7 +1103,7 @@ window.addEventListener('load', function () {
         window.location.href = this.href + document.location.search;
     }, false);
 
-});
+}
 
 // function to download the finished card
 function downloadPicture() {

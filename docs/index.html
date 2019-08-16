@@ -16,13 +16,18 @@
     <meta name="theme-color" content="#ffffff">
 
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="main.js"></script>
 
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('service-worker.js');
         }
+        
+        function initialize() {
+            initCardImageGenerator();
+        }
+
     </script>
+    <script async src="main.js" onload="initialize()"></script>
 </head>
 
 <body class="size0">
