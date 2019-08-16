@@ -1,6 +1,8 @@
 {
-    "name": "",
-    "short_name": "",
+    "lang": "en",
+    "name": "Dominion Card Image Generator",
+    "short_name": "Card Generator",
+    "start_url": "/",
     "icons": [
         {
             "src": "android-chrome-192x192.png",
@@ -13,7 +15,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
+    "theme_color": "#B4B39A",
     "background_color": "#ffffff",
     "display": "standalone"
 }
