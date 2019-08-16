@@ -2,7 +2,7 @@
     "lang": "en",
     "name": "Dominion Card Image Generator",
     "short_name": "Card Generator",
-    "start_url": "/",
+    "start_url": "dominion-card-generator/",
     "icons": [
         {
             "src": "android-chrome-192x192.png",
