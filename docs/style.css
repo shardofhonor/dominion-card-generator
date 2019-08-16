@@ -228,7 +228,8 @@ body.size5 #sizes {
 }
 
 #download,
-#reset {
+#reset,
+#share {
     position: absolute;
     left: 20px;
     top: 770px;
@@ -239,7 +240,8 @@ body.size5 #sizes {
 }
 
 #download button,
-#reset button {
+#reset button,
+#share button {
     box-sizing: border-box;
     background: var(--color-button1-background);
     border: none;
@@ -249,7 +251,8 @@ body.size5 #sizes {
     border-radius: 5px;
 }
 
-#download button img {
+#download button img,
+#share button img {
     height: 1em;
     position: relative;
     top: 3px;
@@ -259,7 +262,9 @@ body.size5 #sizes {
 #download button:hover,
 #download button:focus,
 #reset button:hover,
-#reset button:focus {
+#reset button:focus,
+#share button:hover,
+#share button:focus {
     background: var(--color-button1-background-hover);
 }
 
@@ -279,7 +284,10 @@ body.size4 #download,
 body.size5 #download,
 body.size1 #reset,
 body.size4 #reset,
-body.size5 #reset {
+body.size5 #reset,
+body.size1 #share,
+body.size4 #share,
+body.size5 #share {
     top: calc(770px - 80px);
 }
 
