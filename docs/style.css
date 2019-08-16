@@ -5,6 +5,7 @@
     --color-background1: white;
     --color-background2: #CCC;
     --color-background3: rgba(255, 255, 255, 0.5);
+    --color-background4: #DDD;
 
     --color-link: #00A;
     --color-link-hover: #00F;
@@ -22,6 +23,7 @@
 
     --color-shadow1-transparent: rgba(0, 0, 0, 0.3);
     --color-shadow2-transparent: rgba(255, 255, 255, 0.5);
+    --color-shadow3-transparent: rgba(0, 0, 0, 0.75);
 }
 
 @media only screen and (prefers-color-scheme: dark) {
@@ -31,6 +33,7 @@
         --color-background1: #111;
         --color-background2: #333;
         --color-background3: rgba(17, 17, 17, 17.5);
+        --color-background4: #222;
 
         --color-link: #55D;
         --color-link-hover: #77F;
@@ -48,6 +51,7 @@
 
         --color-shadow1-transparent: rgba(0, 0, 0, 0.3);
         --color-shadow2-transparent: rgba(255, 255, 255, 0.5);
+        --color-shadow3-transparent: rgba(0, 0, 0, 0.75);
     }
 }
 
@@ -120,6 +124,10 @@ a {
 a:hover,
 a:focus {
     color: var(--color-link-hover);
+}
+
+.hidden {
+    display: none;
 }
 
 .myCanvas {
@@ -229,13 +237,15 @@ body.size5 #sizes {
 
 #download,
 #reset,
-#share {
+#share,
+#favorites {
     position: absolute;
     left: 20px;
     top: 770px;
 }
 
-#share {
+#share,
+#favorites {
     top: calc(770px + 3em);
 }
 
@@ -243,9 +253,11 @@ body.size5 #sizes {
     left: calc(40px + 9em);
 }
 
-#download button,
-#reset button,
-#share button {
+#share {
+    left: calc(40px + 6.2em);
+}
+
+button {
     box-sizing: border-box;
     background: var(--color-button1-background);
     border: none;
@@ -255,20 +267,16 @@ body.size5 #sizes {
     border-radius: 5px;
 }
 
-#download button img,
-#share button img {
+button img {
     height: 1em;
     position: relative;
     top: 3px;
     margin-right: 0.2em;
 }
 
-#download button:hover,
-#download button:focus,
-#reset button:hover,
-#reset button:focus,
-#share button:hover,
-#share button:focus {
+
+button:hover,
+button:focus {
     background: var(--color-button1-background-hover);
 }
 
@@ -294,7 +302,10 @@ body.size5 #reset {
 
 body.size1 #share,
 body.size4 #share,
-body.size5 #share {
+body.size5 #share,
+body.size1 #favorites,
+body.size4 #favorites,
+body.size5 #favorites {
     top: calc(770px - 80px + 3em);
 }
 
@@ -521,4 +532,61 @@ body.size5 #legend {
 [name=recolor]:nth-of-type(3n+2) {
     color: black;
     background: #DFD;
+}
+
+
+
+#manage-favorites {
+    position: fixed;
+    top: 2em;
+    left: 2em;
+    height: calc(100% - 4em);
+    width: calc(100% - 4em);
+    box-sizing: border-box;
+    background: var(--color-background2);
+    overflow-y: scroll;
+    box-shadow: 0 0 50px 50px var(--color-shadow3-transparent);
+    z-index: 100;
+    padding: 0;
+}
+
+#manage-favorites .menu {
+    position: fixed;
+    left: 2em;
+    width: calc(100% - 6em);
+    padding: 1em;
+    background: var(--color-background2);
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+button.close,
+button.delete {
+    float: right;
+}
+
+#favorites-list {
+    width: 100%;
+    padding: 1em 0;
+    margin: 0;
+    margin-top: 4em;
+    list-style-type: none;
+    background: var(--color-background4);
+    box-sizing: border-box;
+}
+
+#favorites-list li {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 1.5em;
+}
+
+#favorites-list li a {
+    width: calc(100% - 5em);
+    display: inline-block;
+    padding: 0.5em 0;
+}
+
+#favorites-list li:hover {
+    background: var(--color-background3);
 }

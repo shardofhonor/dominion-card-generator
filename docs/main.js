@@ -1,5 +1,18 @@
 var templateSize = 0; //save globally
 
+Array.prototype.remove = function () {
+    var what, a = arguments,
+        L = a.length,
+        ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
+
 // Initialization of complete logic on load of page
 function initCardImageGenerator() {
 
@@ -826,20 +839,6 @@ function initCardImageGenerator() {
         history.replaceState({}, "Dominion Card Image Generator", arguments);
     }
 
-    function getQueryParams(qs) { //http://stackoverflow.com/questions/979975/how-to-get-the-value-from-the-get-parameters
-        qs = qs.split('+').join(' ');
-
-        var params = {},
-            tokens,
-            re = /[?&]?([^&=]+)=?([^&]*)/g;
-
-        while (tokens = re.exec(qs)) {
-            params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-        }
-
-        return params;
-    }
-
 
     // help function to load images CORS save // https://stackoverflow.com/a/43001137
     function loadImgAsBase64(url, callback, maxWidth, maxHeight) {
@@ -1105,6 +1104,20 @@ function initCardImageGenerator() {
 
 }
 
+function getQueryParams(qs) { //http://stackoverflow.com/questions/979975/how-to-get-the-value-from-the-get-parameters
+    qs = qs.split('+').join(' ');
+
+    var params = {},
+        tokens,
+        re = /[?&]?([^&=]+)=?([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
+
 // function to download the finished card
 function downloadPicture() {
 
@@ -1150,4 +1163,83 @@ function downloadPicture() {
     link.setAttribute('download', fileName);
     var url = (window.webkitURL || window.URL).createObjectURL(dataURLtoBlob(image));
     link.setAttribute("href", url);
+}
+
+
+function Favorites() {
+    var fav = document.getElementById("manage-favorites");
+    var favList = document.getElementById("favorites-list");
+    var data = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
+
+    this.open = function () {
+        fav.classList.remove('hidden');
+        this.refresh();
+    };
+    this.close = function () {
+        fav.classList.add('hidden');
+    };
+    this.deleteAll = function () {
+        data = [];
+        this.refresh();
+    };
+    this.delete = function (params) {
+        console.log(data);
+        data = data.remove(params);
+        console.log(data);
+        this.refresh();
+    };
+    this.add = function (params) {
+        data = data.remove(params);
+        data.push(params);
+        this.refresh();
+    };
+    this.load = function (params) {
+        window.location.href = this.href + params;
+    }
+    this.refresh = function (params) {
+        console.debug('Refreshing Favorites...');
+        while (favList.firstChild) {
+            favList.removeChild(favList.firstChild);
+        }
+        data.forEach(function (item) {
+            let title = getQueryParams(item).title == "" ? "[unnamed card]" : getQueryParams(item).title;
+            title = getQueryParams(item).creator == "" ? title : title + ' ' + getQueryParams(item).creator;
+            console.log(getQueryParams(item).size);
+            switch (getQueryParams(item).size) {
+                case '0':
+                    title = getQueryParams(item).type == "" ? title : '[' + getQueryParams(item).type + '] ' + title;
+                    title = "Card: " + title;
+                    break;
+                case '1':
+                    title = getQueryParams(item).type == "" ? title : '[' + getQueryParams(item).type + '] ' + title;
+                    title = "Landscape Thing: " + title;
+                    break;
+                case '3':
+                    title = getQueryParams(item).type == "" ? title : '[' + getQueryParams(item).type + '] ' + title;
+                    title = "Base Card: " + title;
+                    break;
+                case '4':
+                    title = "Pile Marker: " + title;
+                    break;
+                case '5':
+                    title = "Mat: " + title;
+                    break;
+            }
+
+            let li = document.createElement("li");
+            let a = document.createElement("a");
+            a.setAttribute('href', location.pathname + item);
+            a.appendChild(document.createTextNode(title));
+            li.appendChild(a);
+            let bttnDel = document.createElement("button");
+            bttnDel.setAttribute('class', "delete");
+            bttnDel.setAttribute('onclick', "myFavorites.delete('" + item + "')");
+            bttnDel.appendChild(document.createTextNode("Delete"));
+            li.appendChild(bttnDel);
+            favList.appendChild(li);
+        });
+
+        localStorage.setItem('favorites', JSON.stringify(data));
+        data = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
+    };
 }

@@ -24,6 +24,7 @@
         
         function initialize() {
             initCardImageGenerator();
+            myFavorites = new Favorites();
         }
 
     </script>
@@ -75,9 +76,18 @@
                 <a id="reset" href="?" title="click to reset all fields"><button type="button">Reset</button></a>
                 <script>
                     if (navigator.share) {
-                        document.write('<a id="share" rel="nofollow" href="#share" onclick="if(navigator.vibrate){navigator.vibrate(50);};navigator.share({ title: document.title, text: document.title, url: window.location.href, }).catch((error) => console.log(\'Error sharing\', error));" title="Share Link"><button type="button"><img src="assets/icon-share.png" /><span class="hidden">Share</span></button></a>');
+                        document.write('<a id="share" rel="nofollow" href="#share" onclick="if(navigator.vibrate){navigator.vibrate(50);};navigator.share({ title: document.title, text: document.title, url: window.location.href, }).catch((error) => console.log(\'Error sharing\', error));" title="Share Link"><button type="button"><img src="assets/icon-share.png" />Share</button></a>');
                     }
                 </script>
+                <a id="favorites"><button type="button" onclick="myFavorites.open()"><img src="assets/icon-favorites.png" />Favorites</button></a>
+                <div id="manage-favorites" class="hidden">
+                    <div class="menu">
+                        <button type="button" onclick="myFavorites.add( document.location.search )">Add Current Card</button>
+                        <button type="button" onclick="myFavorites.deleteAll()">Delete All</button>
+                        <button type="button" class="close" onclick="myFavorites.close()">Close</button>
+                    </div>
+                    <ul id="favorites-list"></ul>
+                </div>
             </th>
             <th colspan="2">Dominion Card Image Generator (<a id="linkToOriginal" href="https://shemitz.net/static/dominion3/" title="click to pass inputs to the original version">Original</a> &amp; <a target="_blank" rel="nofollow" href="http://forum.dominionstrategy.com/index.php?topic=16622.0" title="show discussion, description and announcements in the forum">Discussion</a>) <span class="heading-credits">Extended Version (<a target="_blank" rel="nofollow" href="https://github.com/shardofhonor/dominion-card-generator" title="view source on github and contribute code">Join Development</a>)</span></th>
         </tr>
