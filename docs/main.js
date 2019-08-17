@@ -1238,6 +1238,9 @@ function Favorites() {
             let a = document.createElement("a");
             a.setAttribute('href', location.pathname + item);
             a.appendChild(document.createTextNode(title));
+            if (item === document.location.search) {
+                li.setAttribute('class', "active");
+            }
             li.appendChild(a);
             let bttnDel = document.createElement("button");
             bttnDel.setAttribute('class', "delete");

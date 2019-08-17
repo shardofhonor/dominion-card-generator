@@ -606,6 +606,10 @@ button.delete-all:focus {
     text-decoration: none;
 }
 
+#favorites-list li.active {
+    background: var(--color-background3);
+}
+
 #favorites-list li:hover {
     background: var(--color-background3);
 }
