@@ -570,7 +570,7 @@ body.size5 #legend {
     z-index: 110;
 }
 
-#manage-favorites .menu input.filter {
+#manage-favorites .menu input.search {
     display: inline-block;
     max-width: 30%;
     padding: 0.5em;
