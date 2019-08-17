@@ -1217,7 +1217,7 @@ function Favorites(name) {
     this.search = function (term) {
         let children = favList.childNodes;
         for (child in children) {
-            if (child != "length" && child != "item") {
+            if (!isNaN(child)) {
                 if (children[child].hasChildNodes()) {
                     var cardname = children[child].childNodes[0].innerHTML;
                     if (cardname.toUpperCase().includes(term.toUpperCase())) {
