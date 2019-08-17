@@ -1217,13 +1217,13 @@ function Favorites(name) {
     this.search = function (term) {
         let children = favList.childNodes;
         for (child in children) {
-            if (children[child].hasChildNodes()) {
+            if (child != "length" && children[child].hasChildNodes()) {
                 var cardname = children[child].childNodes[0].innerHTML;
-            }
-            if (cardname.toUpperCase().includes(term.toUpperCase())) {
-                children[child].classList.remove('hidden');
-            } else {
-                children[child].classList.add('hidden');
+                if (cardname.toUpperCase().includes(term.toUpperCase())) {
+                    children[child].classList.remove('hidden');
+                } else {
+                    children[child].classList.add('hidden');
+                }
             }
         }
     }
