@@ -1169,7 +1169,7 @@ function downloadPicture() {
 function Favorites() {
     var fav = document.getElementById("manage-favorites");
     var favList = document.getElementById("favorites-list");
-    var data = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
+    var data = [];
 
     this.open = function () {
         fav.classList.remove('hidden');
@@ -1180,21 +1180,27 @@ function Favorites() {
     };
     this.deleteAll = function () {
         data = [];
-        this.refresh();
+        this.save();
     };
     this.delete = function (params) {
+        this.refresh();
         console.log(data);
         data = data.remove(params);
         console.log(data);
-        this.refresh();
+        this.save();
     };
     this.add = function (params) {
+        this.refresh();
         data = data.remove(params);
         data.push(params);
-        this.refresh();
+        this.save();
     };
     this.load = function (params) {
         window.location.href = this.href + params;
+    }
+    this.save = function () {
+        localStorage.setItem('favorites', JSON.stringify(data));
+        this.refresh();
     }
     this.refresh = function (params) {
         console.debug('Refreshing Favorites...');
@@ -1208,14 +1214,17 @@ function Favorites() {
             switch (getQueryParams(item).size) {
                 case '0':
                     title = getQueryParams(item).type == "" ? title : '[' + getQueryParams(item).type + '] ' + title;
+                    title = getQueryParams(item).price == "" ? title : getQueryParams(item).price.replace('^', 'P') + ' ' + title;
                     title = "Card: " + title;
                     break;
                 case '1':
                     title = getQueryParams(item).type == "" ? title : '[' + getQueryParams(item).type + '] ' + title;
+                    title = getQueryParams(item).price == "" ? title : getQueryParams(item).price.replace('^', 'P') + ' ' + title;
                     title = "Landscape Thing: " + title;
                     break;
                 case '3':
                     title = getQueryParams(item).type == "" ? title : '[' + getQueryParams(item).type + '] ' + title;
+                    title = getQueryParams(item).price == "" ? title : getQueryParams(item).price.replace('^', 'P') + ' ' + title;
                     title = "Base Card: " + title;
                     break;
                 case '4':
@@ -1239,7 +1248,6 @@ function Favorites() {
             favList.appendChild(li);
         });
 
-        localStorage.setItem('favorites', JSON.stringify(data));
         data = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
     };
 }
