@@ -55,7 +55,7 @@ const PRECACHE_CARD_URLS = [
   'card-resources/Potion.png',
   'card-resources/VP.png',
   'card-resources/VP-Token.png',
-  'card-resources/Traveller.png',
+  'card-resources/Traveller.png'
 ];
 
 // The install handler takes care of precaching the resources we always need.
