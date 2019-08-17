@@ -1176,6 +1176,7 @@ function Favorites(name) {
     this.open = function () {
         this.refresh();
         fav.classList.remove('hidden');
+        document.getElementById('favorites-search').focus();
     };
     this.close = function () {
         fav.classList.add('hidden');
@@ -1214,7 +1215,7 @@ function Favorites(name) {
         this.save();
         this.refresh();
     }
-    this.filter = function (term) {
+    this.search = function (term) {
         let children = favList.childNodes;
         for (child in children) {
             let cardname = children[child].childNodes[0].innerHTML;

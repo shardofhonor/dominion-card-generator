@@ -98,7 +98,7 @@
                         <button type="button" class="delete-all" onclick="myFavorites.deleteAll()"><img src="assets/icon-delete.png" />Delete All</button>
                         <button type="button" class="sort" onclick="myFavorites.sort()">Sort</button>
                         <button type="button" class="close" onclick="myFavorites.close()"><img src="assets/icon-close.png" />Close</button>
-                        <input type="search" class="filter" placeholder="Search..." oninput="myFavorites.filter(this.value)" />
+                        <input id="favorites-search" type="search" class="search" placeholder="Search..." oninput="myFavorites.search(this.value)" />
                     </div>
                     <ul id="favorites-list"></ul>
                 </div>
