@@ -14,6 +14,8 @@ const PRECACHE_URLS = [
   'assets/icon-download.png',
   'assets/icon-favorites.png',
   'assets/icon-share.png',
+  'assets/icon-close.png',
+  'assets/icon-delete.png',
   'assets/spear-left.png',
   'assets/spear-right.png',
   'assets/spinner.png'

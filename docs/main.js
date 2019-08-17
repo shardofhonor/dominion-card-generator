@@ -1242,6 +1242,9 @@ function Favorites() {
             let bttnDel = document.createElement("button");
             bttnDel.setAttribute('class', "delete");
             bttnDel.setAttribute('onclick', "myFavorites.delete('" + item + "')");
+            let imgDel = document.createElement("img");
+            imgDel.setAttribute('src', "assets/icon-delete.png");
+            bttnDel.appendChild(imgDel);
             bttnDel.appendChild(document.createTextNode("Delete"));
             li.appendChild(bttnDel);
             favList.appendChild(li);

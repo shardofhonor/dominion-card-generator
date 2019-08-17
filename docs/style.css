@@ -21,6 +21,8 @@
     --color-button2-background: #DDD;
     --color-button2-background-hover: #FFF;
 
+    --color-background-attention: #c55;
+
     --color-shadow1-transparent: rgba(0, 0, 0, 0.3);
     --color-shadow2-transparent: rgba(255, 255, 255, 0.5);
     --color-shadow3-transparent: rgba(0, 0, 0, 0.75);
@@ -48,6 +50,8 @@
         --color-button2-text: black;
         --color-button2-background: #555;
         --color-button2-background-hover: #777;
+
+        --color-background-attention: #933;
 
         --color-shadow1-transparent: rgba(0, 0, 0, 0.3);
         --color-shadow2-transparent: rgba(255, 255, 255, 0.5);
@@ -572,6 +576,13 @@ button.delete {
     margin-bottom: 0.2em;
 }
 
+button.delete:hover,
+button.delete:focus,
+button.delete-all:hover,
+button.delete-all:focus {
+    background-color: var(--color-background-attention);
+}
+
 #favorites-list {
     width: 100%;
     padding: 1em 0;
@@ -589,7 +600,7 @@ button.delete {
 }
 
 #favorites-list li a {
-    width: calc(100% - 5em);
+    width: calc(100% - 7em);
     display: inline-block;
     padding: 0.5em 0;
     text-decoration: none;
