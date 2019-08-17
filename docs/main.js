@@ -1211,7 +1211,6 @@ function Favorites(name) {
         } else {
             ascending = false;
         }
-        console.log(data);
         this.save();
         this.refresh();
     }
