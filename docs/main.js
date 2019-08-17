@@ -1203,7 +1203,8 @@ function Favorites() {
         this.refresh();
     }
     this.refresh = function (params) {
-        console.debug('Refreshing Favorites...');
+        data = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
+
         while (favList.firstChild) {
             favList.removeChild(favList.firstChild);
         }
@@ -1247,7 +1248,5 @@ function Favorites() {
             li.appendChild(bttnDel);
             favList.appendChild(li);
         });
-
-        data = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
     };
 }
