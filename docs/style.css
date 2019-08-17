@@ -565,6 +565,13 @@ button.delete {
     float: right;
 }
 
+button.delete {
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+}
+
 #favorites-list {
     width: 100%;
     padding: 1em 0;
@@ -585,6 +592,7 @@ button.delete {
     width: calc(100% - 5em);
     display: inline-block;
     padding: 0.5em 0;
+    text-decoration: none;
 }
 
 #favorites-list li:hover {
