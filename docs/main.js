@@ -1236,7 +1236,7 @@ function Favorites(name) {
             favList.removeChild(favList.firstChild);
         }
         data.forEach(function (item) {
-            let title = getQueryParams(item).title == "" ? "&lt;unnamed card&gt;" : getQueryParams(item).title;
+            let title = getQueryParams(item).title == "" ? "<unnamed card>" : getQueryParams(item).title;
             title = getQueryParams(item).creator == "" ? title : title + ' ' + getQueryParams(item).creator.split(" ")[0];
             switch (getQueryParams(item).size) {
                 case '0':
