@@ -11,6 +11,8 @@ const PRECACHE_CORE_URLS = [
   'index.html',
   'style.css',
   'main.js',
+  'favicon/favicon.ico',
+  'favicon/site.webmanifest',
   'assets/icon-download.png',
   'assets/icon-favorites.png',
   'assets/icon-share.png',
