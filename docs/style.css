@@ -463,7 +463,8 @@ input[type=range] {
 }
 
 #image-positioning button {
-    margin-top: 15px;
+    margin-top: 0.9em;
+    margin-bottom: 0.5em;
     border-radius: 5px;
     border: none;
     color: var(--color-button2-text);

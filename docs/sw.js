@@ -1,16 +1,16 @@
 // Names of the two caches used in this version of the service worker.
 // Change to v2, etc. when you update any of the local resources, which will
 // in turn trigger the install event again.
-const PRECACHE = 'precache-v2';
+const PRECACHE_CORE = 'precache-core-v1';
+const PRECACHE_CARD = 'precache-card-v1';
 const RUNTIME = 'runtime';
 
 // A list of local resources we always want to be cached.
-const PRECACHE_URLS = [
-  'index.html',
+const PRECACHE_CORE_URLS = [
   './', // Alias for index.html
+  'index.html',
   'style.css',
   'main.js',
-
   'assets/icon-download.png',
   'assets/icon-favorites.png',
   'assets/icon-share.png',
@@ -20,19 +20,59 @@ const PRECACHE_URLS = [
   'assets/spear-right.png',
   'assets/spinner.png'
 ];
+const PRECACHE_CARD_URLS = [
+  'card-resources/BaseCardBrown.png',
+  'card-resources/BaseCardColorOne.png',
+  'card-resources/BaseCardGray.png',
+  'card-resources/BaseCardIcon.png',
+  'card-resources/CardBrown.png',
+  'card-resources/CardColorOne.png',
+  'card-resources/CardColorTwo.png',
+  'card-resources/CardColorTwoNight.png',
+  'card-resources/CardColorTwoBig.png',
+  'card-resources/CardColorTwoSmall.png',
+  'card-resources/CardGray.png',
+  'card-resources/CardPortraitIcon.png',
+  'card-resources/DoubleColorOne.png',
+  'card-resources/DoubleUncoloredDetails.png',
+  'card-resources/EventBrown.png',
+  'card-resources/EventBrown2.png',
+  'card-resources/EventColorOne.png',
+  'card-resources/EventColorTwo.png',
+  'card-resources/EventHeirloom.png',
+  'card-resources/Heirloom.png',
+  'card-resources/DescriptionFocus.png',
+  'card-resources/MatBannerBottom.png',
+  'card-resources/MatBannerTop.png',
+  'card-resources/MatIcon.png',
+  'card-resources/PileMarkerColorOne.png',
+  'card-resources/PileMarkerGrey.png',
+  'card-resources/PileMarkerIcon.png',
+  'card-resources/Coin.png',
+  'card-resources/Debt.png',
+  'card-resources/Potion.png',
+  'card-resources/VP.png',
+  'card-resources/VP-Token.png',
+  'card-resources/Traveller.png',
+];
 
 // The install handler takes care of precaching the resources we always need.
 self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open(PRECACHE)
-        .then(cache => cache.addAll(PRECACHE_URLS))
+        caches.open(PRECACHE_CORE)
+        .then(cache => cache.addAll(PRECACHE_CORE_URLS))
+        .then(self.skipWaiting())
+    );
+    event.waitUntil(
+        caches.open(PRECACHE_CARD)
+        .then(cache => cache.addAll(PRECACHE_CARD_URLS))
         .then(self.skipWaiting())
     );
 });
 
 // The activate handler takes care of cleaning up old caches.
 self.addEventListener('activate', event => {
-    const currentCaches = [PRECACHE, RUNTIME];
+    const currentCaches = [PRECACHE_CORE, PRECACHE_CARD, RUNTIME];
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return cacheNames.filter(cacheName => !currentCaches.includes(cacheName));
