@@ -572,8 +572,8 @@ button.delete {
 button.delete {
     padding-top: 0.3em;
     padding-bottom: 0.3em;
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
+    margin-top: 0.15em;
+    margin-bottom: 0.15em;
 }
 
 button.delete:hover,
