@@ -1172,8 +1172,8 @@ function Favorites() {
     var data = [];
 
     this.open = function () {
-        fav.classList.remove('hidden');
         this.refresh();
+        fav.classList.remove('hidden');
     };
     this.close = function () {
         fav.classList.add('hidden');
@@ -1184,9 +1184,7 @@ function Favorites() {
     };
     this.delete = function (params) {
         this.refresh();
-        console.log(data);
         data = data.remove(params);
-        console.log(data);
         this.save();
     };
     this.add = function (params) {
