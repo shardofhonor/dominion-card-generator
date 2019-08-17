@@ -1203,7 +1203,7 @@ function Favorites() {
         }
         data.forEach(function (item) {
             let title = getQueryParams(item).title == "" ? "[unnamed card]" : getQueryParams(item).title;
-            title = getQueryParams(item).creator == "" ? title : title + ' ' + getQueryParams(item).creator.split(" ")[0];;
+            title = getQueryParams(item).creator == "" ? title : title + ' ' + getQueryParams(item).creator.split(" ")[0];
             console.log(getQueryParams(item).size);
             switch (getQueryParams(item).size) {
                 case '0':
