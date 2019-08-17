@@ -36,7 +36,7 @@
         
         function initialize() {
             initCardImageGenerator();
-            myFavorites = new Favorites();
+            myFavorites = new Favorites( 'myFavorites' );
         }
 
     </script>
@@ -96,7 +96,9 @@
                     <div class="menu">
                         <button type="button" onclick="myFavorites.add( document.location.search )"><img src="assets/icon-favorites.png" />Add Current Card</button>
                         <button type="button" class="delete-all" onclick="myFavorites.deleteAll()"><img src="assets/icon-delete.png" />Delete All</button>
+                        <button type="button" class="sort" onclick="myFavorites.sort()">Sort</button>
                         <button type="button" class="close" onclick="myFavorites.close()"><img src="assets/icon-close.png" />Close</button>
+                        <input type="search" class="filter" placeholder="Search..." oninput="myFavorites.filter(this.value)" />
                     </div>
                     <ul id="favorites-list"></ul>
                 </div>

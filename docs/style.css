@@ -57,6 +57,10 @@
         --color-shadow2-transparent: rgba(255, 255, 255, 0.5);
         --color-shadow3-transparent: rgba(0, 0, 0, 0.75);
     }
+
+    ::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
 }
 
 
@@ -564,6 +568,16 @@ body.size5 #legend {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     z-index: 110;
+}
+
+#manage-favorites .menu input.filter {
+    display: inline-block;
+    max-width: 30%;
+    padding: 0.5em;
+}
+
+#manage-favorites .menu button {
+    margin-top: 0.25em;
 }
 
 button.close,

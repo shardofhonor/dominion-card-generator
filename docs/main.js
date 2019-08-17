@@ -1166,10 +1166,12 @@ function downloadPicture() {
 }
 
 
-function Favorites() {
+function Favorites(name) {
+    var name = name;
     var fav = document.getElementById("manage-favorites");
     var favList = document.getElementById("favorites-list");
     var data = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
+    var ascending = true;
 
     this.open = function () {
         this.refresh();
@@ -1199,6 +1201,29 @@ function Favorites() {
     this.save = function () {
         localStorage.setItem('favorites', JSON.stringify(data));
         this.refresh();
+    }
+    this.sort = function () {
+        data.sort();
+        if (ascending === false) {
+            data.reverse();
+            ascending = true;
+        } else {
+            ascending = false;
+        }
+        console.log(data);
+        this.save();
+        this.refresh();
+    }
+    this.filter = function (term) {
+        let children = favList.childNodes;
+        for (child in children) {
+            let cardname = children[child].childNodes[0].innerHTML;
+            if (cardname.toUpperCase().includes(term.toUpperCase())) {
+                children[child].classList.remove('hidden');
+            } else {
+                children[child].classList.add('hidden');
+            }
+        }
     }
     this.refresh = function (params) {
         data = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
@@ -1243,7 +1268,7 @@ function Favorites() {
             li.appendChild(a);
             let bttnDel = document.createElement("button");
             bttnDel.setAttribute('class', "delete");
-            bttnDel.setAttribute('onclick', "myFavorites.delete('" + item + "')");
+            bttnDel.setAttribute('onclick', name + ".delete('" + item + "')");
             let imgDel = document.createElement("img");
             imgDel.setAttribute('src', "assets/icon-delete.png");
             bttnDel.appendChild(imgDel);
