@@ -8,7 +8,15 @@ const RUNTIME = 'runtime';
 const PRECACHE_URLS = [
   'index.html',
   './', // Alias for index.html
-  'style.css'
+  'style.css',
+  'main.js',
+
+  'assets/icon-download.png',
+  'assets/icon-favorites.png',
+  'assets/icon-share.png',
+  'assets/spear-left.png',
+  'assets/spear-right.png',
+  'assets/spinner.png'
 ];
 
 // The install handler takes care of precaching the resources we always need.
