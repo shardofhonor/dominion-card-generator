@@ -1169,7 +1169,7 @@ function downloadPicture() {
 function Favorites() {
     var fav = document.getElementById("manage-favorites");
     var favList = document.getElementById("favorites-list");
-    var data = [];
+    var data = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
 
     this.open = function () {
         this.refresh();
