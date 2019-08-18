@@ -103,16 +103,12 @@ self.addEventListener('fetch', event => {
                     return fetch(event.request).then(response => {
                         // Put a copy of the response in the runtime cache.
                         return cache.put(event.request, response.clone()).then(() => {
-                            if (response) {
-                                console.debug('Returning response from cache for', event.request.url);
-                                return response;
-                            } else {
-                                throw error;
-                            }
-                        }).catch(function (error) {
-                            console.warn('Returning offline page instead of', event.request.url, error);
-                            return caches.match(OFFLINE_URL);
+                            console.debug('Returning response from cache for', event.request.url);
+                            return response;
                         });
+                    }).catch(error => {
+                        console.warn('Returning offline page instead of', event.request.url, error);
+                        return caches.match(OFFLINE_URL);
                     });
                 });
 
