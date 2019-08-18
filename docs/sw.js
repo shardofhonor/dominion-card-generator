@@ -5,7 +5,7 @@ const PRECACHE_CARD = 'precache-card-v1';
 const RUNTIME = 'runtime';
 
 // A list of local resources we always want to be cached.
-const OFFLINE_URL = 'index.html';
+const OFFLINE_URL = './index.html';
 const PRECACHE_CORE_URLS = [
   './', // Alias for index.html
   'index.html',
