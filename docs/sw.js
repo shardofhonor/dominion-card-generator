@@ -19,9 +19,7 @@ const PRECACHE_CORE_URLS = [
   'assets/icon-delete.png',
   'assets/spear-left.png',
   'assets/spear-right.png',
-  'assets/spinner.png',
-  'https://cors-anywhere.herokuapp.com/https://shemitz.net/static/dominion3/MinionStd-Black.otf',
-  'https://cors-anywhere.herokuapp.com/https://shemitz.net/static/dominion3/Trajan%20Pro%20Bold.ttf'
+  'assets/spinner.png'
 ];
 const PRECACHE_CARD_URLS = [
   'card-resources/BaseCardBrown.png',
