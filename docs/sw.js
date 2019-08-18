@@ -1,6 +1,6 @@
 // Names of the caches used in this version of the service worker.
 // Increase chache number when you update any of the local resources, which will in turn trigger the install event again.
-const PRECACHE_CORE = 'precache-core-v3';
+const PRECACHE_CORE = 'precache-core-v4';
 const PRECACHE_CARD = 'precache-card-v1';
 const RUNTIME = 'runtime';
 
@@ -19,7 +19,9 @@ const PRECACHE_CORE_URLS = [
   'assets/icon-delete.png',
   'assets/spear-left.png',
   'assets/spear-right.png',
-  'assets/spinner.png'
+  'assets/spinner.png',
+  'https://cors-anywhere.herokuapp.com/https://shemitz.net/static/dominion3/MinionStd-Black.otf',
+  'https://cors-anywhere.herokuapp.com/https://shemitz.net/static/dominion3/Trajan%20Pro%20Bold.ttf'
 ];
 const PRECACHE_CARD_URLS = [
   'card-resources/BaseCardBrown.png',
