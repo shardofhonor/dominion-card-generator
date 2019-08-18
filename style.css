@@ -67,8 +67,7 @@
 @font-face {
     font-family: 'TrajanPro';
     font-display: auto;
-    src: local("Trajan Pro Bold"),
-        local("TrajanPro-Bold"),
+    src: local("Trajan Pro Bold"), local("TrajanPro-Bold"),
         url('https://cors-anywhere.herokuapp.com/https://shemitz.net/static/dominion3/Trajan%20Pro%20Bold.ttf') format('truetype'),
         url('https://cors-anywhere.herokuapp.com/https://dominion.games/fonts/TrajanPro-Bold.otf') format('opentype'),
         local("Trajan Pro"),
