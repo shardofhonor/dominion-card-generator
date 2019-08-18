@@ -1207,8 +1207,10 @@ function Favorites(name) {
         data.sort();
         if (ascending === false) {
             data.reverse();
+            console.log('Favorites sorted in descending order.');
             ascending = true;
         } else {
+            console.log('Favorites sorted in ascending order.');
             ascending = false;
         }
         this.save();
@@ -1247,7 +1249,7 @@ function Favorites(name) {
                 case '1':
                     title = getQueryParams(item).type == "" ? title : '[' + getQueryParams(item).type + '] ' + title;
                     title = getQueryParams(item).price == "" ? title : getQueryParams(item).price.replace('^', 'P') + ' ' + title;
-                    title = "Landscape Thing: " + title;
+                    title = "Landscape: " + title;
                     break;
                 case '3':
                     title = getQueryParams(item).type == "" ? title : '[' + getQueryParams(item).type + '] ' + title;
