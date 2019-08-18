@@ -101,10 +101,16 @@ self.addEventListener('fetch', event => {
                 return caches.open(RUNTIME).then(cache => {
                     return fetch(event.request).then(response => {
                         // Put a copy of the response in the runtime cache.
-                        return cache.put(event.request, response.clone()).then(() => {
-                            console.debug('Updated URL in runtime cache', event.request.url);
+                        if (event.request.url.startsWith('https://shardofhonor.github.io/dominion-card-generator/?') ||
+                            event.request.url.startsWith('https://shardofhonor.github.io/dominion-card-generator/index.html?')) {
+                            // do not cache these, because they are redundant
                             return response;
-                        });
+                        } else {
+                            return cache.put(event.request, response.clone()).then(() => {
+                                console.debug('Updated URL in runtime cache', event.request.url);
+                                return response;
+                            });
+                        }
                     }).catch(error => {
                         console.warn('Returning offline page instead of', event.request.url, error);
                         return caches.match(OFFLINE_URL);
