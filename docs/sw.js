@@ -102,7 +102,7 @@ self.addEventListener('fetch', event => {
                     return fetch(event.request).then(response => {
                         // Put a copy of the response in the runtime cache.
                         return cache.put(event.request, response.clone()).then(() => {
-                            console.debug('Returning response from cache for', event.request.url);
+                            console.debug('New URL in runtime cache', event.request.url);
                             return response;
                         });
                     }).catch(error => {
