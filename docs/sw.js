@@ -5,6 +5,7 @@ const PRECACHE_CARD = 'precache-card-v1';
 const RUNTIME = 'runtime';
 
 // A list of local resources we always want to be cached.
+const OFFLINE_URL = '/index.html';
 const PRECACHE_CORE_URLS = [
   './', // Alias for index.html
   'index.html',
@@ -19,7 +20,8 @@ const PRECACHE_CORE_URLS = [
   'assets/icon-delete.png',
   'assets/spear-left.png',
   'assets/spear-right.png',
-  'assets/spinner.png'
+  'assets/spinner.png',
+  OFFLINE_URL
 ];
 const PRECACHE_CARD_URLS = [
   'card-resources/BaseCardBrown.png',
@@ -101,10 +103,19 @@ self.addEventListener('fetch', event => {
                     return fetch(event.request).then(response => {
                         // Put a copy of the response in the runtime cache.
                         return cache.put(event.request, response.clone()).then(() => {
-                            return response;
+                            if (response) {
+                                console.debug('Returning response from cache for', event.request.url);
+                                return response;
+                            } else {
+                                throw error;
+                            }
+                        }).catch(function (error) {
+                            console.warn('Returning offline page instead of', event.request.url, error);
+                            return caches.match(OFFLINE_URL);
                         });
                     });
                 });
+
             })
         );
     }
