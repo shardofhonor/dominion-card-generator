@@ -580,8 +580,8 @@ function initCardImageGenerator() {
                     let right = priceLine ? 800 - 65 * (numberPriceIcons - 1) : 900;
                     writeSingleLine(typeLine, left, 1922, right, 64);
                 } else {
-                    let left = priceLine ? 750 + 65 * (numberPriceIcons - 1) : 701;
-                    let right = priceLine ? 890 - 65 * (numberPriceIcons - 1) : 1180;
+                    let left = priceLine ? 750 + 125 * (numberPriceIcons - 1) : 701;
+                    let right = priceLine ? 890 - 85 * (numberPriceIcons - 1) : 1180;
                     writeSingleLine(typeLine, left, 1922, right, 64);
                 }
             }
