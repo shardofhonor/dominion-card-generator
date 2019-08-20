@@ -472,6 +472,7 @@ function initCardImageGenerator() {
         var heirloomLine = document.getElementById("type2").value;
         var previewLine = document.getElementById("preview").value;
         var priceLine = document.getElementById("price").value;
+        var numberPriceIcons = (priceLine.match(new RegExp("[" + Object.keys(icons).join("") + "]", "g")) || []).length
 
         var isEachColorDark = [false, false];
         for (var i = 0; i < 2; ++i)
@@ -569,13 +570,19 @@ function initCardImageGenerator() {
             if (typeLine.split(" - ").length >= 4) {
                 let types2 = typeLine.split(" - ");
                 let types1 = types2.splice(0, Math.ceil(types2.length / 2));
-                writeSingleLine(types1.join(" - ") + " -", priceLine ? 750 : 701, 1922 - 26, priceLine ? 890 : 1180, 42);
-                writeSingleLine(types2.join(" - "), priceLine ? 750 : 701, 1922 + 26, priceLine ? 890 : 1180, 42);
+                let left = priceLine ? 750 + 65 * (numberPriceIcons - 1) : 701;
+                let right = priceLine ? 890 - 65 * (numberPriceIcons - 1) : 1180;
+                writeSingleLine(types1.join(" - ") + " -", left, 1922 - 26, right, 42);
+                writeSingleLine(types2.join(" - "), left, 1922 + 26, right, 42);
             } else {
                 if (expansion.height > 0 && expansion.width > 0) {
-                    writeSingleLine(typeLine, priceLine ? 730 : 701, 1922, priceLine ? 800 : 900, 64);
+                    let left = priceLine ? 730 + 65 * (numberPriceIcons - 1) : 701;
+                    let right = priceLine ? 800 - 65 * (numberPriceIcons - 1) : 900;
+                    writeSingleLine(typeLine, left, 1922, right, 64);
                 } else {
-                    writeSingleLine(typeLine, priceLine ? 750 : 701, 1922, priceLine ? 890 : 1180, 64);
+                    let left = priceLine ? 750 + 65 * (numberPriceIcons - 1) : 701;
+                    let right = priceLine ? 890 - 65 * (numberPriceIcons - 1) : 1180;
+                    writeSingleLine(typeLine, left, 1922, right, 64);
                 }
             }
             if (priceLine)
