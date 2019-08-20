@@ -1238,22 +1238,24 @@ function Favorites(name) {
             favList.removeChild(favList.firstChild);
         }
         data.forEach(function (item) {
-            let title = getQueryParams(item).title == "" ? "<unnamed card>" : getQueryParams(item).title;
+            let title = getQueryParams(item).title == "" ? "<unnamed card>" : getQueryParams(item).title.trim();
+            let types = '[' + getQueryParams(item).type.trim() + '] ';
+            let price = getQueryParams(item).price.replace('^', 'P').trim();
             title = getQueryParams(item).creator == "" ? title : title + ' ' + getQueryParams(item).creator.split(" ")[0];
             switch (getQueryParams(item).size) {
                 case '0':
-                    title = getQueryParams(item).type == "" ? title : '[' + getQueryParams(item).type + '] ' + title;
-                    title = getQueryParams(item).price == "" ? title : getQueryParams(item).price.replace('^', 'P') + ' ' + title;
+                    title = getQueryParams(item).type.trim() == "" ? title : types + title;
+                    title = price == "" ? title : price + ' ' + title;
                     title = "Card: " + title;
                     break;
                 case '1':
-                    title = getQueryParams(item).type == "" ? title : '[' + getQueryParams(item).type + '] ' + title;
-                    title = getQueryParams(item).price == "" ? title : getQueryParams(item).price.replace('^', 'P') + ' ' + title;
+                    title = getQueryParams(item).type.trim() == "" ? title : types + title;
+                    title = price == "" ? title : price + ' ' + title;
                     title = "Landscape: " + title;
                     break;
                 case '3':
-                    title = getQueryParams(item).type == "" ? title : '[' + getQueryParams(item).type + '] ' + title;
-                    title = getQueryParams(item).price == "" ? title : getQueryParams(item).price.replace('^', 'P') + ' ' + title;
+                    title = getQueryParams(item).type.trim() == "" ? title : types + title;
+                    title = price == "" ? title : price + ' ' + title;
                     title = "Base Card: " + title;
                     break;
                 case '4':
