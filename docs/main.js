@@ -308,20 +308,27 @@ function initCardImageGenerator() {
                             else
                                 context.font = "bold " + context.font;
                         }
-                        let lastChar = word.substr(word.length - 1);
-                        if ([",", ";", ".", "?", "!"].includes(lastChar)) {
-                            word = word.slice(0, -1);
-                        } else {
-                            lastChar = "";
-                        }
-                        context.fillText(word, x, y);
+                        if (context.font.includes('bold') {
+                                let lastChar = word.substr(word.length - 1);
+                                if ([",", ";", ".", "?", "!"].includes(lastChar)) {
+                                    word = word.slice(0, -1);
+                                } else {
+                                    lastChar = "";
+                                }
+                                context.fillText(word, x, y);
 
-                        if (lastChar != "") {
-                            let x2 = context.measureText(word).width;
-                            context.font = context.font.replace('bold', '');
-                            context.fillText(lastChar, x + x2, y);
+                                if (lastChar != "") {
+                                    let x2 = context.measureText(word).width;
+                                    context.font = context.font.replace('bold ', '');
+                                }
+                                context.fillText(lastChar, x + x2, y);
+                                context.font = "bold " + context.font;
+                            }
+                            word = word + lastChar;
                         }
-                        word = word + lastChar;
+                        else {
+                            context.fillText(word, x, y);
+                        }
 
                         break; //don't start this again
                     }
