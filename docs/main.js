@@ -317,9 +317,9 @@ function initCardImageGenerator() {
                         context.fillText(word, x, y);
 
                         if (lastChar != "") {
-                            let font = context.font;
-                            context.restore();
-                            context.fillText(lastChar, x + context.measureText(word).width, y);
+                            let x2 = context.measureText(word).width;
+                            context.font = context.font.replace('bold', '');
+                            context.fillText(lastChar, x + x2, y);
                             context.font = font;
                         }
                         word = word + lastChar;
