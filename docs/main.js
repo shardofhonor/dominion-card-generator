@@ -318,11 +318,11 @@ function initCardImageGenerator() {
                             context.fillText(word, x, y);
 
                             if (lastChar != "") {
-                                let x2 = context.measureText(word).width;
+                                var x2 = context.measureText(word).width;
                                 context.font = context.font.replace('bold ', '');
+                                context.fillText(lastChar, x + x2, y);
+                                context.font = "bold " + context.font;
                             }
-                            context.fillText(lastChar, x + x2, y);
-                            context.font = "bold " + context.font;
 
                             word = word + lastChar;
                         } else {
