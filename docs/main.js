@@ -310,7 +310,7 @@ function initCardImageGenerator() {
                         }
                         if (context.font.includes('bold')) {
                             let lastChar = word.substr(word.length - 1);
-                            if ([",", ";", ".", "?", "!"].includes(lastChar)) {
+                            if ([",", ";", ".", "?", "!", ":"].includes(lastChar)) {
                                 word = word.slice(0, -1);
                             } else {
                                 lastChar = "";
