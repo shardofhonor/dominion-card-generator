@@ -84,7 +84,8 @@ function initCardImageGenerator() {
     //var templateSize = 0;
 
     function rebuildBoldLinePatternWords() {
-        let customBoldableKeywords = document.getElementById("boldkeys").value;
+        let elemBoldkeys = document.getElementById("boldkeys");
+        let customBoldableKeywords = elemBoldkeys !== null ? elemBoldkeys.value : "";
         let boldableKeywordsFull = customBoldableKeywords.length > 0 ? boldableKeywords.concat(customBoldableKeywords.split(";")) : boldableKeywords;
         boldLinePatternWords = RegExp("([-+]\\d+)\\s+(" + boldableKeywordsFull.join("|") + "s?)", "ig");
     }
@@ -307,8 +308,22 @@ function initCardImageGenerator() {
                             else
                                 context.font = "bold " + context.font;
                         }
+                        let lastChar = word.substr(word.length - 1);
+                        if ([",", ";", ".", "?", "!"].includes(lastChar)) {
+                            word = word.slice(0, -1);
+                        } else {
+                            lastChar = "";
+                        }
                         context.fillText(word, x, y);
-                        //context.strokeText(word, x, y);
+
+                        if (lastChar != "") {
+                            let font = context.font;
+                            context.restore();
+                            context.fillText(lastChar, x + context.measureText(word).width, y);
+                            context.font = font;
+                        }
+                        word = word + lastChar;
+
                         break; //don't start this again
                     }
                 }
