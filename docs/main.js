@@ -382,7 +382,7 @@ function initCardImageGenerator() {
                             context.font = "bold " + boldSize + "pt Times New Roman"; //resizing up to 64
                             progressiveWidth = context.measureText(line).width; //=, not +=
                             context.font = properFont;
-                        } else if (line.match(iconWithNumbersPatternSingle)) {
+                        } else if (line.match(iconWithNumbersPatternSingle) && !word.match(iconAddingNumber)) {
                             heightToAdd = 275; //192 * 1.433
                             var properFont = context.font;
                             context.font = "bold 192pt Times New Roman";
