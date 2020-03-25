@@ -87,7 +87,7 @@ function initCardImageGenerator() {
         let elemBoldkeys = document.getElementById("boldkeys");
         let customBoldableKeywords = elemBoldkeys !== null ? elemBoldkeys.value : "";
         let boldableKeywordsFull = customBoldableKeywords.length > 0 ? boldableKeywords.concat(customBoldableKeywords.split(";")) : boldableKeywords;
-        boldLinePatternWords = RegExp("([-+]\\d+)\\s+(" + boldableKeywordsFull.join("|") + "s?)", "ig");
+        boldLinePatternWords = RegExp("(?:([-+]\\d+)\\s+|(\\+))(" + boldableKeywordsFull.join("|") + "s?)", "ig");
     }
     var boldLinePatternWords;
     rebuildBoldLinePatternWords();
@@ -349,7 +349,7 @@ function initCardImageGenerator() {
 
         function writeDescription(elementID, xCenter, yCenter, maxWidth, maxHeight, boldSize) {
             rebuildBoldLinePatternWords();
-            var description = document.getElementById(elementID).value.replace(/ *\n */g, " \n ").replace(boldLinePatternWords, "$1\xa0$2") + " \n"; //separate newlines into their own words for easier processing
+            var description = document.getElementById(elementID).value.replace(/ *\n */g, " \n ").replace(boldLinePatternWords, "$1\xa0$2$3") + " \n"; //separate newlines into their own words for easier processing
             var words = description.split(" ");
             var lines;
             var widthsPerLine;
