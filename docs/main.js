@@ -87,6 +87,9 @@ function initCardImageGenerator() {
         let elemBoldkeys = document.getElementById("boldkeys");
         let customBoldableKeywords = elemBoldkeys !== null ? elemBoldkeys.value : "";
         let boldableKeywordsFull = customBoldableKeywords.length > 0 ? boldableKeywords.concat(customBoldableKeywords.split(";")) : boldableKeywords;
+        boldableKeywordsFull.forEach(function (word, index) {
+            this[index] = word.trim();
+        }, boldableKeywordsFull);
         boldLinePatternWords = RegExp("(?:([-+]\\d+)\\s+|(\\+))(" + boldableKeywordsFull.join("|") + "s?)", "ig");
     }
     var boldLinePatternWords;
