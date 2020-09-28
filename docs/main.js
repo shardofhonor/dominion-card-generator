@@ -850,6 +850,7 @@ function initCardImageGenerator() {
             normalColorCurrentIndices[0] = document.getElementById("normalcolor1").options.selectedIndex = col2 - 1;
             normalColorCurrentIndices[1] = document.getElementById("normalcolor2").options.selectedIndex = col1_copy + 1;
             queueDraw(1);
+            location.reload();
         }
     };
 
