@@ -1132,6 +1132,9 @@ function initCardImageGenerator() {
     document.getElementById('creator').addEventListener('change', adjustPageTitle, false);
     adjustPageTitle();
 
+    //redraw after color switch
+    document.getElementById('color-switch-button').addEventListener('click', queueDraw, false);
+
     //pass parameters to original version to enable easy comparison
     document.getElementById('linkToOriginal').addEventListener('click', function (event) {
         event.preventDefault();
