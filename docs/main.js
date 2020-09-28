@@ -563,17 +563,6 @@ function initCardImageGenerator() {
             }
         }
 
-        function switchColors() {
-            var col1 = document.getElementById("normalcolor1").options.selectedIndex;
-            var col2 = document.getElementById("normalcolor2").options.selectedIndex;
-            if (col2 > 0) {
-                let col1_copy = copy(col1);
-                normalColorCurrentIndices[0] = document.getElementById("normalcolor1").options.selectedIndex = col2 - 1;
-                normalColorCurrentIndices[1] = document.getElementById("normalcolor2").options.selectedIndex = col1_copy + 1;
-                queueDraw();
-            }
-        }
-
         if (templateSize == 0) { //card
             drawPicture(704, 706, 1150, 835);
             removeCorners(1403, 2151, 100);
@@ -852,6 +841,17 @@ function initCardImageGenerator() {
             window.clearTimeout(nextDrawInstruction);
         nextDrawInstruction = window.setTimeout(draw, time || 1500);
     }
+
+    function switchColors() {
+        var col1 = document.getElementById("normalcolor1").options.selectedIndex;
+        var col2 = document.getElementById("normalcolor2").options.selectedIndex;
+        if (col2 > 0) {
+            let col1_copy = copy(col1);
+            normalColorCurrentIndices[0] = document.getElementById("normalcolor1").options.selectedIndex = col2 - 1;
+            normalColorCurrentIndices[1] = document.getElementById("normalcolor2").options.selectedIndex = col1_copy + 1;
+            queueDraw();
+        }
+    };
 
     function updateURL() {
         var arguments = "?";
