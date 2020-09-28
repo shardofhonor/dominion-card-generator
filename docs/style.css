@@ -466,6 +466,7 @@ input[type=range] {
     padding: 0;
 }
 
+#color-switch button,
 #image-positioning button {
     margin-top: 0.9em;
     margin-bottom: 0.5em;
@@ -476,9 +477,21 @@ input[type=range] {
     padding: 0.3em 1em;
 }
 
+#color-switch button:hover,
+#color-switch button:focus,
 #image-positioning button:hover,
 #image-positioning button:focus {
     background-color: var(--color-button2-background-hover)
+}
+
+#color-switch {
+    position: absolute;
+    margin-top: -2.5em;
+    margin-left: -6em;
+}
+
+#color-switch button {
+    padding: 0.2em 0.4em;
 }
 
 [data-status]:after {
