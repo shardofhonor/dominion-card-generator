@@ -13,6 +13,10 @@ Array.prototype.remove = function () {
     return this;
 };
 
+function copy(x) {
+    return JSON.parse(JSON.stringify(x));
+}
+
 // Initialization of complete logic on load of page
 function initCardImageGenerator() {
 
@@ -1195,6 +1199,16 @@ function downloadPicture() {
     link.setAttribute('download', fileName);
     var url = (window.webkitURL || window.URL).createObjectURL(dataURLtoBlob(image));
     link.setAttribute("href", url);
+}
+
+function switchColors() {
+    var col1 = document.getElementById("normalcolor1").options.selectedIndex;
+    var col2 = document.getElementById("normalcolor2").options.selectedIndex;
+    if (col2 > 0) {
+        let col1_copy = copy(col1);
+        document.getElementById("normalcolor1").options.selectedIndex = col2 - 1;
+        document.getElementById("normalcolor2").options.selectedIndex = col1_copy + 1;
+    }
 }
 
 
