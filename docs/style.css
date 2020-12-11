@@ -283,6 +283,10 @@ button img {
     margin-right: 0.2em;
 }
 
+input[type="url"] {
+    padding-right: 2em;
+}
+
 
 button:hover,
 button:focus {
