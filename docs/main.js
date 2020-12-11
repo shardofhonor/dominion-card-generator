@@ -894,7 +894,7 @@ function initCardImageGenerator() {
     function loadImgAsBase64(url, callback, maxWidth, maxHeight) {
         let canvas = document.createElement('CANVAS');
         let img = document.createElement('img');
-        img.setAttribute('crossorigin', 'anonymous');
+        img.crossOrigin = "Anonymous";
         if (url.substr(0, 11) != 'data:image/' && url.substr(0, 8) != 'file:///') {
             img.src = 'https://cors-anywhere.herokuapp.com/' + url;
         } else {
@@ -969,6 +969,7 @@ function initCardImageGenerator() {
     }
     for (var i = 0; i < sources.length; i++) {
         images.push(new Image());
+        images[i].crossOrigin = "Anonymous";
         images[i].src = "card-resources/" + sources[i];
     }
 
@@ -1013,6 +1014,7 @@ function initCardImageGenerator() {
 
         function setImageSource(src) {
             images[id].src = src;
+            images[id].crossOrigin = "Anonymous";
             imagesLoaded = false;
             queueDraw(250);
         }
