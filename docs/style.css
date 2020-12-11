@@ -275,6 +275,7 @@ button {
     border-radius: 5px;
 }
 
+label.image-upload img,
 button img {
     height: 1em;
     position: relative;
@@ -466,6 +467,11 @@ input[type=range] {
     padding: 0;
 }
 
+label.image-upload input[type="file"] {
+    display: none;
+}
+
+label.image-upload,
 #color-switch button,
 #image-positioning button {
     margin-top: 0.9em;
@@ -475,8 +481,12 @@ input[type=range] {
     color: var(--color-button2-text);
     background-color: var(--color-button2-background);
     padding: 0.3em 1em;
+    cursor: pointer;
+    font-family: Arial;
 }
 
+label.image-upload:hover,
+label.image-upload:focus,
 #color-switch button:hover,
 #color-switch button:focus,
 #image-positioning button:hover,
@@ -490,8 +500,17 @@ input[type=range] {
     margin-left: -6em;
 }
 
+label.image-upload,
 #color-switch button {
     padding: 0.2em 0.4em;
+}
+
+label.image-upload {
+    float: right;
+    width: 2em;
+    font-size: 0.9em;
+    margin-top: calc(-1.6em - 5px);
+    border: 1px solid var(--color-input-background);
 }
 
 [data-status]:after {
