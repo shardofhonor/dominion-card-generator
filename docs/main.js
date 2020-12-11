@@ -900,7 +900,7 @@ function initCardImageGenerator() {
         } else {
             img.src = url;
         }
-        img.addEventListener('load', () => {
+        img.onload = () => {
             let context = canvas.getContext('2d');
             if (maxWidth > 0 && maxHeight > 0) {
                 canvas.width = maxWidth;
@@ -913,12 +913,12 @@ function initCardImageGenerator() {
             let dataURL = canvas.toDataURL('image/png');
             canvas = null;
             callback(dataURL);
-        });
-        img.addEventListener('error', () => {
+        };
+        img.onerror = () => {
             useCORS = false;
             console.log("CORS loading of external resources deactivated");
-            img.src = url;
-        });
+            callback(url);
+        };
     }
 
 
