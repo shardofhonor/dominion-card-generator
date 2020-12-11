@@ -1019,7 +1019,7 @@ function initCardImageGenerator() {
     function onChangeExternalImage(id, value, maxWidth, maxHeight) {
         let url = (sources[id] = value.trim());
 
-        if (url != "[uploaded image]") {
+        if (url != "[local image]") {
             if (url.length > 0 && useCORS) {
                 loadImgAsBase64(url, (dataURL) => {
                     setImageSource(id, dataURL)
@@ -1046,7 +1046,7 @@ function initCardImageGenerator() {
             onChangeExternalImage(5, this.value);
         };
         document.getElementById("picture-upload").onchange = (event) => {
-            document.getElementById("picture").value = "[uploaded image]";
+            document.getElementById("picture").value = "[local image]";
             onUploadImage(5, event.target.files[0]);
         };
     } catch (err) {}
@@ -1058,7 +1058,7 @@ function initCardImageGenerator() {
             onChangeExternalImage(17, this.value);
         };
         document.getElementById("expansion-upload").onchange = (event) => {
-            document.getElementById("expansion").value = "[uploaded image]";
+            document.getElementById("expansion").value = "[local image]";
             onUploadImage(17, event.target.files[0]);
         };
     } catch (err) {}
@@ -1072,7 +1072,7 @@ function initCardImageGenerator() {
             onChangeExternalImage(images.length - 1, this.value, 156, 156);
         };
         document.getElementById("custom-icon-upload").onchange = (event) => {
-            customIcon.value = "[uploaded image]";
+            customIcon.value = "[local image]";
             onUploadImage(images.length - 1, event.target.files[0]);
         };
     } catch (err) {}
