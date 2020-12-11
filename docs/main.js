@@ -1009,37 +1009,73 @@ function initCardImageGenerator() {
             }
         }(i);
 
+    function setImageSource(id, src) {
+        images[id].src = src;
+        images[id].crossOrigin = "Anonymous";
+        imagesLoaded = false;
+        queueDraw(250);
+    }
+
     function onChangeExternalImage(id, value, maxWidth, maxHeight) {
         let url = (sources[id] = value.trim());
 
-        function setImageSource(src) {
-            images[id].src = src;
-            images[id].crossOrigin = "Anonymous";
-            imagesLoaded = false;
-            queueDraw(250);
-        }
-
-        if (url.length > 0 && useCORS) {
-            loadImgAsBase64(url, (dataURL) => {
-                setImageSource(dataURL)
-            }, maxWidth, maxHeight);
-        } else {
-            setImageSource(url);
+        if (url != "[uploaded image]") {
+            if (url.length > 0 && useCORS) {
+                loadImgAsBase64(url, (dataURL) => {
+                    setImageSource(id, dataURL)
+                }, maxWidth, maxHeight);
+            } else {
+                setImageSource(id, url);
+            }
         }
     }
-    document.getElementById("picture").onchange = function () {
-        onChangeExternalImage(5, this.value);
-    };
-    document.getElementById("expansion").onchange = function () {
-        onChangeExternalImage(17, this.value);
-    };
 
-    var customIcon = document.getElementById("custom-icon");
-    onChangeExternalImage(images.length - 1, customIcon.value, 156, 156);
-    customIcon.onchange = function () {
+    function onUploadImage(id, file) {
+        var reader = new FileReader();
+        reader.onload = () => {
+            setImageSource(id, reader.result);
+            console.log("image loaded");
+        };
+        reader.readAsDataURL(file);
+    }
+
+    try {
+        // Image 5 = Main Picture
+        document.getElementById("picture").onchange = function () {
+            document.getElementById("picture-upload").value = "";
+            onChangeExternalImage(5, this.value);
+        };
+        document.getElementById("picture-upload").onchange = (event) => {
+            document.getElementById("picture").value = "[uploaded image]";
+            onUploadImage(5, event.target.files[0]);
+        };
+    } catch (err) {}
+
+    try {
+        // Image 17 = Expansion Icon
+        document.getElementById("expansion").onchange = function () {
+            document.getElementById("expansion-upload").value = "";
+            onChangeExternalImage(17, this.value);
+        };
+        document.getElementById("expansion-upload").onchange = (event) => {
+            document.getElementById("expansion").value = "[uploaded image]";
+            onUploadImage(17, event.target.files[0]);
+        };
+    } catch (err) {}
+
+    try {
         //Last Icon = Custom Icon
-        onChangeExternalImage(images.length - 1, this.value, 156, 156);
-    };
+        var customIcon = document.getElementById("custom-icon");
+        onChangeExternalImage(images.length - 1, customIcon.value, 156, 156);
+        customIcon.onchange = function () {
+            document.getElementById("custom-icon-upload").value = "";
+            onChangeExternalImage(images.length - 1, this.value, 156, 156);
+        };
+        document.getElementById("custom-icon-upload").onchange = (event) => {
+            customIcon.value = "[uploaded image]";
+            onUploadImage(images.length - 1, event.target.files[0]);
+        };
+    } catch (err) {}
 
     var genericCustomAccentColors = [
 		[0, 0, 0, 0, 0, 0, 1, 1, 1, 1.2, 0.8, 0.5],
