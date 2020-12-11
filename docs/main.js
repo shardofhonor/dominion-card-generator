@@ -917,6 +917,7 @@ function initCardImageGenerator() {
         img.addEventListener('error', () => {
             useCORS = false;
             console.log("CORS loading of external resources deactivated");
+            img.src = url;
         });
     }
 
