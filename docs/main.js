@@ -1,4 +1,6 @@
-var templateSize = 0; //save globally
+let templateSize = 0; //save globally
+
+let useCORS = true; // flag to activate loading of external images via CORS helper function -> otherwise canvas is tainted and download button not working
 
 Array.prototype.remove = function () {
     var what, a = arguments,
@@ -898,7 +900,7 @@ function initCardImageGenerator() {
         } else {
             img.src = url;
         }
-        img.onload = () => {
+        img.addEventListener('load', () => {
             let context = canvas.getContext('2d');
             if (maxWidth > 0 && maxHeight > 0) {
                 canvas.width = maxWidth;
@@ -911,9 +913,12 @@ function initCardImageGenerator() {
             let dataURL = canvas.toDataURL('image/png');
             canvas = null;
             callback(dataURL);
-        };
+        });
+        img.addEventListener('error', () => {
+            useCORS = false;
+            console.log("CORS loading of external resources deactivated");
+        });
     }
-    var useCORS = true; // flag to activate loading of external images via CORS helper function -> otherwise canvas is tainted and download button not working
 
 
     // initialize stage
@@ -1172,6 +1177,16 @@ function getQueryParams(qs) { //http://stackoverflow.com/questions/979975/how-to
 // function to download the finished card
 function downloadPicture() {
 
+    function isTainted(ctx) {
+        // https://stackoverflow.com/a/22581873
+        try {
+            var pixel = ctx.getImageData(0, 0, 1, 1);
+            return false;
+        } catch (err) {
+            return (err.code === 18);
+        }
+    }
+
     function dataURLtoBlob(dataurl) {
         var arr = dataurl.split(','),
             mime = arr[0].match(/:(.*?);/)[1],
@@ -1197,23 +1212,29 @@ function downloadPicture() {
     var link = document.getElementById("download");
     var canvases = document.getElementsByClassName("myCanvas");
     var canvas = canvases[id];
-    var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-    var title = document.getElementById("title").value.trim();
-    var creator = document.getElementById("creator").value.trim();
-    var fileName = "";
-    if (title.length > 0) {
-        fileName += title;
+
+    if (isTainted(canvas)) {
+        alert('Sorry, canvas is tainted! Please use the right-click-option to save your image.');
     } else {
-        fileName += "card";
+        var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        var title = document.getElementById("title").value.trim();
+        var creator = document.getElementById("creator").value.trim();
+        var fileName = "";
+        if (title.length > 0) {
+            fileName += title;
+        } else {
+            fileName += "card";
+        }
+        if (creator.length > 0) {
+            fileName += "_" + creator.split(" ")[0];
+        }
+        fileName = fileName.split(" ").join("_");
+        fileName += ".png";
+        link.setAttribute('download', fileName);
+        var url = (window.webkitURL || window.URL).createObjectURL(dataURLtoBlob(image));
+        link.setAttribute("href", url);
     }
-    if (creator.length > 0) {
-        fileName += "_" + creator.split(" ")[0];
-    }
-    fileName = fileName.split(" ").join("_");
-    fileName += ".png";
-    link.setAttribute('download', fileName);
-    var url = (window.webkitURL || window.URL).createObjectURL(dataURLtoBlob(image));
-    link.setAttribute("href", url);
+
 }
 
 function Favorites(name) {
