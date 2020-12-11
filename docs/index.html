@@ -145,6 +145,9 @@
                 <div>
                     <label for="custom-icon">Custom Icon</label>
                     <input id="custom-icon" placeholder="http://example.com/icon.png" />
+                    <label class="image-upload" title="Upload Image File"><img src="assets/icon-upload-image.png" alt="Upload" />
+                        <input id="custom-icon-upload" type="file" accept="image/*" /></label>
+
                 </div>
             </td>
         </tr>
@@ -167,6 +170,8 @@
                 <div id="image-positioning">
                     <label for="picture">URL of Illustration</label>
                     <input id="picture" type="url" placeholder="http://example.com/image.jpg" />
+                    <label class="image-upload" title="Upload Image File"><img src="assets/icon-upload-image.png" alt="Upload" />
+                        <input id="picture-upload" type="file" accept="image/*" /></label>
                     <table>
                         <tr>
                             <td><label for="picture-x">Position X:</label></td>
@@ -185,7 +190,8 @@
                                      document.getElementById('picture-x').value=0;
                                      document.getElementById('picture-y').value=0;
                                      let z = document.getElementById('picture-zoom');z.value=1;
-                                     z.onchange();})();">Reset Position</button></td>
+                                     z.onchange();})();">Reset Position</button>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -194,6 +200,8 @@
                 <div>
                     <label for="expansion">URL of Expansion Icon</label>
                     <input id="expansion" type="url" placeholder="http://example.com/expansion.png" />
+                    <label class="image-upload" title="Upload Image File"><img src="assets/icon-upload-image.png" alt="Upload" />
+                        <input id="expansion-upload" type="file" accept="image/*" /></label>
                 </div>
             </td>
         </tr>
@@ -245,7 +253,7 @@
             <td class="hideForBaseCards hideForPileMarker hideForMats">
                 <div>
                     <label for="normalcolor2">Color</label>
-                    <span id="color-switch"><button id="color-switch-button" onclick="switchColors()" alt="Switch Colors"><img src="assets/icon-switch.png" />Switch</button></span>
+                    <span id="color-switch"><button id="color-switch-button" alt="Switch Colors"><img src="assets/icon-switch.png" />Switch</button></span>
                     <select name="normalcolor" id="normalcolor2">
                         <option>SAME</option>
                     </select>
