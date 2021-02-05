@@ -1283,6 +1283,43 @@ function Favorites(name) {
     var data = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
     var ascending = true;
 
+    this.export = function () {
+        let jsonData = localStorage.getItem('favorites');
+        download(jsonData, 'dominion-card-generator-favorites.json', 'text/plain');
+
+        function download(content, fileName, contentType) {
+            let a = document.createElement("a");
+            let file = new Blob([content], {
+                type: contentType
+            });
+            a.href = URL.createObjectURL(file);
+            a.download = fileName;
+            a.click();
+        }
+    };
+    this.import = function () {
+        let myFavs = this;
+
+        let inp = document.createElement("input");
+        inp.type = 'file';
+
+        inp.onchange = e => {
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            reader.readAsText(file, 'UTF-8');
+            reader.onload = readerEvent => {
+                let content = readerEvent.target.result;
+                let newData = JSON.parse(content);
+                data = data.concat(newData);
+                myFavs.save();
+
+            }
+        }
+        inp.click();
+
+    }
+
+
     this.open = function () {
         this.refresh();
         fav.classList.remove('hidden');
