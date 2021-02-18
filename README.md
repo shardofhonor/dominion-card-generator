@@ -11,3 +11,10 @@ https://shardofhonor.github.io/dominion-card-generator/
 ### Disclaimer
 
 The design of the cards is property of the creator of the game, Donald X. Vaccarino and Rio Grande Games.
+
+### Run it yourself
+This project runs directly on GitHub Pages.
+If you want to host the generator yourself, please also run your own version of [cors-anywhere](https://github.com/Rob--W/cors-anywhere), whitelist your server and replace the following URL within the sourcecode.
+```
+https://dominion-card-generator-cors.herokuapp.com/
+```
