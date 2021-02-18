@@ -68,8 +68,8 @@
     font-family: 'TrajanPro';
     font-display: auto;
     src: local("Trajan Pro Bold"), local("TrajanPro-Bold"),
-        url('https://cors-anywhere.herokuapp.com/https://shemitz.net/static/dominion3/Trajan%20Pro%20Bold.ttf') format('truetype'),
-        url('https://cors-anywhere.herokuapp.com/https://dominion.games/fonts/TrajanPro-Bold.otf') format('opentype'),
+        url('https://dominion-card-generator-cors.herokuapp.com/https://shemitz.net/static/dominion3/Trajan%20Pro%20Bold.ttf') format('truetype'),
+        url('https://dominion-card-generator-cors.herokuapp.com/https://dominion.games/fonts/TrajanPro-Bold.otf') format('opentype'),
         local("Trajan Pro"),
         local("Trajan"),
         local("Optimus Princeps"),
@@ -81,7 +81,7 @@
     font-family: 'Minion';
     font-display: auto;
     src: local("Minion Std Black"), local("MinionStd-Black"),
-        url('https://cors-anywhere.herokuapp.com/https://shemitz.net/static/dominion3/MinionStd-Black.otf') format('opentype'),
+        url('https://dominion-card-generator-cors.herokuapp.com/https://shemitz.net/static/dominion3/MinionStd-Black.otf') format('opentype'),
         local("Optimus Princeps"),
         url(https://fonts.gstatic.com/s/cinzel/v8/8vIJ7ww63mVu7gt79mT7PkRXMw.woff2) format('woff2'),
         local("Times New Roman");
