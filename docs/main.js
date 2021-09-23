@@ -67,7 +67,7 @@ function initCardImageGenerator() {
         "münze",
         "münzen",
 	];
-    var travellerTypesPattern = new RegExp(["Traveller", "Traveler", "Reisender", "Reisende", "Reiziger", "Matkaaja", "Itinérant", "Путешественник"].join("|"));
+    var travellerTypesPattern = new RegExp(["Traveller", "Traveler", "Reisender", "Reisende", "Reiziger", "Matkaaja", "Itinérant", "Путешественник", "Приключенец"].join("|"));
 
 
     var normalColorCustomIndices = [0, 0];
