@@ -571,7 +571,12 @@ function initCardImageGenerator() {
             context.drawImage(getRecoloredImage(0, 0), 0, 0); //CardColorOne
             if (normalColorCurrentIndices[1] > 0) { //two colors are different
                 let splitPosition = document.getElementById("color2split").value;
-                context.drawImage(getRecoloredImage(!differentIntensities ? splitPosition : 12, 1), 0, 0); //CardColorTwo
+                if (splitPosition == 27) {
+                    context.drawImage(getRecoloredImage(1, 1), 0, 0); //CardColorTwo - Half
+                    context.drawImage(images[27], 0, 0); //CardColorThree
+                } else {
+                    context.drawImage(getRecoloredImage(!differentIntensities ? splitPosition : 12, 1), 0, 0); //CardColorTwo
+                }
             }
             context.drawImage(getRecoloredImage(2, 0, 6), 0, 0); //CardGray
             context.drawImage(getRecoloredImage(16, 0, 9), 0, 0); //CardBrown
@@ -948,8 +953,9 @@ function initCardImageGenerator() {
 		"BaseCardBrown.png",
 		"PileMarkerColorOne.png",
 		"PileMarkerGrey.png",
-        "MatBannerTop.png",
-        "MatBannerBottom.png"
+        "MatBannerTop.png", //25
+        "MatBannerBottom.png",
+        "CardColorThree.png"
 		//icons come afterwards
 	];
     for (var i = 0; i < sources.length; i++)
