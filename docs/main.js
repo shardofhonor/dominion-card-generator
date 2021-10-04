@@ -106,7 +106,6 @@ function initCardImageGenerator() {
     var iconWithNumbersPattern = "[-+]?(" + iconList + ")([\\d\\?]*[-+\\*]?)";
     var iconWithNumbersPatternSingle = RegExp("^([-+]?\\d+)?" + iconWithNumbersPattern + "(\\S*)$");
     iconWithNumbersPattern = RegExp(iconWithNumbersPattern, "g");
-    var iconAddingNumber = RegExp("\\+(" + iconList + ")\\d+");
 
     var canvases = document.getElementsByClassName("myCanvas");
 
@@ -207,7 +206,7 @@ function initCardImageGenerator() {
                         family = "Minion";
                         var localY = y;
                         var localScale = scale;
-                        if (words.length === 1 && !word.match(iconAddingNumber)) {
+                        if (words.length === 1 && !word.startsWith('+')) {
                             localY += 115 - scale * 48;
                             context.font = "bold 192pt " + family;
                             localScale = 1.6;
@@ -391,7 +390,7 @@ function initCardImageGenerator() {
                             context.font = "bold " + boldSize + "pt Times New Roman"; //resizing up to 64
                             progressiveWidth = context.measureText(line).width; //=, not +=
                             context.font = properFont;
-                        } else if (line.match(iconWithNumbersPatternSingle) && !line.match(iconAddingNumber)) {
+                        } else if (line.match(iconWithNumbersPatternSingle) && !line.startsWith('+')) {
                             heightToAdd = 275; //192 * 1.433
                             var properFont = context.font;
                             context.font = "bold 192pt Times New Roman";
