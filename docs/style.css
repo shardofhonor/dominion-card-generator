@@ -67,7 +67,8 @@
 @font-face {
     font-family: 'TrajanPro';
     font-display: auto;
-    src: local("Trajan Pro Bold"), local("TrajanPro-Bold"),
+    src: local("Trajan Pro Bold"), local("TrajanPro-Bold"), local('Trajan Pro'),
+        url('https://fonts.cdnfonts.com/s/14928/TrajanPro-Bold.woff') format('woff'),
         url('https://dominion-card-generator-cors.herokuapp.com/https://shemitz.net/static/dominion3/Trajan%20Pro%20Bold.ttf') format('truetype'),
         url('https://dominion-card-generator-cors.herokuapp.com/https://dominion.games/fonts/TrajanPro-Bold.otf') format('opentype'),
         local("Trajan Pro"),
