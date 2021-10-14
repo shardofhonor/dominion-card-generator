@@ -404,11 +404,12 @@ body.size2 label[for=type2]:after {
     content: "Type";
 }
 
+body.size2 .hideForLandscape,
 body.size3 .hideForBaseCards,
 body.size4 .hideForPileMarker,
 body.size5 .hideForMats {
     visibility: collapse;
-    display: none;
+    display: none !important;
 }
 
 body.size1 #previewCell,

@@ -185,7 +185,7 @@
                         </tr>
                         <tr>
                             <td><label for="picture-zoom">Zoom:</label></td>
-                            <td colspan="2"><input id="picture-zoom" type="range" min="1" max="3" value="1" step="0.1"></td>
+                            <td colspan="2"><input id="picture-zoom" type="range" min="0" max="3" value="1" step="0.1"></td>
                         </tr>
                         <tr>
                             <td colspan="3"><button onclick="(function(){
@@ -265,7 +265,7 @@
                     <div style="display:none;" title="Card fade color">
                         <input type="number" name="recolor" min="0" max="10" step=".05" value="0" /><input type="number" name="recolor" min="0" max="10" step=".05" value="0" /><input type="number" name="recolor" min="0" max="10" step=".05" value="0" />
                     </div>
-                    <div id="color2splitselector" style="display:none;">
+                    <div id="color2splitselector" class="hideForLandscape" style="display:none;">
                         <label for="color2split">Split Position</label>
                         <select name="color2split" id="color2split">
                             <option value="18">Smaller Top</option>
