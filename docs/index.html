@@ -38,9 +38,14 @@
             initCardImageGenerator();
             myFavorites = new Favorites( 'myFavorites' );
         }
+        
+        window.addEventListener("load", function(event) {
+            console.log("Loading finsihed. Starting initialization.");
+            initialize();
+        });
 
     </script>
-    <script async src="main.js" onload="initialize()"></script>
+    <script src="main.js"></script>
 </head>
 
 <body class="size0">
