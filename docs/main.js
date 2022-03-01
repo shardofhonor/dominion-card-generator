@@ -104,10 +104,11 @@ function initCardImageGenerator() {
             this[index] = word.trim();
         }, boldableKeywordsFull);
         boldLinePatternWords = RegExp("(?:([-+]\\d+)\\s+|(\\+))(" + boldableKeywordsFull.join("|") + "s?)", "ig");
+        boldLinePatternWordsSpecial = RegExp("(?:([-+]\\d+)\\s+|(?:(\\d+)\\s+)|(\\+)|)(" + specialBoldableKeywords.join("|") + "s?)", "ig");
     }
     var boldLinePatternWords;
+    var boldLinePatternWordsSpecial;
     rebuildBoldLinePatternWords();
-    var boldLinePatternWordsSpecial = RegExp("(?:([-+]\\d+)\\s+|(?:(\\d+)\\s+)|(\\+)|)(" + specialBoldableKeywords.join("|") + "s?)", "ig");
 
     var iconList = "[" + Object.keys(icons).join("") + "]";
     //var boldLinePatternIcons = RegExp("[-+]\\d+\\s" + iconList + "\\d+", "ig");
@@ -392,7 +393,7 @@ function initCardImageGenerator() {
                             heightToAdd = size * 0.5;
                         else if (line === "-") //horizontal bar
                             heightToAdd = size * 0.75;
-                        else if ((line.match(boldLinePatternWords) || word.match(boldLinePatternWordsSpecial)) && line.indexOf(" ") < 0) { //important line
+                        else if ((line.match(boldLinePatternWords) || line.match(boldLinePatternWordsSpecial)) && line.indexOf(" ") < 0) { //important line
                             heightToAdd = boldSize * 1.433;
                             var properFont = context.font;
                             context.font = "bold " + boldSize + "pt Times New Roman"; //resizing up to 64
@@ -409,24 +410,27 @@ function initCardImageGenerator() {
                         line = ""; //start next line empty
                         widthsPerLine.push(progressiveWidth);
                         progressiveWidth = 0;
-                    } else if (progressiveWidth + getWidthOfLineWithIconsReplacedWithSpaces(" " + word) > maxWidth) {
-                        lines.push(line + " ");
-                        line = word;
-                        heightToAdd = size * 1.433;
-                        widthsPerLine.push(progressiveWidth);
-                        progressiveWidth = getWidthOfLineWithIconsReplacedWithSpaces(word);
                     } else {
-                        if (line.length) {
-                            line += " ";
-                            progressiveWidth += widthOfSpace;
+                        word.trim();
+                        if (progressiveWidth + getWidthOfLineWithIconsReplacedWithSpaces(" " + word) > maxWidth) {
+                            lines.push(line + " ");
+                            line = word;
+                            heightToAdd = size * 1.433;
+                            widthsPerLine.push(progressiveWidth);
+                            progressiveWidth = getWidthOfLineWithIconsReplacedWithSpaces(word);
+                        } else {
+                            if (line.length) {
+                                line += " ";
+                                progressiveWidth += widthOfSpace;
+                            }
+                            line += word;
+                            var properFont = context.font;
+                            if (word.match(boldLinePatternWords) || word.match(boldLinePatternWordsSpecial)) //e.g. "+1 Action"
+                                context.font = "bold " + properFont;
+                            progressiveWidth += getWidthOfLineWithIconsReplacedWithSpaces(word);
+                            context.font = properFont;
+                            continue;
                         }
-                        line += word;
-                        var properFont = context.font;
-                        if (word.match(boldLinePatternWords) || word.match(boldLinePatternWordsSpecial)) //e.g. "+1 Action"
-                            context.font = "bold " + properFont;
-                        progressiveWidth += getWidthOfLineWithIconsReplacedWithSpaces(word);
-                        context.font = properFont;
-                        continue;
                     }
                     overallHeight += heightToAdd;
                     heightsPerLine.push(heightToAdd);
