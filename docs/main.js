@@ -51,11 +51,6 @@ function initCardImageGenerator() {
 		["Way", [1, 1.15, 1.25, 0.25, 0.3, 0.35, 1.6, 1.6, 1.6, 1.3, 1.3, 1.3]],
 		["Ally", [1, 0.95, 0.85, 0.35, 0.3, 0.15, 0.9, 0.8, 0.7, 0.9, 0.8, 0.7]]
 	];
-    var specialBoldableKeywords = [
-        "favor",
-        "dienst",
-        "dienste",
-	];
     var boldableKeywords = [ //case-insensitive
 		"card",
 		"buy",
@@ -72,6 +67,11 @@ function initCardImageGenerator() {
         "dorfbewohner",
         "münze",
         "münzen"
+	];
+    var specialBoldableKeywords = [
+        "favor",
+        "dienst",
+        "dienste",
 	];
     var travellerTypesPattern = new RegExp(["Traveller", "Traveler", "Reisender", "Reisende", "Reiziger", "Matkaaja", "Itinérant", "Путешественник", "Приключенец"].join("|"));
 
