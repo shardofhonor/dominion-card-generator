@@ -103,10 +103,11 @@ function initCardImageGenerator() {
         boldableKeywordsFull.forEach(function (word, index) {
             this[index] = word.trim();
         }, boldableKeywordsFull);
-        boldLinePatternWords = RegExp("((?:([-+]\\d+)\\s+|(\\+))(" + boldableKeywordsFull.join("|") + "s?))|((?:(\\d+)(" + specialBoldableKeywords.join("|") + "s?)))", "ig");
+        boldLinePatternWords = RegExp("(?:([-+]\\d+)\\s+|(\\+))(" + boldableKeywordsFull.join("|") + "s?)", "ig");
     }
     var boldLinePatternWords;
     rebuildBoldLinePatternWords();
+    var boldLinePatternWordsSpecial = RegExp("(?:([-+\\s]\\d+)\\s+(" + specialBoldableKeywords.join("|") + "s?)", "ig");
 
     var iconList = "[" + Object.keys(icons).join("") + "]";
     //var boldLinePatternIcons = RegExp("[-+]\\d+\\s" + iconList + "\\d+", "ig");
@@ -318,7 +319,7 @@ function initCardImageGenerator() {
                         x += halfWidthOfSpaces;
                         word = match[4];
                     } else {
-                        if (word.match(boldLinePatternWords)) {
+                        if (word.match(boldLinePatternWords || word.match(boldLinePatternWordsSpecial))) {
                             if (words.length === 1)
                                 context.font = "bold " + boldSize + "pt " + family;
                             else
@@ -364,7 +365,7 @@ function initCardImageGenerator() {
 
         function writeDescription(elementID, xCenter, yCenter, maxWidth, maxHeight, boldSize) {
             rebuildBoldLinePatternWords();
-            var description = document.getElementById(elementID).value.replace(/ *\n */g, " \n ").replace(boldLinePatternWords, "$1\xa0$2$3") + " \n"; //separate newlines into their own words for easier processing
+            var description = document.getElementById(elementID).value.replace(/ *\n */g, " \n ").replace(boldLinePatternWords, "$1\xa0$2$3").replace(boldLinePatternWordsSpecial, "$1\xa0$2$3") + " \n"; //separate newlines into their own words for easier processing
             var words = description.split(" ");
             var lines;
             var widthsPerLine;
@@ -391,7 +392,7 @@ function initCardImageGenerator() {
                             heightToAdd = size * 0.5;
                         else if (line === "-") //horizontal bar
                             heightToAdd = size * 0.75;
-                        else if (line.match(boldLinePatternWords) && line.indexOf(" ") < 0) { //important line
+                        else if ((line.match(boldLinePatternWords) || word.match(boldLinePatternWordsSpecial)) && line.indexOf(" ") < 0) { //important line
                             heightToAdd = boldSize * 1.433;
                             var properFont = context.font;
                             context.font = "bold " + boldSize + "pt Times New Roman"; //resizing up to 64
@@ -421,7 +422,7 @@ function initCardImageGenerator() {
                         }
                         line += word;
                         var properFont = context.font;
-                        if (word.match(boldLinePatternWords)) //e.g. "+1 Action"
+                        if (word.match(boldLinePatternWords) || word.match(boldLinePatternWordsSpecial)) //e.g. "+1 Action"
                             context.font = "bold " + properFont;
                         progressiveWidth += getWidthOfLineWithIconsReplacedWithSpaces(word);
                         context.font = properFont;
