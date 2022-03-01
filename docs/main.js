@@ -51,14 +51,17 @@ function initCardImageGenerator() {
 		["Way", [1, 1.15, 1.25, 0.25, 0.3, 0.35, 1.6, 1.6, 1.6, 1.3, 1.3, 1.3]],
 		["Ally", [1, 0.95, 0.85, 0.35, 0.3, 0.15, 0.9, 0.8, 0.7, 0.9, 0.8, 0.7]]
 	];
+    var specialBoldableKeywords = [
+        "favor",
+        "dienst",
+        "dienste",
+	];
     var boldableKeywords = [ //case-insensitive
 		"card",
 		"buy",
 		"action",
 		"coffer",
 		"villager",
-		"service",
-        "favor",
 
 		"aktion",
         "aktionen",
@@ -68,10 +71,9 @@ function initCardImageGenerator() {
         "käufe",
         "dorfbewohner",
         "münze",
-        "münzen",
-        "dienst",
-        "dienste",
+        "münzen"
 	];
+    boldableKeywords.push(...specialBoldableKeywords);
     var travellerTypesPattern = new RegExp(["Traveller", "Traveler", "Reisender", "Reisende", "Reiziger", "Matkaaja", "Itinérant", "Путешественник", "Приключенец"].join("|"));
 
 
@@ -101,7 +103,7 @@ function initCardImageGenerator() {
         boldableKeywordsFull.forEach(function (word, index) {
             this[index] = word.trim();
         }, boldableKeywordsFull);
-        boldLinePatternWords = RegExp("(?:([-+]\\d+)\\s+|(\\+))(" + boldableKeywordsFull.join("|") + "s?)", "ig");
+        boldLinePatternWords = RegExp("((?:([-+]\\d+)\\s+|(\\+))(" + boldableKeywordsFull.join("|") + "s?))|((?:(\\d+)(" + specialBoldableKeywords.join("|") + "s?))", "ig");
     }
     var boldLinePatternWords;
     rebuildBoldLinePatternWords();
