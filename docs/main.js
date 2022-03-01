@@ -73,7 +73,7 @@ function initCardImageGenerator() {
         "münze",
         "münzen"
 	];
-    boldableKeywords.push(...specialBoldableKeywords);
+    //boldableKeywords.push(...specialBoldableKeywords);
     var travellerTypesPattern = new RegExp(["Traveller", "Traveler", "Reisender", "Reisende", "Reiziger", "Matkaaja", "Itinérant", "Путешественник", "Приключенец"].join("|"));
 
 
@@ -107,7 +107,7 @@ function initCardImageGenerator() {
     }
     var boldLinePatternWords;
     rebuildBoldLinePatternWords();
-    var boldLinePatternWordsSpecial = RegExp("(?:(\\d+)\\s+)(" + specialBoldableKeywords.join("|") + "s?)", "ig");
+    var boldLinePatternWordsSpecial = RegExp("(?:([-+]\\d+)\\s+|(?:(\\d+)\\s+)|(\\+)|)(" + specialBoldableKeywords.join("|") + "s?)", "ig");
 
     var iconList = "[" + Object.keys(icons).join("") + "]";
     //var boldLinePatternIcons = RegExp("[-+]\\d+\\s" + iconList + "\\d+", "ig");
@@ -365,7 +365,7 @@ function initCardImageGenerator() {
 
         function writeDescription(elementID, xCenter, yCenter, maxWidth, maxHeight, boldSize) {
             rebuildBoldLinePatternWords();
-            var description = document.getElementById(elementID).value.replace(/ *\n */g, " \n ").replace(boldLinePatternWords, "$1\xa0$2$3") + " \n"; //separate newlines into their own words for easier processing
+            var description = document.getElementById(elementID).value.replace(/ *\n */g, " \n ").replace(boldLinePatternWords, "$1\xa0$2$3").replace(boldLinePatternWordsSpecial, "$1$2\xa0$3$4") + " \n"; //separate newlines into their own words for easier processing
             var words = description.split(" ");
             var lines;
             var widthsPerLine;
