@@ -58,7 +58,7 @@ function initCardImageGenerator() {
 		"coffer",
 		"villager",
 		"service",
-        "favor"
+        "favor",
 
 		"aktion",
         "aktionen",
