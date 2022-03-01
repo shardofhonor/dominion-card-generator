@@ -103,7 +103,7 @@ function initCardImageGenerator() {
         boldableKeywordsFull.forEach(function (word, index) {
             this[index] = word.trim();
         }, boldableKeywordsFull);
-        boldLinePatternWords = RegExp("((?:([-+]\\d+)\\s+|(\\+))(" + boldableKeywordsFull.join("|") + "s?))|((?:(\\d+)(" + specialBoldableKeywords.join("|") + "s?))", "ig");
+        boldLinePatternWords = RegExp("((?:([-+]\\d+)\\s+|(\\+))(" + boldableKeywordsFull.join("|") + "s?))|((?:(\\d+)(" + specialBoldableKeywords.join("|") + "s?)))", "ig");
     }
     var boldLinePatternWords;
     rebuildBoldLinePatternWords();
