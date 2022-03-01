@@ -107,7 +107,7 @@ function initCardImageGenerator() {
     }
     var boldLinePatternWords;
     rebuildBoldLinePatternWords();
-    var boldLinePatternWordsSpecial = RegExp("(?:([-+\\s]\\d+)\\s+(" + specialBoldableKeywords.join("|") + "s?)", "ig");
+    var boldLinePatternWordsSpecial = RegExp("(?:(\\d+)\\s+)(" + specialBoldableKeywords.join("|") + "s?)", "ig");
 
     var iconList = "[" + Object.keys(icons).join("") + "]";
     //var boldLinePatternIcons = RegExp("[-+]\\d+\\s" + iconList + "\\d+", "ig");
