@@ -73,7 +73,6 @@ function initCardImageGenerator() {
         "münze",
         "münzen"
 	];
-    //boldableKeywords.push(...specialBoldableKeywords);
     var travellerTypesPattern = new RegExp(["Traveller", "Traveler", "Reisender", "Reisende", "Reiziger", "Matkaaja", "Itinérant", "Путешественник", "Приключенец"].join("|"));
 
 
