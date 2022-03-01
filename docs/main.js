@@ -411,7 +411,9 @@ function initCardImageGenerator() {
                         widthsPerLine.push(progressiveWidth);
                         progressiveWidth = 0;
                     } else {
-                        word.trim();
+                        if (word.charAt(0) === "\xa0") {
+                            word = word.substring(1);
+                        }
                         if (progressiveWidth + getWidthOfLineWithIconsReplacedWithSpaces(" " + word) > maxWidth) {
                             lines.push(line + " ");
                             line = word;
