@@ -320,7 +320,7 @@ function initCardImageGenerator() {
                         x += halfWidthOfSpaces;
                         word = match[4];
                     } else {
-                        if (word.match(boldLinePatternWords || word.match(boldLinePatternWordsSpecial))) {
+                        if (word.match(boldLinePatternWords) || word.match(boldLinePatternWordsSpecial)) {
                             if (words.length === 1)
                                 context.font = "bold " + boldSize + "pt " + family;
                             else
