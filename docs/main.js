@@ -365,7 +365,7 @@ function initCardImageGenerator() {
 
         function writeDescription(elementID, xCenter, yCenter, maxWidth, maxHeight, boldSize) {
             rebuildBoldLinePatternWords();
-            var description = document.getElementById(elementID).value.replace(/ *\n */g, " \n ").replace(boldLinePatternWords, "$1\xa0$2$3").replace(boldLinePatternWordsSpecial, "$1\xa0$2$3") + " \n"; //separate newlines into their own words for easier processing
+            var description = document.getElementById(elementID).value.replace(/ *\n */g, " \n ").replace(boldLinePatternWords, "$1\xa0$2$3") + " \n"; //separate newlines into their own words for easier processing
             var words = description.split(" ");
             var lines;
             var widthsPerLine;
