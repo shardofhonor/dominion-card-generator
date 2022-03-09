@@ -211,7 +211,7 @@ function initCardImageGenerator() {
                     var match = word.match(iconWithNumbersPatternSingle);
                     if (match) {
                         var familyOriginal = family;
-                        family = "Minion";
+                        family = "mySpecials";
                         var localY = y;
                         var localScale = scale;
                         if (words.length === 1 && !word.startsWith('+')) {
@@ -355,7 +355,7 @@ function initCardImageGenerator() {
         }
 
         function writeSingleLine(line, x, y, maxWidth, initialSize, family) {
-            family = family || "TrajanPro";
+            family = family || "myTitle";
             var size = (initialSize || 85) + 2;
             do {
                 context.font = (size -= 2) + "pt " + family;
@@ -378,7 +378,7 @@ function initCardImageGenerator() {
                 overallHeight = 0;
 
                 size -= 2;
-                context.font = size + "pt Times New Roman";
+                context.font = size + "pt myText";
                 var widthOfSpace = context.measureText(" ").width;
                 lines = [];
                 var line = "";
@@ -395,13 +395,13 @@ function initCardImageGenerator() {
                         else if ((line.match(boldLinePatternWords) || line.match(boldLinePatternWordsSpecial)) && line.indexOf(" ") < 0) { //important line
                             heightToAdd = boldSize * 1.433;
                             var properFont = context.font;
-                            context.font = "bold " + boldSize + "pt Times New Roman"; //resizing up to 64
+                            context.font = "bold " + boldSize + "pt myText"; //resizing up to 64
                             progressiveWidth = context.measureText(line).width; //=, not +=
                             context.font = properFont;
                         } else if (line.match(iconWithNumbersPatternSingle) && !line.startsWith('+')) {
                             heightToAdd = 275; //192 * 1.433
                             var properFont = context.font;
-                            context.font = "bold 192pt Times New Roman";
+                            context.font = "bold 192pt myText";
                             progressiveWidth = getWidthOfLineWithIconsReplacedWithSpaces(line); //=, not +=
                             context.font = properFont;
                         } else //regular word
@@ -445,7 +445,7 @@ function initCardImageGenerator() {
                 if (line === "-") //horizontal bar
                     context.fillRect(xCenter / 2, y - size * 0.375 - 5, xCenter, 10);
                 else if (line.length)
-                    writeLineWithIconsReplacedWithSpaces(line, xCenter - widthsPerLine[i] / 2, y, size / 96, "Times New Roman", boldSize);
+                    writeLineWithIconsReplacedWithSpaces(line, xCenter - widthsPerLine[i] / 2, y, size / 96, "myText", boldSize);
                 //else empty line with nothing to draw
                 y += heightsPerLine[i];
             }
@@ -455,7 +455,7 @@ function initCardImageGenerator() {
         function writeIllustrationCredit(x, y, color, bold, size = 31) {
             var illustrationCredit = document.getElementById("credit").value;
             if (illustrationCredit) {
-                context.font = bold + size + "pt Times New Roman";
+                context.font = bold + size + "pt myText";
                 context.fillStyle = color;
                 context.fillText(illustrationCredit, x, y);
                 context.fillStyle = "#000";
@@ -466,7 +466,7 @@ function initCardImageGenerator() {
             var creatorCredit = document.getElementById("creator").value;
             if (creatorCredit) {
                 context.textAlign = "right";
-                context.font = bold + size + "pt Times New Roman";
+                context.font = bold + size + "pt myText";
                 context.fillStyle = color;
                 context.fillText(creatorCredit, x, y);
                 context.fillStyle = "#000";
@@ -610,7 +610,7 @@ function initCardImageGenerator() {
             //context.font = "small-caps" + context.font;
             if (heirloomLine) {
                 context.drawImage(images[13], 97, 1720); //Heirloom banner
-                writeSingleLine(heirloomLine, 701, 1799, 1040, 58, "Times New Roman");
+                writeSingleLine(heirloomLine, 701, 1799, 1040, 58, "myText");
             }
             if (isEachColorDark[1])
                 context.fillStyle = "white";
@@ -634,10 +634,10 @@ function initCardImageGenerator() {
                 }
             }
             if (priceLine)
-                writeLineWithIconsReplacedWithSpaces(priceLine + " ", 153, 1940, 85 / 90, "Minion"); //adding a space confuses writeLineWithIconsReplacedWithSpaces into thinking this isn't a line that needs resizing
+                writeLineWithIconsReplacedWithSpaces(priceLine + " ", 153, 1940, 85 / 90, "mySpecials"); //adding a space confuses writeLineWithIconsReplacedWithSpaces into thinking this isn't a line that needs resizing
             if (previewLine) {
-                writeSingleLine(previewLine += " ", 223, 210, 0, 0, "Minion");
-                writeSingleLine(previewLine, 1203, 210, 0, 0, "Minion");
+                writeSingleLine(previewLine += " ", 223, 210, 0, 0, "mySpecials");
+                writeSingleLine(previewLine, 1203, 210, 0, 0, "mySpecials");
             }
             context.fillStyle = (isEachColorDark[0]) ? "white" : "black";
             if (!heirloomLine)
@@ -667,7 +667,7 @@ function initCardImageGenerator() {
             context.textBaseline = "middle";
             //context.font = "small-caps" + context.font;
             if (heirloomLine)
-                writeSingleLine(heirloomLine, 1074, 900, 1600, 58, "Times New Roman");
+                writeSingleLine(heirloomLine, 1074, 900, 1600, 58, "myText");
             if (isEachColorDark[0])
                 context.fillStyle = "white";
             writeSingleLine(document.getElementById("title").value, 1075, 165, 780, 70);
@@ -682,7 +682,7 @@ function initCardImageGenerator() {
             }
 
             if (priceLine)
-                writeLineWithIconsReplacedWithSpaces(priceLine + " ", 130, 205, 85 / 90, "Minion"); //adding a space confuses writeLineWithIconsReplacedWithSpaces into thinking this isn't a line that needs resizing
+                writeLineWithIconsReplacedWithSpaces(priceLine + " ", 130, 205, 85 / 90, "mySpecials"); //adding a space confuses writeLineWithIconsReplacedWithSpaces into thinking this isn't a line that needs resizing
             writeDescription("description", 1075, 1107, 1600, 283, 70);
             writeIllustrationCredit(181, 1272, "black", "bold ");
             writeCreatorCredit(1969, 1272, "black", "bold ");
@@ -721,7 +721,7 @@ function initCardImageGenerator() {
                 var title = document.getElementById(l).value;
                 var size = 75 + 2;
                 do {
-                    context.font = (size -= 2) + "pt TrajanPro";
+                    context.font = (size -= 2) + "pt myTitle";
                 } while (context.measureText(title).width > 750);
                 context.textAlign = "left";
                 context.fillStyle = "rgb(" + Math.round(recolorFactors[0] * 224) + "," + Math.round(recolorFactors[1] * 224) + "," + Math.round(recolorFactors[2] * 224) + ")";
@@ -736,7 +736,7 @@ function initCardImageGenerator() {
                     context.fillStyle = "white";
                 writeSingleLine(t, p ? 750 : 701, 1922, p ? 890 : 1190, 64);
                 if (p)
-                    writeLineWithIconsReplacedWithSpaces(p + " ", 153, 1940, 85 / 90, "Minion");
+                    writeLineWithIconsReplacedWithSpaces(p + " ", 153, 1940, 85 / 90, "mySpecials");
                 writeDescription(d, 701, 1600, 960, 460, 64);
                 context.restore();
             }
@@ -766,7 +766,7 @@ function initCardImageGenerator() {
             //context.font = "small-caps" + context.font;
             if (heirloomLine) {
                 context.drawImage(images[13], 97, 1720); //Heirloom banner
-                writeSingleLine(heirloomLine, 701, 1799, 1040, 58, "Times New Roman");
+                writeSingleLine(heirloomLine, 701, 1799, 1040, 58, "myText");
             }
             if (isEachColorDark[1])
                 context.fillStyle = "white";
@@ -784,10 +784,10 @@ function initCardImageGenerator() {
                 }
             }
             if (priceLine)
-                writeLineWithIconsReplacedWithSpaces(priceLine + " ", 153, 1947, 85 / 90, "Minion"); //adding a space confuses writeLineWithIconsReplacedWithSpaces into thinking this isn't a line that needs resizing
+                writeLineWithIconsReplacedWithSpaces(priceLine + " ", 153, 1947, 85 / 90, "mySpecials"); //adding a space confuses writeLineWithIconsReplacedWithSpaces into thinking this isn't a line that needs resizing
             if (previewLine) {
-                writeSingleLine(previewLine += " ", 223, 210, 0, 0, "Minion");
-                writeSingleLine(previewLine, 1203, 210, 0, 0, "Minion");
+                writeSingleLine(previewLine += " ", 223, 210, 0, 0, "mySpecials");
+                writeSingleLine(previewLine, 1203, 210, 0, 0, "mySpecials");
             }
             context.fillStyle = (isEachColorDark[0]) ? "white" : "black";
             if (!heirloomLine)
@@ -1450,4 +1450,27 @@ function Favorites(name) {
             favList.appendChild(li);
         });
     };
+}
+
+class FontHandler {
+    constructor() {
+        this.custom = document.getElementById('fontLocal');
+        this.default = document.getElementById('fontDefault');
+    }
+    setFonts(lclFontTitle, lclFontSpecials, lclFontText) {
+        this.custom.innerHTML =
+            '@font-face { font-family: "myTitle"; src: local("' + lclFontTitle + '"); } ' +
+            '@font-face { font-family: "mySpecials"; src: local("' + lclFontSpecials + '"); } ' +
+            '@font-face { font-family: "myText"; src: local("' + lclFontText + '"); } ';
+        this.default.setAttribute('href', '#');
+        this._triggerChange();
+    }
+    reset() {
+        this.custom.innerHTML = '';
+        this.default.setAttribute('href', 'fonts.css');
+        this._triggerChange();
+    }
+    _triggerChange() {
+        document.getElementById("title").onchange();
+    }
 }
