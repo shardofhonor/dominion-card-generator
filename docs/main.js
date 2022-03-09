@@ -1487,9 +1487,7 @@ class FontHandler {
     }
 
     applySettings() {
-        if (this.settings.title) {
-            this.setFonts(this.settings.title, this.settings.specials, this.settings.text);
-        }
+        this.setFonts(this.settings.title, this.settings.specials, this.settings.text);
     }
 
     load() {
@@ -1503,7 +1501,9 @@ class FontHandler {
         if (this.settings.text) {
             document.getElementById('fontInputText').value = this.settings.text;
         }
-        this.applySettings();
+        if (this.settings !== {}) {
+            this.applySettings();
+        }
     }
 
     reset() {
