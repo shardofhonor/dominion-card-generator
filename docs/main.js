@@ -1554,7 +1554,8 @@ class FontHandler {
         }
 
         if (lclFontText !== "") {
-            css += this.getFontFaceCSS('myText', lclFontText);
+            css += this.getFontFaceCSS('myText', lclFontText, 'normal');
+            css += this.getFontFaceCSS('myText', lclFontText + " Bold", 'bold');
             this.defaultText.href = '#';
         } else {
             this.defaultText.href = './fonts/font-text.css';
@@ -1564,8 +1565,12 @@ class FontHandler {
         this.triggerChange();
     }
 
-    getFontFaceCSS(myName, lclName) {
-        return '@font-face { font-family: "' + myName + '"; src: local("' + lclName + '"); } ';
+    getFontFaceCSS(myName, lclName, fontWeight) {
+        let cssWeight = "";
+        if (fontWeight) {
+            cssWeight = ' font-weight: ' + fontWeight + ';'
+        }
+        return '@font-face { font-family: "' + myName + '"; src: local("' + lclName + '");' + cssWeight + ' } ';
     }
 
     triggerChange() {
