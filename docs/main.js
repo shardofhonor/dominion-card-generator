@@ -1487,7 +1487,10 @@ class FontHandler {
     }
 
     applySettings() {
-        this.setFonts(this.settings.title, this.settings.specials, this.settings.text);
+        const hasAnyCustomFont = (this.settings.title || this.settings.specials || this.settings.text);
+        if (hasAnyCustomFont) {
+            this.setFonts(this.settings.title, this.settings.specials, this.settings.text);
+        }
     }
 
     load() {
@@ -1501,8 +1504,21 @@ class FontHandler {
         if (this.settings.text) {
             document.getElementById('fontInputText').value = this.settings.text;
         }
-        if (JSON.stringify(this.settings) !== '{}') {
-            this.applySettings();
+        this.applySettings();
+    }
+
+    check() {
+        if (this.settings.title) {
+            document.fonts.check("1em '" + this.settings.title + "'");
+            console.log("Font available for title: " + this.settings.title);
+        }
+        if (this.settings.specials) {
+            document.fonts.check("1em '" + this.settings.specials + "'");
+            console.log("Font available for specials: " + this.settings.specials);
+        }
+        if (this.settings.text) {
+            document.fonts.check("1em '" + this.settings.text + "'");
+            console.log("Font available for text: " + this.settings.text);
         }
     }
 
@@ -1529,10 +1545,11 @@ class FontHandler {
         this.custom.innerHTML = css;
         this.default.href = '#';
         this.triggerChange();
+        //this.check();
     }
 
     getFontFaceCSS(myName, lclName) {
-        return '@font-face { font-family: "' + myName + '"; font-display: block; src: local("' + lclName + '"), serif; } ';
+        return '@font-face { font-family: "' + myName + '"; src: local("' + lclName + '"); } ';
     }
 
     resetFonts() {
