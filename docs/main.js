@@ -1518,13 +1518,13 @@ class FontHandler {
     setFonts(lclFontTitle, lclFontSpecials, lclFontText) {
         let css = "";
         if (lclFontTitle !== "") {
-            css += '@font-face { font-family: "myTitle"; src: local("' + lclFontTitle + '"); } ';
+            css += '@font-face { font-family: "myTitle"; src: local("' + lclFontTitle + '"), serif; } ';
         }
         if (lclFontSpecials !== "") {
-            css += '@font-face { font-family: "mySpecials"; src: local("' + lclFontSpecials + '"); } ';
+            css += '@font-face { font-family: "mySpecials"; src: local("' + lclFontSpecials + '"), serif; } ';
         }
         if (lclFontText !== "") {
-            css += '@font-face { font-family: "myText"; src: local("' + lclFontText + '"); } ';
+            css += '@font-face { font-family: "myText"; src: local("' + lclFontText + '"), serif; } ';
         }
         this.custom.innerHTML = css;
         this.triggerChange();
