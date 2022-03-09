@@ -1532,7 +1532,7 @@ class FontHandler {
     }
 
     getFontFaceCSS(myName, lclName) {
-        return = '@font-face { font-family: "' + myName + '"; font-display: block; src: local("' + lclName + '"), serif; } '
+        return '@font-face { font-family: "' + myName + '"; font-display: block; src: local("' + lclName + '"), serif; } ';
     }
 
     resetFonts() {
