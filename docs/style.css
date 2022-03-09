@@ -660,6 +660,11 @@ button.delete-all:focus {
     font-family: myText;
 }
 
+#manage-fonts .remark {
+    margin: 1em;
+    font-family: myText;
+}
+
 #favorites-list li {
     box-sizing: border-box;
     width: 100%;
@@ -679,8 +684,4 @@ button.delete-all:focus {
 
 #favorites-list li:hover {
     background: var(--color-background3);
-}
-
-#favorites-list remark {
-    margin: 1em;
 }

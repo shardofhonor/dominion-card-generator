@@ -1516,10 +1516,17 @@ class FontHandler {
     }
 
     setFonts(lclFontTitle, lclFontSpecials, lclFontText) {
-        this.custom.innerHTML =
-            '@font-face { font-family: "myTitle"; src: local("' + lclFontTitle + '"); } ' +
-            '@font-face { font-family: "mySpecials"; src: local("' + lclFontSpecials + '"); } ' +
-            '@font-face { font-family: "myText"; src: local("' + lclFontText + '"); } ';
+        let css = "";
+        if (!!lclFontTitle) {
+            css += '@font-face { font-family: "myTitle"; src: local("' + lclFontTitle + '"); } ';
+        }
+        if (!!lclFontSpecials) {
+            css += '@font-face { font-family: "mySpecials"; src: local("' + lclFontSepcials + '"); } ';
+        }
+        if (!!lclFontText) {
+            css += '@font-face { font-family: "myText"; src: local("' + lclFontText + '"); } ';
+        }
+        this.custom.innerHTML = css;
         this.default.setAttribute('href', '#');
         this.triggerChange();
     }
