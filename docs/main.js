@@ -1518,13 +1518,13 @@ class FontHandler {
     setFonts(lclFontTitle, lclFontSpecials, lclFontText) {
         let css = "";
         if (lclFontTitle !== "") {
-            css += getFontFaceCSS('myTitle', lclFontTitle);
+            css += this.getFontFaceCSS('myTitle', lclFontTitle);
         }
         if (lclFontSpecials !== "") {
-            css += getFontFaceCSS('mySpecials', lclFontSpecials);
+            css += this.getFontFaceCSS('mySpecials', lclFontSpecials);
         }
         if (lclFontText !== "") {
-            css += getFontFaceCSS('myText', lclFontText);
+            css += this.getFontFaceCSS('myText', lclFontText);
         }
         this.custom.innerHTML = css;
         this.default.href = '#';
