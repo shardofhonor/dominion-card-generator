@@ -1501,7 +1501,7 @@ class FontHandler {
         if (this.settings.text) {
             document.getElementById('fontInputText').value = this.settings.text;
         }
-        if (this.settings !== {}) {
+        if (JSON.stringify(this.settings) !== '{}') {
             this.applySettings();
         }
     }

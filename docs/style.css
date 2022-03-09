@@ -562,7 +562,10 @@ body.size5 #legend {
     background: #DFD;
 }
 
-
+.remark {
+    font-weight: normal;
+    font-style: italic;
+}
 
 .popup {
     position: fixed;
@@ -676,4 +679,8 @@ button.delete-all:focus {
 
 #favorites-list li:hover {
     background: var(--color-background3);
+}
+
+#favorites-list remark {
+    margin: 1em;
 }
