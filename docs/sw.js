@@ -1,6 +1,6 @@
 // Names of the caches used in this version of the service worker.
 // Increase chache number when you update any of the local resources, which will in turn trigger the install event again.
-const PRECACHE_CORE = 'precache-core-v21';
+const PRECACHE_CORE = 'precache-core-v22';
 const PRECACHE_CARD = 'precache-card-v3';
 const RUNTIME = 'runtime';
 
@@ -8,9 +8,11 @@ const RUNTIME = 'runtime';
 const OFFLINE_URL = './';
 const PRECACHE_CORE_URLS = [
   'index.html',
-  'style.css',
-  'fonts.css',
   'main.js',
+  'style.css',
+  'fonts/font-title.css',
+  'fonts/font-specials.css',
+  'fonts/font-text.css',
   'favicon/favicon.ico',
   'favicon/site.webmanifest',
   'assets/icon-download.png',
