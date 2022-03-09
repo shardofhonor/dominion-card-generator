@@ -1518,20 +1518,22 @@ class FontHandler {
     setFonts(lclFontTitle, lclFontSpecials, lclFontText) {
         let css = "";
         if (lclFontTitle !== "") {
-            css += '@font-face { font-family: "myTitle"; src: local("' + lclFontTitle + '"), serif; } ';
+            css += '@font-face { font-family: "myTitle"; font-display: block; src: local("' + lclFontTitle + '"), serif; } ';
         }
         if (lclFontSpecials !== "") {
-            css += '@font-face { font-family: "mySpecials"; src: local("' + lclFontSpecials + '"), serif; } ';
+            css += '@font-face { font-family: "mySpecials"; font-display: block; src: local("' + lclFontSpecials + '"), serif; } ';
         }
         if (lclFontText !== "") {
-            css += '@font-face { font-family: "myText"; src: local("' + lclFontText + '"), serif; } ';
+            css += '@font-face { font-family: "myText"; font-display: block; src: local("' + lclFontText + '"), serif; } ';
         }
         this.custom.innerHTML = css;
+        //this.default.href = '#';
         this.triggerChange();
     }
 
     resetFonts() {
         this.custom.innerHTML = '';
+        //this.default.href = 'fonts.css';
         this.triggerChange();
     }
 
