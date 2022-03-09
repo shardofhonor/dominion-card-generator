@@ -36,7 +36,7 @@
         
         function initialize() {
             initCardImageGenerator();
-            //myFontSettings = new FontHandler();
+            myFontSettings = new FontHandler();
             myFavorites = new Favorites( 'myFavorites' );
         }
         
@@ -101,7 +101,7 @@
                         document.write('<a id="share" rel="nofollow" href="#share" onclick="if(navigator.vibrate){navigator.vibrate(50);};navigator.share({ title: document.title, text: document.title, url: window.location.href, }).catch((error) => console.log(\'Error sharing\', error));" title="Share Link"><button type="button"><img src="assets/icon-share.png" />Share</button></a>');
                     }
                 </script>
-                <a id="favorites"><button type="button" onclick="myFavorites.open()"><img src="assets/icon-favorites.png" />Favorites</button></a>
+                <a id="favorites" title="click to open saved cards"><button type="button" onclick="myFavorites.open()"><img src="assets/icon-favorites.png" />Favorites</button></a>
                 <div id="manage-favorites" class="popup hidden">
                     <div class="menu">
                         <button type="button" onclick="myFavorites.add( document.location.search )"><img src="assets/icon-favorites.png" />Add Current Card</button>
@@ -115,7 +115,7 @@
                     <ul id="favorites-list" class="popup-content"></ul>
                 </div>
 
-                <a id="openFontSettings" title="Open Font Settings" class="hidden"><button type="button" onclick="myFontSettings.open()"><img src="assets/icon-settings.png" />Fonts</button></a>
+                <a id="openFontSettings" title="click to open font settings" class="hidden"><button type="button" onclick="myFontSettings.open()"><img src="assets/icon-settings.png" />Fonts</button></a>
                 <div id="manage-fonts" class="popup hidden">
                     <div class="menu">
                         <button type="button" class="confirm" onclick="myFontSettings.save()">Save</button>
