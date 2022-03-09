@@ -1521,19 +1521,17 @@ class FontHandler {
             css += '@font-face { font-family: "myTitle"; src: local("' + lclFontTitle + '"); } ';
         }
         if (lclFontSpecials !== "") {
-            css += '@font-face { font-family: "mySpecials"; src: local("' + lclFontSepcials + '"); } ';
+            css += '@font-face { font-family: "mySpecials"; src: local("' + lclFontSpecials + '"); } ';
         }
         if (lclFontText !== "") {
             css += '@font-face { font-family: "myText"; src: local("' + lclFontText + '"); } ';
         }
         this.custom.innerHTML = css;
-        this.default.setAttribute('href', '#');
         this.triggerChange();
     }
 
     resetFonts() {
         this.custom.innerHTML = '';
-        this.default.setAttribute('href', 'fonts.css');
         this.triggerChange();
     }
 
