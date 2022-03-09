@@ -22,6 +22,7 @@
     --color-button2-background-hover: #FFF;
 
     --color-background-attention: #c55;
+    --color-background-confirm: #393;
 
     --color-shadow1-transparent: rgba(0, 0, 0, 0.3);
     --color-shadow2-transparent: rgba(255, 255, 255, 0.5);
@@ -52,6 +53,7 @@
         --color-button2-background-hover: #777;
 
         --color-background-attention: #933;
+        --color-background-confirm: #272;
 
         --color-shadow1-transparent: rgba(0, 0, 0, 0.3);
         --color-shadow2-transparent: rgba(255, 255, 255, 0.5);
@@ -222,7 +224,8 @@ body.size5 #sizes {
 #download,
 #reset,
 #share,
-#favorites {
+#favorites,
+#openFontSettings {
     position: absolute;
     left: 20px;
     top: 770px;
@@ -231,6 +234,10 @@ body.size5 #sizes {
 #share,
 #favorites {
     top: calc(770px + 3em);
+}
+
+#openFontSettings {
+    top: calc(770px + 6em);
 }
 
 #reset {
@@ -557,7 +564,7 @@ body.size5 #legend {
 
 
 
-#manage-favorites {
+.popup {
     position: fixed;
     top: 2em;
     left: 2em;
@@ -571,7 +578,7 @@ body.size5 #legend {
     padding: 0;
 }
 
-#manage-favorites .menu {
+.popup .menu {
     position: fixed;
     left: 2em;
     width: calc(100% - 6em);
@@ -582,19 +589,24 @@ body.size5 #legend {
     z-index: 110;
 }
 
-#manage-favorites .menu input.search {
+.popup .menu input.search {
     display: inline-block;
     max-width: 30%;
     padding: 0.5em;
 }
 
-#manage-favorites .menu button {
+.popup .menu button {
     margin-top: 0.25em;
 }
 
 button.close,
 button.delete {
     float: right;
+}
+
+button.confirm:hover,
+button.confirm:focus {
+    background-color: var(--color-background-confirm);
 }
 
 button.delete {
@@ -611,7 +623,7 @@ button.delete-all:focus {
     background-color: var(--color-background-attention);
 }
 
-#favorites-list {
+.popup-content {
     width: 100%;
     padding: 1em 0;
     margin: 0;
@@ -619,6 +631,30 @@ button.delete-all:focus {
     list-style-type: none;
     background: var(--color-background4);
     box-sizing: border-box;
+}
+
+#manage-fonts .popup-content {
+    padding: 1em;
+}
+
+#manage-fonts .popup-content label {
+    margin-top: 1em;
+}
+
+#manage-fonts .popup-content input {
+    margin: 0.5em 0;
+}
+
+#manage-fonts #fontInputTitle {
+    font-family: myTitle;
+}
+
+#manage-fonts #fontInputSpecials {
+    font-family: mySpecials;
+}
+
+#manage-fonts #fontInputText {
+    font-family: myText;
 }
 
 #favorites-list li {

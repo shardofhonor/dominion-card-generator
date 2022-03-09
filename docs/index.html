@@ -36,6 +36,7 @@
         
         function initialize() {
             initCardImageGenerator();
+            //myFontSettings = new FontHandler();
             myFavorites = new Favorites( 'myFavorites' );
         }
         
@@ -99,7 +100,7 @@
                     }
                 </script>
                 <a id="favorites"><button type="button" onclick="myFavorites.open()"><img src="assets/icon-favorites.png" />Favorites</button></a>
-                <div id="manage-favorites" class="hidden">
+                <div id="manage-favorites" class="popup hidden">
                     <div class="menu">
                         <button type="button" onclick="myFavorites.add( document.location.search )"><img src="assets/icon-favorites.png" />Add Current Card</button>
                         <button type="button" class="delete-all hidden" onclick="myFavorites.deleteAll()"><img src="assets/icon-delete.png" />Delete All</button>
@@ -109,8 +110,26 @@
                         <button type="button" class="close" onclick="myFavorites.close()" title="Close"><img alt="Close" src="assets/icon-close.png" /></button>
                         <input id="favorites-search" type="search" class="search" placeholder="Search..." oninput="myFavorites.search(this.value)" />
                     </div>
-                    <ul id="favorites-list"></ul>
+                    <ul id="favorites-list" class="popup-content"></ul>
                 </div>
+
+                <a id="openFontSettings" title="Open Font Settings" class="hidden"><button type="button" onclick="myFontSettings.open()">Fonts</button></a>
+                <div id="manage-fonts" class="popup hidden">
+                    <div class="menu">
+                        <button type="button" class="confirm" onclick="myFontSettings.save()">Save</button>
+                        <button type="button" onclick="myFontSettings.reset()">Reset</button>
+                        <button type="button" class="close" onclick="myFontSettings.close()" title="Close"><img alt="Close" src="assets/icon-close.png" /></button>
+                    </div>
+                    <div class="popup-content">
+                        <label for="fontInputTitle">Font Name for Titles</label>
+                        <input id="fontInputTitle" type="text" placeholder="(e.g. Trajan Pro)" />
+                        <label for="fontInputSpecials">Font Name for Special Elements like Text on Icons</label>
+                        <input id="fontInputSpecials" type="text" placeholder="(e.g. Minion Std)" />
+                        <label for="fontInputText">Font Name for Texts</label>
+                        <input id="fontInputText" type="text" placeholder="(e.g. Times New Roman)" />
+                    </div>
+                </div>
+
             </th>
             <th colspan="2">Dominion Card Image Generator (<a id="linkToOriginal" href="https://shemitz.net/static/dominion3/" title="click to pass inputs to the original version">Original</a> &amp; <a target="_blank" rel="nofollow" href="http://forum.dominionstrategy.com/index.php?topic=16622.0" title="show discussion, description and announcements in the forum">Discussion</a>) <span class="heading-credits">Extended Version (<a target="_blank" rel="nofollow" href="https://github.com/shardofhonor/dominion-card-generator" title="view source on github and contribute code">Join Development</a>)</span></th>
         </tr>

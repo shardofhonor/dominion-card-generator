@@ -1453,24 +1453,84 @@ function Favorites(name) {
 }
 
 class FontHandler {
+
     constructor() {
         this.custom = document.getElementById('fontLocal');
         this.default = document.getElementById('fontDefault');
+        this.dialog = document.getElementById("manage-fonts");
+        document.getElementById("openFontSettings").classList.remove("hidden");
+        this.load();
     }
+
+    open() {
+        this.dialog.classList.remove('hidden');
+        document.getElementById('fontInputTitle').focus();
+    }
+
+    close() {
+        this.dialog.classList.add('hidden');
+    }
+
+    save() {
+        this.saveSettings();
+        this.applySettings();
+        this.close();
+    }
+
+    saveSettings() {
+        this.settings = {
+            title: document.getElementById('fontInputTitle').value,
+            specials: document.getElementById('fontInputSpecials').value,
+            text: document.getElementById('fontInputText').value
+        };
+        localStorage.setItem('fontSettings', JSON.stringify(this.settings));
+    }
+
+    applySettings() {
+        if (this.settings.title) {
+            this.setFonts(this.settings.title, this.settings.specials, this.settings.text);
+        }
+    }
+
+    load() {
+        this.settings = localStorage.getItem('fontSettings') ? JSON.parse(localStorage.getItem('fontSettings')) : {};
+        if (this.settings.title) {
+            document.getElementById('fontInputTitle').value = this.settings.title;
+        }
+        if (this.settings.specials) {
+            document.getElementById('fontInputSpecials').value = this.settings.specials;
+        }
+        if (this.settings.text) {
+            document.getElementById('fontInputText').value = this.settings.text;
+        }
+        this.applySettings();
+    }
+
+    reset() {
+        document.getElementById('fontInputTitle').value = '';
+        document.getElementById('fontInputSpecials').value = '';
+        document.getElementById('fontInputText').value = '';
+        this.saveSettings();
+        this.resetFonts();
+        this.close();
+    }
+
     setFonts(lclFontTitle, lclFontSpecials, lclFontText) {
         this.custom.innerHTML =
             '@font-face { font-family: "myTitle"; src: local("' + lclFontTitle + '"); } ' +
             '@font-face { font-family: "mySpecials"; src: local("' + lclFontSpecials + '"); } ' +
             '@font-face { font-family: "myText"; src: local("' + lclFontText + '"); } ';
         this.default.setAttribute('href', '#');
-        this._triggerChange();
+        this.triggerChange();
     }
-    reset() {
+
+    resetFonts() {
         this.custom.innerHTML = '';
         this.default.setAttribute('href', 'fonts.css');
-        this._triggerChange();
+        this.triggerChange();
     }
-    _triggerChange() {
+
+    triggerChange() {
         document.getElementById("title").onchange();
     }
 }
