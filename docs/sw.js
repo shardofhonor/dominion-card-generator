@@ -9,6 +9,7 @@ const OFFLINE_URL = './';
 const PRECACHE_CORE_URLS = [
   'index.html',
   'style.css',
+  'fonts.css',
   'main.js',
   'favicon/favicon.ico',
   'favicon/site.webmanifest',
@@ -17,6 +18,7 @@ const PRECACHE_CORE_URLS = [
   'assets/icon-sort.png',
   'assets/icon-favorites.png',
   'assets/icon-share.png',
+  'assets/icon-settings.png',
   'assets/icon-close.png',
   'assets/icon-delete.png',
   'assets/icon-switch.png',

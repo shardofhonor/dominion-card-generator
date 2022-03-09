@@ -1517,13 +1517,13 @@ class FontHandler {
 
     setFonts(lclFontTitle, lclFontSpecials, lclFontText) {
         let css = "";
-        if (!!lclFontTitle) {
+        if (lclFontTitle !== "") {
             css += '@font-face { font-family: "myTitle"; src: local("' + lclFontTitle + '"); } ';
         }
-        if (!!lclFontSpecials) {
+        if (lclFontSpecials !== "") {
             css += '@font-face { font-family: "mySpecials"; src: local("' + lclFontSepcials + '"); } ';
         }
-        if (!!lclFontText) {
+        if (lclFontText !== "") {
             css += '@font-face { font-family: "myText"; src: local("' + lclFontText + '"); } ';
         }
         this.custom.innerHTML = css;
