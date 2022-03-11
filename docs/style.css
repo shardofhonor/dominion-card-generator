@@ -305,6 +305,12 @@ body.size5 #favorites {
     top: calc(770px - 80px + 3em);
 }
 
+body.size1 #openFontSettings,
+body.size4 #openFontSettings,
+body.size5 #openFontSettings {
+    top: calc(770px - 80px + 6em);
+}
+
 #table {
     border-collapse: collapse;
     width: calc(100% - 160px);
