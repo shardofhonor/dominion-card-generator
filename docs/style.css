@@ -311,6 +311,10 @@ body.size5 #openFontSettings {
     top: calc(770px - 80px + 6em);
 }
 
+body.size2 #color2splitselector {
+    display: none;
+}
+
 #table {
     border-collapse: collapse;
     width: calc(100% - 160px);
