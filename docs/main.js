@@ -187,7 +187,7 @@ function initCardImageGenerator() {
             return icons[icon] || icons["\\" + icon];
         }
         var shadowDistance = 10;
-        var italicSubstrings = ["[i]", "Heirloom: ", "Erbstück: ", "This is not in the supply.", "Keep this until Clean-up."];
+        var italicSubstrings = ["[i]", "Heirloom: ", "Erbstück: ", "(This is not in the Supply.)", "Keep this until Clean-up."];
 
         function writeLineWithIconsReplacedWithSpaces(line, x, y, scale, family, boldSize) {
             boldSize = boldSize || 64;
