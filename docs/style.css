@@ -395,10 +395,12 @@ body.size2 label[for=type2]:after {
     content: "Type";
 }
 
+body.size0 .hideForDefaultCard,
 body.size1 .hideForLandscape,
 body.size3 .hideForBaseCards,
 body.size4 .hideForPileMarker,
-body.size5 .hideForMats {
+body.size5 .hideForMats,
+body.size1.trait .hideForTraits {
     visibility: collapse;
     display: none !important;
 }
@@ -411,7 +413,8 @@ body:not(.size2) .doubledForDoubleCards + td {
 body.size1 #priceCell > div,
 body:not(.size2) .doubledForDoubleCards > div,
 body.size3 .doubledForBaseCards > div,
-body.size4 .doubledForPileMarkers > div {
+body.size4 .doubledForPileMarkers > div,
+body.size1.trait .doubledForTraits > div {
     width: calc(200% + 5px);
     box-sizing: border-box;
 }
@@ -520,6 +523,22 @@ label.image-upload {
     min-width: 270px;
     content: attr(data-status);
     cursor: wait;
+}
+
+.checkbox input,
+.checkbox label {
+    width: auto;
+    margin-right: .5rem;
+    display: inline-block;
+}
+
+.type-checkboxes {
+    float: right;
+}
+
+label[for="type"] {
+    width: auto;
+    display: inline-block;
 }
 
 body.size1 [data-status]:after,

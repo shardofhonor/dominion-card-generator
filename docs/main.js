@@ -49,7 +49,8 @@ function initCardImageGenerator() {
 		["Artifact", [1.15, 1, 0.75, 0.3, 0.15, 0.05]],
 		["Project", [1.15, 0.95, 0.9, 0.4, 0.2, 0.15]],
 		["Way", [1, 1.15, 1.25, 0.25, 0.3, 0.35, 1.6, 1.6, 1.6, 1.3, 1.3, 1.3]],
-		["Ally", [1, 0.95, 0.85, 0.35, 0.3, 0.15, 0.9, 0.8, 0.7, 0.9, 0.8, 0.7]]
+		["Ally", [1, 0.95, 0.85, 0.35, 0.3, 0.15, 0.9, 0.8, 0.7, 0.9, 0.8, 0.7]],
+		["Trait", [0.95, 0.8, 1.1, 0.3, 0.25, 0.35, 1.6, 1.6, 1.6, 1.3, 1.3, 1.3]]
 	];
     var boldableKeywords = [ //case-insensitive
 		"card",
@@ -70,8 +71,7 @@ function initCardImageGenerator() {
 	];
     var specialBoldableKeywords = [
         "favor",
-        "dienst",
-        "dienste",
+        "gefallen"
 	];
     var travellerTypesPattern = new RegExp(["Traveller", "Traveler", "Reisender", "Reisende", "Reiziger", "Matkaaja", "Itinérant", "Путешественник", "Приключенец"].join("|"));
 
@@ -596,7 +596,7 @@ function initCardImageGenerator() {
             if (normalColorCurrentIndices[0] > 0 && !isEachColorDark[0] && normalColorCurrentIndices[1] == 0) //single (non-Action, non-Night) color
                 context.drawImage(images[3], 44, 1094); //DescriptionFocus
 
-            if (travellerTypesPattern.test(typeLine)) {
+            if (travellerTypesPattern.test(typeLine) || document.getElementById("traveller").checked) {
                 context.save();
                 context.globalCompositeOperation = "luminosity";
                 if (isEachColorDark[0])
@@ -653,13 +653,27 @@ function initCardImageGenerator() {
             drawPicture(1075, 584, 1887, 730);
             removeCorners(2151, 1403, 100);
 
-            context.drawImage(getRecoloredImage(6, 0), 0, 0); //EventColorOne
-            if (heirloomLine)
-                context.drawImage(images[14], 146, 832); //EventHeirloom
-            if (normalColorCurrentIndices[1] > 0) //two colors are different
-                context.drawImage(getRecoloredImage(7, 1), 0, 0); //EventColorTwo
-            context.drawImage(getRecoloredImage(8, 0, 6), 0, 0); //EventUncoloredDetails
-            context.drawImage(getRecoloredImage(15, 0, 9), 0, 0); //EventBar
+            if (document.getElementById("trait").checked) {
+                context.drawImage(getRecoloredImage(28, 0), 0, 0); //TraitColorOne
+                if (heirloomLine)
+                    context.drawImage(images[14], 146, 832); //EventHeirloom
+
+                context.drawImage(getRecoloredImage(29, 0, 6), 0, 0); //TraitUncoloredDetails
+                context.drawImage(getRecoloredImage(15, 0, 9), 0, 0); //EventBar
+                context.drawImage(getRecoloredImage(30, 0), 0, 0); //TraitColorSide
+                context.drawImage(getRecoloredImage(31, 0, 6), 0, 0); //TraitUncoloredDetailsSide
+                context.drawImage(getRecoloredImage(15, 0, 9), 0, 0); //EventBar
+
+            } else {
+
+                context.drawImage(getRecoloredImage(6, 0), 0, 0); //EventColorOne
+                if (heirloomLine)
+                    context.drawImage(images[14], 146, 832); //EventHeirloom
+                if (normalColorCurrentIndices[1] > 0) //two colors are different
+                    context.drawImage(getRecoloredImage(7, 1), 0, 0); //EventColorTwo
+                context.drawImage(getRecoloredImage(8, 0, 6), 0, 0); //EventUncoloredDetails
+                context.drawImage(getRecoloredImage(15, 0, 9), 0, 0); //EventBar
+            }
 
             //no Traveller
 
@@ -670,15 +684,36 @@ function initCardImageGenerator() {
                 writeSingleLine(heirloomLine, 1074, 900, 1600, 58, "myText");
             if (isEachColorDark[0])
                 context.fillStyle = "white";
-            writeSingleLine(document.getElementById("title").value, 1075, 165, 780, 70);
 
-            if (typeLine) {
+            if (document.getElementById("trait").checked) {
+
+                if (typeLine) {
+                    writeSingleLine(typeLine, 1075, 165, 780, 70);
+                }
+
                 context.save();
-                context.translate(1903, 240);
-                context.rotate(45 * Math.PI / 180);
-                context.scale(1, 0.8); //yes, the letters are shorter
-                writeSingleLine(typeLine, 0, 0, 283, 64);
+                context.rotate(Math.PI * 3 / 2);
+                writeSingleLine(document.getElementById("title").value, -700, 2030, 500, 75);
                 context.restore();
+                context.save();
+                context.rotate(Math.PI / 2);
+                writeSingleLine(document.getElementById("title").value, 700, -120, 500, 75);
+                context.restore();
+
+
+            } else {
+
+                writeSingleLine(document.getElementById("title").value, 1075, 165, 780, 70);
+
+                if (typeLine) {
+                    context.save();
+                    context.translate(1903, 240);
+                    context.rotate(45 * Math.PI / 180);
+                    context.scale(1, 0.8); //yes, the letters are shorter
+                    writeSingleLine(typeLine, 0, 0, 283, 64);
+                    context.restore();
+                }
+
             }
 
             if (priceLine)
@@ -876,7 +911,11 @@ function initCardImageGenerator() {
     function updateURL() {
         var arguments = "?";
         for (var i = 0; i < simpleOnChangeInputFieldIDs.length; ++i) {
-            arguments += simpleOnChangeInputFieldIDs[i] + "=" + encodeURIComponent(document.getElementById(simpleOnChangeInputFieldIDs[i]).value) + "&";
+            if (simpleOnChangeInputCheckboxIDs.includes(simpleOnChangeInputFieldIDs[i])) {
+                arguments += simpleOnChangeInputFieldIDs[i] + "=" + encodeURIComponent(document.getElementById(simpleOnChangeInputFieldIDs[i]).checked) + "&";
+            } else {
+                arguments += simpleOnChangeInputFieldIDs[i] + "=" + encodeURIComponent(document.getElementById(simpleOnChangeInputFieldIDs[i]).value) + "&";
+            }
             if (templateSize == 2 && i < simpleOnChangeButOnlyForSize2InputFieldIDs.length)
                 arguments += simpleOnChangeButOnlyForSize2InputFieldIDs[i] + "=" + encodeURIComponent(document.getElementById(simpleOnChangeButOnlyForSize2InputFieldIDs[i]).value) + "&";
         }
@@ -968,7 +1007,11 @@ function initCardImageGenerator() {
 		"PileMarkerGrey.png",
         "MatBannerTop.png", //25
         "MatBannerBottom.png",
-        "CardColorThree.png"
+        "CardColorThree.png",
+		"TraitColorOne.png",
+		"TraitBrown.png",
+		"TraitColorOneSide.png", //30
+		"TraitBrownSide.png"
 		//icons come afterwards
 	];
     for (var i = 0; i < sources.length; i++)
@@ -991,7 +1034,9 @@ function initCardImageGenerator() {
         images[i].src = "card-resources/" + sources[i];
     }
 
+    var simpleOnChangeInputCheckboxIDs = ["traveller", "trait"];
     var simpleOnChangeInputFieldIDs = ["title", "description", "type", "credit", "creator", "price", "preview", "type2", "color2split", "boldkeys", "picture-x", "picture-y", "picture-zoom"];
+    simpleOnChangeInputFieldIDs = simpleOnChangeInputFieldIDs.concat(simpleOnChangeInputCheckboxIDs);
     var simpleOnChangeButOnlyForSize2InputFieldIDs = ["title2", "description2"];
     for (var i = 0; i < simpleOnChangeInputFieldIDs.length; ++i) {
         document.getElementById(simpleOnChangeInputFieldIDs[i]).onchange = queueDraw;
@@ -1056,6 +1101,19 @@ function initCardImageGenerator() {
         };
         reader.readAsDataURL(file);
     }
+
+
+    if (document.getElementById("trait").checked) {
+        document.body.classList.add("trait");
+    }
+
+    document.getElementById("trait").addEventListener('change', () => {
+        if (document.getElementById("trait").checked) {
+            document.body.classList.add("trait");
+        } else {
+            document.body.classList.remove("trait");
+        }
+    }, false);
 
     try {
         // Image 5 = Main Picture
@@ -1142,6 +1200,7 @@ function initCardImageGenerator() {
             return function () {
                 templateSize = parseInt(this.value);
                 document.body.className = this.id;
+                document.body.classList.add("trait");
                 document.getElementById("load-indicator").removeAttribute("style");
                 queueDraw(250);
             }
@@ -1149,6 +1208,7 @@ function initCardImageGenerator() {
 
     //ready to begin: load information from query parameters
     var query = getQueryParams(document.location.search);
+    document.body.className = "";
     for (var queryKey in query) {
         switch (queryKey) {
             case "color0":
@@ -1159,8 +1219,17 @@ function initCardImageGenerator() {
                 break;
             case "size":
                 var buttonElement = document.getElementsByName("size")[templateSize = parseInt(query[queryKey])];
-                document.body.className = buttonElement.id;
+                document.body.classList.add(buttonElement.id);
                 buttonElement.checked = true;
+                break;
+            case "traveller":
+                var checkboxElement = document.getElementById(queryKey);
+                checkboxElement.checked = true;
+                break;
+            case "trait":
+                var checkboxElement = document.getElementById(queryKey);
+                checkboxElement.checked = true;
+                document.body.classList.add(queryKey);
                 break;
             default:
                 var matches = queryKey.match(/^c(\d)\.(\d)$/);

@@ -13,7 +13,8 @@
     <link rel="shortcut icon" href="./favicon/favicon.ico">
     <meta name="msapplication-TileColor" content="#B4B39A">
     <meta name="msapplication-config" content="./favicon/browserconfig.xml">
-    <meta name="theme-color" content="#B4B39A"><meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#B4B39A">
+    <meta name="color-scheme" content="light dark">
 
     <script>
         function setThemeColor(e) {
@@ -186,7 +187,17 @@
             <td class="doubledForBaseCards hideForPileMarker hideForMats">
                 <div>
                     <label for="type">Type</label>
-                    <input id="type" placeholder="Action" />
+                    <span class="type-checkboxes hideForBaseCards hideForPileMarker hideForMats">
+                        <span class="checkbox hideForLandscape">
+                            <input id="traveller" type="checkbox" placeholder="Action">
+                            <label for="traveller">Traveller</label>
+                        </span>
+                        <span class="checkbox hideForDefaultCard">
+                            <input id="trait" type="checkbox" placeholder="Action">
+                            <label for="trait">Trait</label>
+                        </span>
+                    </span>
+                    <input id="type" placeholder="Action">
                 </div>
             </td>
             <td class="hideForBaseCards hideForPileMarker hideForMats">
@@ -266,7 +277,7 @@
             </td>
         </tr>
         <tr>
-            <td class="hideForMats doubledForBaseCards doubledForPileMarkers">
+            <td class="hideForMats doubledForBaseCards doubledForPileMarkers doubledForTraits">
                 <div>
                     <label for="normalcolor1">Color</label>
                     <select name="normalcolor" id="normalcolor1">
@@ -281,7 +292,7 @@
                     </div>
                 </div>
             </td>
-            <td class="hideForBaseCards hideForPileMarker hideForMats">
+            <td class="hideForBaseCards hideForPileMarker hideForMats hideForTraits">
                 <div>
                     <label for="normalcolor2">Color</label>
                     <span id="color-switch"><button id="color-switch-button" alt="Switch Colors"><img src="assets/icon-switch.png" />Switch</button></span>
