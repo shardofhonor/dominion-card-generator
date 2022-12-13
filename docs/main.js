@@ -1,6 +1,9 @@
 let templateSize = 0; //save globally
 
 let useCORS = true; // flag to activate loading of external images via CORS helper function -> otherwise canvas is tainted and download button not working
+//const CORS_ANYWHERE_BASE_URL = 'https://dominion-card-generator-cors.herokuapp.com/';
+//const CORS_ANYWHERE_BASE_URL = 'https://thingproxy.freeboard.io/fetch/';
+const CORS_ANYWHERE_BASE_URL = 'https://proxy.cors.sh/'; // from https://blog.grida.co/cors-anywhere-for-everyone-free-reliable-cors-proxy-service-73507192714e
 
 Array.prototype.remove = function () {
     var what, a = arguments,
@@ -952,7 +955,7 @@ function initCardImageGenerator() {
         let img = document.createElement('img');
         img.crossOrigin = "Anonymous";
         if (url.substr(0, 11) != 'data:image/' && url.substr(0, 8) != 'file:///') {
-            img.src = 'https://dominion-card-generator-cors.herokuapp.com/' + url;
+            img.src = CORS_ANYWHERE_BASE_URL + url;
         } else {
             img.src = url;
         }
