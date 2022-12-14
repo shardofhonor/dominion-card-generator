@@ -1069,6 +1069,8 @@ function initCardImageGenerator() {
                     recoloredImages[19] = false;
                     recoloredImages[20] = false;
                     recoloredImages[23] = false;
+                    recoloredImages[28] = false;
+                    recoloredImages[30] = false;
                     recolorFactorList[imageID][i % 12] = val;
                     queueDraw();
                 }
@@ -1180,6 +1182,8 @@ function initCardImageGenerator() {
                 recoloredImages[19] = false;
                 recoloredImages[20] = false;
                 recoloredImages[23] = false;
+                recoloredImages[28] = false;
+                recoloredImages[30] = false;
                 var delta = normalColorCustomIndices[i] - this.selectedIndex;
                 if (delta <= 0)
                     this.nextElementSibling.removeAttribute("style");
