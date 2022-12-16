@@ -1060,6 +1060,8 @@ function initCardImageGenerator() {
                         recoloredImages[11] = false;
                         recoloredImages[15] = false;
                         recoloredImages[16] = false;
+                        recoloredImages[29] = false;
+                        recoloredImages[31] = false;
                     }
                     recoloredImages[imageID] = false;
                     recoloredImages[imageID + 6] = false;
@@ -1171,6 +1173,8 @@ function initCardImageGenerator() {
                     recoloredImages[11] = false;
                     recoloredImages[15] = false;
                     recoloredImages[16] = false;
+                    recoloredImages[29] = false;
+                    recoloredImages[31] = false;
                 }
                 normalColorCurrentIndices[i] = this.selectedIndex;
                 recoloredImages[i] = false;
