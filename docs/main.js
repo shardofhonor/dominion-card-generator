@@ -1235,12 +1235,14 @@ function initCardImageGenerator() {
                 break;
             case "traveller":
                 var checkboxElement = document.getElementById(queryKey);
-                checkboxElement.checked = true;
+                checkboxElement.checked = query[queryKey] === 'true';
                 break;
             case "trait":
                 var checkboxElement = document.getElementById(queryKey);
-                checkboxElement.checked = true;
-                document.body.classList.add(queryKey);
+                checkboxElement.checked = query[queryKey] === 'true';
+                if (checkboxElement.checked === true) {
+                    document.body.classList.add(queryKey);
+                }
                 break;
             default:
                 var matches = queryKey.match(/^c(\d)\.(\d)$/);
