@@ -397,6 +397,7 @@ body.size2 label[for=type2]:after {
 
 body.size0 .hideForDefaultCard,
 body.size1 .hideForLandscape,
+body.size2 .hideForDoubleCard,
 body.size3 .hideForBaseCards,
 body.size4 .hideForPileMarker,
 body.size5 .hideForMats,

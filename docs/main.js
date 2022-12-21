@@ -786,6 +786,7 @@ function initCardImageGenerator() {
             shadowDistance = -shadowDistance;
             drawHalfCard(heirloomLine, "title2", previewLine, "description2", (normalColorCurrentIndices[1] > 0) ? 1 : 0);
             shadowDistance = -shadowDistance;
+            context.textAlign = "left";
             writeIllustrationCredit(150, 2038, "white", "");
             writeCreatorCredit(1253, 2038, "white", "");
 
