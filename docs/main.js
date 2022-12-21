@@ -1489,35 +1489,37 @@ function Favorites(name) {
             let title = getQueryParams(item).title == "" ? "<unnamed card>" : getQueryParams(item).title.trim();
             let types = '[' + getQueryParams(item).type.trim() + '] ';
             let price = getQueryParams(item).price.replace('^', 'P').trim();
-            title = getQueryParams(item).creator == "" ? title : title + ' ' + getQueryParams(item).creator.split(" ")[0];
             switch (getQueryParams(item).size) {
-                case '0':
+                case '0': // normal card
                     title = getQueryParams(item).type.trim() == "" ? title : types + title;
                     title = price == "" ? title : price + ' ' + title;
                     title = "Card: " + title;
                     break;
-                case '1':
+                case '1': // landscape card
                     title = getQueryParams(item).type.trim() == "" ? title : types + title;
                     title = price == "" ? title : price + ' ' + title;
                     title = "Landscape: " + title;
                     break;
-                case '2':
-                    title = '[' + getQueryParams(item).type.trim() + ' | ' + getQueryParams(item).type2.trim() + '] ';
+                case '2': // double card
+                    title = '[' + getQueryParams(item).type.trim() + ' | ' + getQueryParams(item).type2.trim() + '] ' + title;
+                    let title2 = getQueryParams(item).title2.trim();
+                    title = title2 == "" ? title : title + ' | ' + title2;
                     title = price == "" ? title : price + ' ' + title;
                     title = "Double: " + title;
                     break;
-                case '3':
+                case '3': // base card
                     title = getQueryParams(item).type.trim() == "" ? title : types + title;
                     title = price == "" ? title : price + ' ' + title;
                     title = "Base Card: " + title;
                     break;
-                case '4':
+                case '4': // pile marker (like bane)
                     title = "Pile Marker: " + title;
                     break;
-                case '5':
+                case '5': // mat
                     title = "Mat: " + title;
                     break;
             }
+            title = getQueryParams(item).creator == "" ? title : title + ' ' + getQueryParams(item).creator.split(" ")[0];
 
             let li = document.createElement("li");
             let a = document.createElement("a");
