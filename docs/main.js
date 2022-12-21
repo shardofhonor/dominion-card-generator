@@ -1501,6 +1501,11 @@ function Favorites(name) {
                     title = price == "" ? title : price + ' ' + title;
                     title = "Landscape: " + title;
                     break;
+                case '2':
+                    title = '[' + getQueryParams(item).type.trim() + ' | ' + getQueryParams(item).type2.trim() + '] ';
+                    title = price == "" ? title : price + ' ' + title;
+                    title = "Double: " + title;
+                    break;
                 case '3':
                     title = getQueryParams(item).type.trim() == "" ? title : types + title;
                     title = price == "" ? title : price + ' ' + title;
