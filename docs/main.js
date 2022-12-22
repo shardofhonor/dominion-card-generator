@@ -696,11 +696,11 @@ function initCardImageGenerator() {
 
                 context.save();
                 context.rotate(Math.PI * 3 / 2);
-                writeSingleLine(document.getElementById("title").value, -700, 2030, 500, 75);
+                writeSingleLine(document.getElementById("title").value, -700, 2030, 750, 70);
                 context.restore();
                 context.save();
                 context.rotate(Math.PI / 2);
-                writeSingleLine(document.getElementById("title").value, 700, -120, 500, 75);
+                writeSingleLine(document.getElementById("title").value, 700, -120, 750, 70);
                 context.restore();
 
 
