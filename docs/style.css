@@ -223,28 +223,29 @@ body.size5 #sizes {
 
 #download,
 #reset,
-#share,
+#openFontSettings,
 #favorites,
-#openFontSettings {
+#share {
     position: absolute;
     left: 20px;
     top: 795px;
 }
 
-#share,
-#favorites {
+#openFontSettings,
+#favorites,
+#share {
     top: calc(795px + 3em);
 }
 
-#openFontSettings {
-    top: calc(795px + 6em);
+#share {
+    left: calc(40px + 11.8em);
 }
 
 #reset {
     left: calc(40px + 9em);
 }
 
-#share {
+#openFontSettings {
     left: calc(40px + 6.2em);
 }
 
@@ -296,18 +297,18 @@ body.size5 #reset {
     top: calc(795px - 80px);
 }
 
-body.size1 #share,
-body.size4 #share,
-body.size5 #share,
+body.size1 #openFontSettings,
+body.size4 #openFontSettings,
+body.size5 #openFontSettings,
 body.size1 #favorites,
 body.size4 #favorites,
 body.size5 #favorites {
     top: calc(795px - 80px + 3em);
 }
 
-body.size1 #openFontSettings,
-body.size4 #openFontSettings,
-body.size5 #openFontSettings {
+body.size1 #share,
+body.size4 #share,
+body.size5 #share {
     top: calc(795px - 80px + 6em);
 }
 
