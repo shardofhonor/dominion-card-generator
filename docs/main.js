@@ -630,15 +630,9 @@ function initCardImageGenerator() {
                 writeSingleLine(types1.join(" - ") + " -", left, 1922 - 26, right, 42);
                 writeSingleLine(types2.join(" - "), left, 1922 + 26, right, 42);
             } else {
-                if (expansion.height > 0 && expansion.width > 0) {
-                    let left = priceLine ? 730 + 65 * (numberPriceIcons - 1) : 701;
-                    let right = priceLine ? 800 - 65 * (numberPriceIcons - 1) : 900;
-                    writeSingleLine(typeLine, left, 1922, right, 64);
-                } else {
-                    let left = priceLine ? 750 + 125 * (numberPriceIcons - 1) : 701;
-                    let right = priceLine ? 890 - 85 * (numberPriceIcons - 1) : 1180;
-                    writeSingleLine(typeLine, left, 1922, right, 64);
-                }
+                let left = priceLine ? 730 + 65 * (numberPriceIcons - 1) : 701;
+                let right = priceLine ? 800 - 65 * (numberPriceIcons - 1) : 900;
+                writeSingleLine(typeLine, left, 1922, right, 64);
             }
             if (priceLine)
                 writeLineWithIconsReplacedWithSpaces(priceLine + " ", 153, 1940, 85 / 90, "mySpecials"); //adding a space confuses writeLineWithIconsReplacedWithSpaces into thinking this isn't a line that needs resizing
@@ -820,11 +814,7 @@ function initCardImageGenerator() {
                 writeSingleLine(types1.join(" - ") + " -", priceLine ? 750 : 701, 1945 - 26, priceLine ? 890 : 1180, 42);
                 writeSingleLine(types2.join(" - "), priceLine ? 750 : 701, 1945 + 26, priceLine ? 890 : 1180, 42);
             } else {
-                if (expansion.height > 0 && expansion.width > 0) {
-                    writeSingleLine(typeLine, priceLine ? 730 : 701, 1945, priceLine ? 800 : 900, 64);
-                } else {
-                    writeSingleLine(typeLine, priceLine ? 750 : 701, 1945, priceLine ? 890 : 1180, 64);
-                }
+                writeSingleLine(typeLine, priceLine ? 730 : 701, 1945, priceLine ? 800 : 900, 64);
             }
             if (priceLine)
                 writeLineWithIconsReplacedWithSpaces(priceLine + " ", 153, 1947, 85 / 90, "mySpecials"); //adding a space confuses writeLineWithIconsReplacedWithSpaces into thinking this isn't a line that needs resizing
