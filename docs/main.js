@@ -36,7 +36,7 @@ function initCardImageGenerator() {
         "§": ["Custom Icon", "white", "Treasure"]
     };
     var iconsInPrice = icons;
-    delete iconsInPrice.\\*;
+    delete iconsInPrice['\\*'];
     var normalColorFactorLists = [
 		["Action/Event", [1, 1, 1]],
 		["Treasure", [1.1, 0.95, 0.55]],
