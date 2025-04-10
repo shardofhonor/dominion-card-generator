@@ -35,6 +35,8 @@ function initCardImageGenerator() {
         "\\*": ["Sun", "black", "Treasure"],
         "§": ["Custom Icon", "white", "Treasure"]
     };
+    var iconsInPrice = icons;
+    delete iconsInPrice.\\*;
     var normalColorFactorLists = [
 		["Action/Event", [1, 1, 1]],
 		["Treasure", [1.1, 0.95, 0.55]],
@@ -520,7 +522,7 @@ function initCardImageGenerator() {
         var heirloomLine = document.getElementById("type2").value;
         var previewLine = document.getElementById("preview").value;
         var priceLine = document.getElementById("price").value;
-        var numberPriceIcons = (priceLine.match(new RegExp("[" + Object.keys(icons).join("") + "]", "g")) || []).length
+        var numberPriceIcons = (priceLine.match(new RegExp("[" + Object.keys(iconsInPrice).join("") + "]", "g")) || []).length
 
         var isEachColorDark = [false, false];
         for (var i = 0; i < 2; ++i)
