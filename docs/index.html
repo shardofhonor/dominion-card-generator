@@ -13,7 +13,8 @@
     <link rel="shortcut icon" href="./favicon/favicon.ico">
     <meta name="msapplication-TileColor" content="#B4B39A">
     <meta name="msapplication-config" content="./favicon/browserconfig.xml">
-    <meta name="theme-color" content="#B4B39A"><meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#B4B39A">
+    <meta name="color-scheme" content="light dark">
 
     <script>
         function setThemeColor(e) {
@@ -98,7 +99,7 @@
                 <a id="reset" href="?" title="click to reset all fields"><button type="button">Reset</button></a>
                 <script>
                     if (navigator.share) {
-                        document.write('<a id="share" rel="nofollow" href="#share" onclick="if(navigator.vibrate){navigator.vibrate(50);};navigator.share({ title: document.title, text: document.title, url: window.location.href, }).catch((error) => console.log(\'Error sharing\', error));" title="Share Link"><button type="button"><img src="assets/icon-share.png" />Share</button></a>');
+                        document.write('<a id="share" rel="nofollow" href="#share" onclick="if(navigator.vibrate){navigator.vibrate(50);};navigator.share({ title: document.title, text: document.title, url: window.location.href, }).catch((error) => console.log(\'Error sharing\', error));" title="Share Link"><button type="button"><img src="assets/icon-share.png" /></button></a>');
                     }
                 </script>
                 <a id="favorites" title="click to open saved cards"><button type="button" onclick="myFavorites.open()"><img src="assets/icon-favorites.png" />Favorites</button></a>
@@ -169,7 +170,7 @@
             <td class="hideForPileMarker">
                 <div>
                     <label for="boldkeys">Additional Bold Keywords</label>
-                    <input id="boldkeys" placeholder="Additional boldable keywords; separated by semikolon" />
+                    <input id="boldkeys" placeholder="Additional boldable keywords; separated by semicolons" />
                 </div>
             </td>
             <td class="hideForPileMarker">
@@ -183,13 +184,23 @@
             </td>
         </tr>
         <tr>
-            <td class="doubledForBaseCards hideForPileMarker hideForMats">
+            <td class="hideForPileMarker hideForMats">
                 <div>
                     <label for="type">Type</label>
-                    <input id="type" placeholder="Action" />
+                    <span class="type-checkboxes hideForBaseCards hideForPileMarker hideForMats hideForDoubleCard">
+                        <span class="checkbox hideForLandscape">
+                            <input id="traveller" type="checkbox" placeholder="Action">
+                            <label for="traveller">Traveller</label>
+                        </span>
+                        <span class="checkbox hideForDefaultCard hideForDoubleCard">
+                            <input id="trait" type="checkbox" placeholder="Action">
+                            <label for="trait">Trait</label>
+                        </span>
+                    </span>
+                    <input id="type" placeholder="Action">
                 </div>
             </td>
-            <td class="hideForBaseCards hideForPileMarker hideForMats">
+            <td class="hideForPileMarker hideForMats">
                 <div>
                     <label for="type2"></label>
                     <input id="type2" />
@@ -266,7 +277,7 @@
             </td>
         </tr>
         <tr>
-            <td class="hideForMats doubledForBaseCards doubledForPileMarkers">
+            <td class="hideForMats doubledForBaseCards doubledForPileMarkers doubledForTraits">
                 <div>
                     <label for="normalcolor1">Color</label>
                     <select name="normalcolor" id="normalcolor1">
@@ -281,7 +292,7 @@
                     </div>
                 </div>
             </td>
-            <td class="hideForBaseCards hideForPileMarker hideForMats">
+            <td class="hideForBaseCards hideForPileMarker hideForMats hideForTraits">
                 <div>
                     <label for="normalcolor2">Color</label>
                     <span id="color-switch"><button id="color-switch-button" alt="Switch Colors"><img src="assets/icon-switch.png" />Switch</button></span>
